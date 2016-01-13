@@ -1,0 +1,1 @@
+{!! Breadcrumbs::render( 'project_disciplines', $projectdisciplines )  !!}
