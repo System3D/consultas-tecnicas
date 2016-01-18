@@ -5,6 +5,8 @@ use App\EmailMessage;
 use App\Helpers\Alfred;
 use App\TechnicalConsult;
 use Illuminate\Http\Request;
+use JavaScript;
+use Mail;
 
 class TechnicalConsultController extends Controller {
 
@@ -68,6 +70,19 @@ class TechnicalConsultController extends Controller {
 
 		$clients = $request->user()->clients; // all the clients
 
+		JavaScript::put([
+			'urlbase' => 'http://localhost/dev/consultas-tecnicas/public/',
+			'date' => '',
+			'title' => '',
+			'description' => '',
+			'contact_id' => '',
+			'project_id' => '',
+			'project_stage_id' => '',
+			'project_discipline_id' => '',
+			'color' => '',
+			'owner_id' => '',
+		]);
+
 		if ($request->ajax()) {
 			return view('technical_consults.create-modal', compact('clients'));
 		} else {
@@ -97,6 +112,7 @@ class TechnicalConsultController extends Controller {
 		}
 
 		$email_data = $data['email_message'];
+		$email_data['date'] = date('Y-m-d H:i:s', strtotime($email_data['date'] . ' ' . $email_data['time'] . ':00'));
 		$email_data['to'] = Contact::find($data['technical_consult']['contact_id'])->email;
 		$email_data['from'] = $request->user()->email;
 		$email_data['subject'] = $data['technical_consult']['title'];
@@ -107,6 +123,13 @@ class TechnicalConsultController extends Controller {
 		$email_data['body_text'] = strip_tags($data['technical_consult']['description']);
 
 		// CRIA EMAIL MESSAGE
+		// 	sEND MAIL
+		Mail::send('emails.message', ['email_data' => $email_data], function ($m) use ($email_data) {
+
+			$m->from('garcia@web3d.com.br', 'Aplicativo do Garcia');
+			$m->to('tonetlds@gmail.com', 'L. Tonet')->subject('Seu e-mail!');
+		});
+
 		$email_message = EmailMessage::create($email_data);
 
 		if (!$email_message) {

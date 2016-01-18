@@ -8,12 +8,12 @@
 		<div class="radio">
 			<label>
 				<input type="radio" name="email_message[type]" value="1" checked="checked">
-				Envio 
+				Envio
 			</label>
 			&nbsp;
 			<label>
 				<input type="radio" name="email_message[type]" value="2">
-				Retorno 
+				Retorno
 			</label>
 			&nbsp;
 			<label>
@@ -28,10 +28,10 @@
 	<label for="technical_consult_client" class="col-sm-2 control-label">Cliente:</label>
 	<div class="col-sm-10">
 		<div class="input-group">
-			<select name="technical_consult[client_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">			
+			<select name="technical_consult[client_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">
 				@foreach($clients as $client)
 					<option value="{{ $client->id }}">{{ $client->name }} / {{ $client->company }}</option>
-				@endforeach								
+				@endforeach
 			</select>
 			<span class="input-group-btn">
 				<a href="{{ url('clientes/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
@@ -65,7 +65,7 @@
 			</select>
 			<span class="input-group-btn">
 				<a href="{{ url('obras/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
-			</span>			
+			</span>
 		</div>
 	</div>
 </div>
@@ -125,6 +125,26 @@
 	</div>
 </div>
 
+<legend>Dados</legend>
+
+<div class="form-group technical_consult_time">
+	<label for="email_message_date" class="col-sm-2 control-label">Data:</label>
+	<div class="col-sm-10">
+		<div class="input-group">
+			<input type="date" name="email_message[date]" id="email_message_date" class="form-control" required="required">
+		</div>
+	</div>
+</div>
+
+<div class="form-group email_message_time">
+	<label for="email_message_time" class="col-sm-2 control-label">Hora:</label>
+	<div class="col-sm-10">
+		<div class="input-group">
+			<input type="time" name="email_message[time]" id="email_message_time" class="form-control" required="required">
+		</div>
+	</div>
+</div>
+
 <div class="form-group">
 	<div class="col-sm-10 col-sm-offset-2">
 		<button type="submit" class="btn btn-primary">Salvar</button>
@@ -136,7 +156,7 @@
 	<div class="row">
 		<label class="col-lg-2 control-label" for="fileInput">Arquivos: </label>
 		<div class="col-lg-6">
-			<div class="form-group">			
+			<div class="form-group">
 				<input type="file" class="form-control" id="fileInput" name="file[]" placeholder="Input field" multiple>
 			</div>
 		</div>
@@ -166,3 +186,196 @@
 		console.log( data.currentTarget.response );
 	}
 </script>
+
+
+@section('footer-scripts')
+<script>
+	var buildCreateTechnicalConsultForm = function(){
+
+        var loadClients = function(){
+			// console.log( urlbase );
+            /* Act on the event */
+            $.ajax({
+                // url: urlbase+'/api/clients/',
+                url: urlbase+'api/clients',
+                type: 'GET',
+                dataType: 'json',
+                data: '',
+                beforeSend: function() {
+
+                    $('.technical_consult_client').slideUp();
+                    $('.technical_consult_contact').slideUp();
+                    $('.technical_consult_project').slideUp();
+                    $('.technical_consult_project_stage').slideUp();
+                    $('.technical_consult_project_discipline').slideUp();
+
+                    $('#technical_consult_client').html('');
+                    $('#technical_consult_contact').html('');
+                    $('#technical_consult_project').html('');
+                    $('#technical_consult_project_stage').html('');
+                    $('#technical_consult_project_discipline').html('');
+
+                    $('.loading.hidden').removeClass('hidden');
+                }
+            })
+            .done(function( data ) {
+                $.each(data, function(index, val) {
+                    $('#technical_consult_client').append('<option value="'+val.id+'">'+val.name+'</option>');
+                });
+                $('.technical_consult_client').slideDown();
+                $('.loading').addClass('hidden');
+                loadContacts( $('#technical_consult_client').val() );
+                loadProjects( $('#technical_consult_client').val() );
+            })
+            .fail(function() {
+                $('#technical_consult_client').html('<option value="">Erro ao carregar clientes</option>');
+            });
+        };
+
+
+
+        var loadContacts = function(client_id){
+            /* Act on the event */
+            $.ajax({
+                url: urlbase+'api/clients/'+client_id+'/contacts',
+                type: 'GET',
+                dataType: 'json',
+                data: '',
+                beforeSend: function() {
+
+                    $('.technical_consult_contact').slideUp();
+                    $('#technical_consult_contact').html('');
+
+                    $('.loading.hidden').removeClass('hidden');
+                }
+            })
+            .done(function( data ) {
+                $.each(data, function(index, val) {
+                    $('#technical_consult_contact').append('<option value="'+val.id+'">'+val.name+'</option>');
+                });
+                $('.technical_consult_contact').slideDown();
+                $('.loading').addClass('hidden');
+            })
+            .fail(function() {
+                $('#technical_consult_contact').html('<option value="">Erro ao carregar contatos</option>');
+            });
+        };
+
+
+        var loadProjects = function( client_id ){
+            /* Act on the event */
+            $.ajax({
+                url: urlbase+'api/clients/' + client_id + '/projects',
+                type: 'GET',
+                dataType: 'json',
+                data: '',
+                beforeSend: function() {
+                    $('.technical_consult_project').slideUp();
+                    $('.technical_consult_project_stage').slideUp();
+                    $('.technical_consult_project_discipline').slideUp();
+
+                    $('#technical_consult_project').html('');
+                    $('#technical_consult_project_stage').html('');
+                    $('#technical_consult_project_discipline').html('');
+
+                    $('.loading.hidden').removeClass('hidden');
+                }
+            })
+            .done(function( data ) {
+
+                $.each(data, function(index, val) {
+                    $('#technical_consult_project').append('<option value="'+val.id+'">'+val.title+'</option>');
+                });
+
+                $('.technical_consult_project').slideDown();
+
+                loadProjectStages( $('#technical_consult_client').val(), $('#technical_consult_project').val() );
+                loadProjectDisciplines( $('#technical_consult_client').val(), $('#technical_consult_project').val() );
+
+                $('.loading').addClass('hidden');
+
+            })
+            .fail(function() {
+                $('#technical_consult_project').html('<option value="">Erro ao carregar projetos</option>');
+            });
+        };
+
+
+
+        var loadProjectStages = function( client_id, project_id ){
+            /* Act on the event */
+            $.ajax({
+                url: urlbase+'api/clients/' + client_id + '/projects/' + project_id + '/stages',
+                type: 'GET',
+                dataType: 'json',
+                data: '',
+                beforeSend: function() {
+                    $('.technical_consult_project_stage').slideUp();
+                    $('#technical_consult_project_stage').html('');
+                    $('.loading.hidden').removeClass('hidden');
+                }
+            })
+            .done(function( data ) {
+
+                $.each(data, function(index, val) {
+                    $('#technical_consult_project_stage').append('<option value="'+val.id+'">'+val.title+'</option>');
+                });
+
+                $('.technical_consult_project_stage').slideDown();
+
+                $('.loading').addClass('hidden');
+            })
+            .fail(function() {
+                $('#technical_consult_project_stage').html('<option value="">Erro ao carregar etapas do projeto</option>');
+            });
+
+        };
+
+
+        var loadProjectDisciplines = function( client_id, project_id ){
+            /* Act on the event */
+            $.ajax({
+                url: urlbase+'api/clients/' + client_id + '/projects/' + project_id + '/disciplines',
+                type: 'GET',
+                dataType: 'json',
+                data: '',
+                beforeSend: function() {
+                    $('.technical_consult_project_discipline').slideUp();
+                    $('#technical_consult_project_discipline').html('');
+                    $('.loading.hidden').removeClass('hidden');
+                }
+            })
+            .done(function( data ) {
+
+                $.each(data, function(index, val) {
+                    $('#technical_consult_project_discipline').append('<option value="'+val.id+'">'+val.title+'</option>');
+                });
+                $('#technical_consult_project_discipline').append('<option>-- Nenhuma --</option>');
+
+                $('.technical_consult_project_discipline').slideDown();
+
+                $('.loading').addClass('hidden');
+            })
+            .fail(function() {
+                $('#technical_consult_project_discipline').html('<option value="">Erro ao carregar disciplinas do projeto</option>');
+            });
+        };
+
+        $('#technical_consult_client').change(function(event) {
+            loadProjects( $(this).val() );
+            loadContacts( $(this).val() );
+        });
+        $('#technical_consult_project').change(function(event) {
+            loadProjectStages( $('#technical_consult_client').val(), $(this).val() );
+            loadProjectDisciplines( $('#technical_consult_client').val(), $(this).val() );
+        });
+        loadClients();
+        // loadContacts( $('#technical_consult_client').val() );
+    };
+
+	buildCreateTechnicalConsultForm();
+
+</script>
+
+
+@stop

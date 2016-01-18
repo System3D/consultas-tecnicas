@@ -19,3 +19,7 @@
 	</section>
 
 @stop
+
+@section('footer-scripts')
+
+@stop

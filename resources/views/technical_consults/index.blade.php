@@ -12,4 +12,16 @@
 
 </section>
 
+
+@stop
+
+@section('footer-scripts')
+	<script>
+		// Timeline Sticky Filters
+		$('#timeline-filters').affix({
+		    offset: {
+		        top: $('#timeline-filters').offset().top
+		    }
+		});
+	</script>
 @stop

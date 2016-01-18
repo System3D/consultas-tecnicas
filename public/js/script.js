@@ -56,12 +56,7 @@ $(document).ready(function($) {
 
     });
 
-    // Timeline Sticky Filters
-    $('#timeline-filters').affix({
-        offset: {
-            top: $('#timeline-filters').offset().top
-        }
-    });
+
 
 
     $(".scrollto").click(function (){
@@ -79,191 +74,6 @@ $(document).ready(function($) {
         $('#timeline').mixItUp('filter', '.technical_consult_'+$(this).data('ctid'));
         console.log( $( 'li.technical_consult_'+$(this).data('id') ) );
     });
-
-    /* ANGULAR */
-    var buildCreateTechnicalConsultForm = function(){
-        
-        var loadClients = function(){
-            /* Act on the event */
-            $.ajax({                
-                url: '/api/clients/',
-                type: 'GET',
-                dataType: 'json',
-                data: '',
-                beforeSend: function() {
-
-                    $('.technical_consult_client').slideUp();
-                    $('.technical_consult_contact').slideUp();
-                    $('.technical_consult_project').slideUp();
-                    $('.technical_consult_project_stage').slideUp();
-                    $('.technical_consult_project_discipline').slideUp();
-
-                    $('#technical_consult_client').html('');
-                    $('#technical_consult_contact').html('');
-                    $('#technical_consult_project').html('');
-                    $('#technical_consult_project_stage').html('');
-                    $('#technical_consult_project_discipline').html('');            
-
-                    $('.loading.hidden').removeClass('hidden'); 
-                }
-            })      
-            .done(function( data ) {
-                $.each(data, function(index, val) {                         
-                    $('#technical_consult_client').append('<option value="'+val.id+'">'+val.name+'</option>');
-                });
-                $('.technical_consult_client').slideDown();
-                $('.loading').addClass('hidden');
-                loadContacts( $('#technical_consult_client').val() );
-                loadProjects( $('#technical_consult_client').val() );
-            })
-            .fail(function() {
-                $('#technical_consult_client').html('<option value="">Erro ao carregar clientes</option>');
-            });
-        };  
-
-
-
-        var loadContacts = function(client_id){
-            /* Act on the event */
-            $.ajax({                
-                url: '/api/clients/'+client_id+'/contacts',
-                type: 'GET',
-                dataType: 'json',
-                data: '',
-                beforeSend: function() {
-                        
-                    $('.technical_consult_contact').slideUp();
-                    $('#technical_consult_contact').html('');
-
-                    $('.loading.hidden').removeClass('hidden'); 
-                }
-            })      
-            .done(function( data ) {
-                $.each(data, function(index, val) {                         
-                    $('#technical_consult_contact').append('<option value="'+val.id+'">'+val.name+'</option>');
-                });
-                $('.technical_consult_contact').slideDown();            
-                $('.loading').addClass('hidden');               
-            })
-            .fail(function() {
-                $('#technical_consult_contact').html('<option value="">Erro ao carregar contatos</option>');
-            });
-        };  
-
-
-        var loadProjects = function( client_id ){
-            /* Act on the event */
-            $.ajax({                
-                url: '/api/clients/' + client_id + '/projects',
-                type: 'GET',
-                dataType: 'json',
-                data: '',
-                beforeSend: function() {
-                    $('.technical_consult_project').slideUp();
-                    $('.technical_consult_project_stage').slideUp();
-                    $('.technical_consult_project_discipline').slideUp();
-
-                    $('#technical_consult_project').html('');   
-                    $('#technical_consult_project_stage').html(''); 
-                    $('#technical_consult_project_discipline').html('');
-
-                    $('.loading.hidden').removeClass('hidden'); 
-                }
-            })      
-            .done(function( data ) {
-                
-                $.each(data, function(index, val) {                         
-                    $('#technical_consult_project').append('<option value="'+val.id+'">'+val.title+'</option>');
-                });
-
-                $('.technical_consult_project').slideDown();
-
-                loadProjectStages( $('#technical_consult_client').val(), $('#technical_consult_project').val() );       
-                loadProjectDisciplines( $('#technical_consult_client').val(), $('#technical_consult_project').val() );
-
-                $('.loading').addClass('hidden');   
-
-            })
-            .fail(function() {
-                $('#technical_consult_project').html('<option value="">Erro ao carregar projetos</option>');
-            });
-        };
-
-
-
-        var loadProjectStages = function( client_id, project_id ){
-            /* Act on the event */
-            $.ajax({                
-                url: '/api/clients/' + client_id + '/projects/' + project_id + '/stages',
-                type: 'GET',
-                dataType: 'json',
-                data: '',
-                beforeSend: function() {    
-                    $('.technical_consult_project_stage').slideUp();                                    
-                    $('#technical_consult_project_stage').html('');                         
-                    $('.loading.hidden').removeClass('hidden'); 
-                }
-            })      
-            .done(function( data ) {
-                
-                $.each(data, function(index, val) {                         
-                    $('#technical_consult_project_stage').append('<option value="'+val.id+'">'+val.title+'</option>');
-                });
-                
-                $('.technical_consult_project_stage').slideDown();          
-
-                $('.loading').addClass('hidden');   
-            })
-            .fail(function() {
-                $('#technical_consult_project_stage').html('<option value="">Erro ao carregar etapas do projeto</option>');
-            });
-
-        };
-
-
-        var loadProjectDisciplines = function( client_id, project_id ){
-            /* Act on the event */
-            $.ajax({                
-                url: '/api/clients/' + client_id + '/projects/' + project_id + '/disciplines',
-                type: 'GET',
-                dataType: 'json',
-                data: '',
-                beforeSend: function() {    
-                    $('.technical_consult_project_discipline').slideUp();               
-                    $('#technical_consult_project_discipline').html('');            
-                    $('.loading.hidden').removeClass('hidden'); 
-                }
-            })      
-            .done(function( data ) {
-                
-                $.each(data, function(index, val) {                         
-                    $('#technical_consult_project_discipline').append('<option value="'+val.id+'">'+val.title+'</option>');
-                });
-                $('#technical_consult_project_discipline').append('<option>-- Nenhuma --</option>');
-                
-                $('.technical_consult_project_discipline').slideDown();         
-
-                $('.loading').addClass('hidden');   
-            })
-            .fail(function() {
-                $('#technical_consult_project_discipline').html('<option value="">Erro ao carregar disciplinas do projeto</option>');
-            });
-        };
-                        
-        $('#technical_consult_client').change(function(event) {     
-            loadProjects( $(this).val() );
-            loadContacts( $(this).val() );
-        });
-        $('#technical_consult_project').change(function(event) {
-            loadProjectStages( $('#technical_consult_client').val(), $(this).val() );       
-            loadProjectDisciplines( $('#technical_consult_client').val(), $(this).val() );      
-        });
-        loadClients();
-        // loadContacts( $('#technical_consult_client').val() );
-    };
-	
-	
-	buildCreateTechnicalConsultForm();
 
 
 
@@ -354,7 +164,6 @@ $(document).ready(function($) {
 
     $('body').on('loaded.bs.modal', '#modal', function() {
         modalscripts();
-        buildCreateTechnicalConsultForm();
     });
 
 

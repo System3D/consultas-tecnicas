@@ -394,5 +394,10 @@
     });
     // Chart.defaults.global.responsive = true;
     </script>
+
+    <!-- Scripts -->
+    @yield('footer-scripts')
+    <!-- /Scripts -->
+
 </body>
 </html>
