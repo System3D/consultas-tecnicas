@@ -1,11 +1,11 @@
-{!! Form::open(array('url' => url('consultas_tecnicas'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'technical_consults_create')) !!}
+{!! Form::open(array('url' => url('consultas_tecnicas'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'technical_consults_create', "enctype"=>"multipart/form-data")) !!}
 
 <legend>Consulta Técnica</legend>
 
 <div class="form-group">
 	<label class="col-lg-2 control-label" for="uname">Tipo: </label>
 	<div class="col-lg-6">
-		<div class="radio">
+		<div class="radio" id="email_message_type">
 			<label>
 				<input type="radio" name="email_message[type]" value="1" checked="checked">
 				Envio
@@ -26,7 +26,7 @@
 
 <div class="form-group technical_consult_client">
 	<label for="technical_consult_client" class="col-sm-2 control-label">Cliente:</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<div class="input-group">
 			<select name="technical_consult[client_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">
 				@foreach($clients as $client)
@@ -42,7 +42,7 @@
 
 <div class="form-group technical_consult_contact" style="display:none;">
 	<label for="technical_consult_contact" class="col-sm-2 control-label">Contato:</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<div class="input-group">
 			<select name="technical_consult[contact_id]" id="technical_consult_contact" class="form-control" required="required">
 				<option value=""></option>
@@ -58,7 +58,7 @@
 
 <div class="form-group technical_consult_project" style="display:none;">
 	<label for="technical_consult_project" class="col-sm-2 control-label">Obra:</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<div class="input-group">
 			<select name="technical_consult[project_id]" id="technical_consult_project" class="form-control" required="required">
 				<option value="">--</option>
@@ -72,17 +72,16 @@
 
 <div class="form-group technical_consult_project_stage" style="display:none;">
 	<label for="technical_consult_project_stage" class="col-sm-2 control-label">Etapa:</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<select name="technical_consult[project_stage_id]" id="technical_consult_project_stage" class="form-control" required="required">
 			<option value="">--</option>
 		</select>
-
 	</div>
 </div>
 
 <div class="form-group technical_consult_project_discipline" style="display:none;">
 	<label for="technical_consult_project_discipline" class="col-sm-2 control-label">Disciplina:</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<select name="technical_consult[project_discipline_id]" id="technical_consult_project_discipline" class="form-control" required="required">
 			<option value="">--</option>
 		</select>
@@ -94,67 +93,85 @@
 
 <div class="form-group">
 	<label for="input" class="col-sm-2 control-label">Assunto:</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="text" name="technical_consult[title]" id="input" class="form-control" value="" required="required" title="">
 	</div>
 </div>
 
 <div class="form-group">
 	<label for="input" class="col-sm-2 control-label">Descrição:</label>
-	<div class="col-sm-10">
-		<textarea name="technical_consult[description]" id="input" class="form-control wysihtml5" rows="5"></textarea>
+	<div class="col-sm-5">
+		<textarea name="technical_consult[description]" id="input" class="form-control" rows="5"></textarea>
 	</div>
 </div>
+
+
+<div id="email_message_date">
+
+    <legend>Dados</legend>
+
+    <div class="form-group">
+    	<label for="input" class="col-sm-2 control-label">Classificação</label>
+    	<div class="col-sm-5">
+    		<div class="radio">
+    			<label>
+    				<input type="radio" name="email_message[rating]" id="input" value="1" checked="checked"> Insuficiente
+    			</label>
+    			&nbsp;
+    			<label>
+    				<input type="radio" name="email_message[rating]" id="input" value="2"> Regular
+    			</label>
+    			&nbsp;
+    			<label>
+    				<input type="radio" name="email_message[rating]" id="input" value="3"> Satisfatório
+    			</label>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="form-group technical_consult_time">
+        <label for="email_message_date" class="col-sm-2 control-label">Data:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input type="date" name="email_message[date]" id="email_message_date" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group email_message_time">
+        <label for="email_message_time" class="col-sm-2 control-label">Hora:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input type="time" name="email_message[time]" id="email_message_time" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <label class="col-lg-2 control-label" for="">Anexos: </label>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <input type="file" class="form-control" id="" name="file[]" placeholder="Input field" multiple>
+        </div>
+    </div>    
+</div>
+
+
 
 <div class="form-group">
-	<label for="input" class="col-sm-2 control-label">Classificação</label>
-	<div class="col-sm-10">
-		<div class="radio">
-			<label>
-				<input type="radio" name="email_message[rating]" id="input" value="1" checked="checked"> Insuficiente
-			</label>
-			&nbsp;
-			<label>
-				<input type="radio" name="email_message[rating]" id="input" value="2"> Regular
-			</label>
-			&nbsp;
-			<label>
-				<input type="radio" name="email_message[rating]" id="input" value="3"> Satisfatório
-			</label>
-		</div>
+	<div class="col-sm-5 col-sm-offset-2">
+		<button type="submit" class="btn btn-primary btn-block">Salvar</button>
 	</div>
 </div>
 
-<legend>Dados</legend>
-
-<div class="form-group technical_consult_time">
-	<label for="email_message_date" class="col-sm-2 control-label">Data:</label>
-	<div class="col-sm-10">
-		<div class="input-group">
-			<input type="date" name="email_message[date]" id="email_message_date" class="form-control" required="required">
-		</div>
-	</div>
-</div>
-
-<div class="form-group email_message_time">
-	<label for="email_message_time" class="col-sm-2 control-label">Hora:</label>
-	<div class="col-sm-10">
-		<div class="input-group">
-			<input type="time" name="email_message[time]" id="email_message_time" class="form-control" required="required">
-		</div>
-	</div>
-</div>
-
-<div class="form-group">
-	<div class="col-sm-10 col-sm-offset-2">
-		<button type="submit" class="btn btn-primary">Salvar</button>
-	</div>
-</div>
 {!! Form::close() !!}
 
-{!! Form::open(['url' => url('upload'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'uploadFile']) !!}
+{!! Form::open(['url' => url('/upload'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'uploadFile']) !!}
+
 	<div class="row">
-		<label class="col-lg-2 control-label" for="fileInput">Arquivos: </label>
+		<label class="col-lg-2 control-label" for="fileInput">Anexos: </label>
 		<div class="col-lg-6">
 			<div class="form-group">
 				<input type="file" class="form-control" id="fileInput" name="file[]" placeholder="Input field" multiple>
@@ -167,21 +184,29 @@
 {!! Form::close() !!}
 
 <script>
-	var form 	= document.getElementById('uploadFile');
-	var request = new XMLHttpRequest();
+    var form      = document.getElementById('uploadFile');
+	var fileinput = document.getElementById('fileInput');
+	var request   = new XMLHttpRequest();
 
 	form.addEventListener('submit',function (e) {
 		e.preventDefault();
 		var formdata = new FormData( form );
-		request.open('post', '/upload');
+		request.open('post', urlbase+'/upload');
 		request.addEventListener('load', transferComplete);
 		request.send( formdata );
 	})
 
+    fileinput.addEventListener('change', function (e) {
+        e.preventDefault();
+        form.trigger('submit');
+    })
+
+
+
 	var transferComplete = function ( data ){
 		response = JSON.parse( data.currentTarget.response );
 		if( response.success ){
-			alert( 'Uploaded \o/' );
+			alert( 'Uploaded o/' );
 		}
 		console.log( data.currentTarget.response );
 	}
@@ -370,10 +395,22 @@
             loadProjectDisciplines( $('#technical_consult_client').val(), $(this).val() );
         });
         loadClients();
+
         // loadContacts( $('#technical_consult_client').val() );
+        $('#email_message_date').hide();
     };
 
 	buildCreateTechnicalConsultForm();
+
+
+    $('#technical_consults_create').change(function(event) {
+        var type = $('#email_message_type input:checked').val();
+        if( type == 2 || type == 0 ){
+            $('#email_message_date').show();
+        }else{
+            $('#email_message_date').hide();
+        }
+    });
 
 </script>
 

@@ -137,7 +137,11 @@
                         <td style="padding: 20px 0px 30px 0px;" class="logo" align="center">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td bgcolor="#ffffff" width="100" align="center"><a href="#" target="_blank"><img alt="Logo" src="logo-2.jpg" width="60" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
+                                    <td bgcolor="#ffffff" width="100" align="center">
+                                        <a href="#" target="_blank">
+                                            <img alt="Logo" src="<?php echo $message->embed('img/steel4web.png'); ?>" width="181" height="35" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0">
+                                        </a>
+                                    </td>
                                 </tr>
                             </table>
                         </td>

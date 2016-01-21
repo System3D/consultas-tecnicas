@@ -31,40 +31,53 @@ class FileEntryController extends Controller
 	/*
 		Uplaod the files
 	*/
-	public function upload( Request $request ) {
+	public function upload( Request $request, $redir = true ) {
  		
 		$files = $request->file('file');
 
         if( !empty($files) ){
+        	$uploaded = 0;
             foreach ($files as $file) {
 				$extension 	= $file->getClientOriginalExtension();
 
 				$entry = FileEntry::where('original_filename', '=', $file->getClientOriginalName())->get();
 				if( $entry->count() ){
-					$sys_notifications[] = array( 'type' => 'warning', 'message' => 'Já existe um arquivo com este nome!' );		   		
-				   	$request->session()->flash( 'sys_notifications', $sys_notifications );	   	
-					return back()->withInput($request->all());
+					$sys_notifications[] = array( 'type' => 'warning', 'message' => 'Já existe um arquivo com nome "'. $file->getClientOriginalName() .'"!' );		   		
+				 	// $request->session()->flash( 'sys_notifications', $sys_notifications );	   	
+					// return back()->withInput($request->all());
+				}else{
+
+	                // Storage::put( $file->getClientOriginalName(), file_get_contents($file) );
+					Storage::put( $request->user()->id.'/'.$file->getClientOriginalName(), File::get($file));
+
+					$entry 			= new FileEntry();
+					$entry->mime 	= $file->getClientMimeType();
+					$entry->original_filename = $file->getClientOriginalName();				
+					$entry->filename = $file->getFilename().'.'.$extension;
+
+					$entry->owner_id = $request->user()->id;
+			 
+					$entry->save();
+
+					$uploaded++;
 				}
-
-                // Storage::put( $file->getClientOriginalName(), file_get_contents($file) );
-				Storage::put( $request->user()->id.'/'.$file->getClientOriginalName(), File::get($file));
-
-				$entry 			= new FileEntry();
-				$entry->mime 	= $file->getClientMimeType();
-				$entry->original_filename = $file->getClientOriginalName();				
-				$entry->filename = $file->getFilename().'.'.$extension;
-
-				$entry->owner_id = $request->user()->id;
-		 
-				$entry->save();
-				
             }
 
-			$sys_notifications[] = array( 'type' => 'success', 'message' => count( $files ) . ' arquivos enviados com sucesso!' );
+            if( (count( $files ) - $uploaded ) != 0 ){
+            	$erroruploadmsg = count( $files ) - $uploaded .' arquivos não enviados!';
+            }else{
+            	$erroruploadmsg = '';
+            }
+
+			$sys_notifications[] = array( 'type' => 'success', 'message' => $uploaded. ' arquivos enviados com sucesso! '.$erroruploadmsg );
 			$request->session()->flash( 'sys_notifications', $sys_notifications );	   	
         }
 		
-		return back()->withInput($request->all());;
+		if( $redir == true ){			
+			return back()->withInput($request->all());
+		}else{
+			return array('uploaded'=>$uploaded, 'error'=>count( $files ) - $uploaded);
+		}
 		
 	}
 
@@ -126,7 +139,9 @@ class FileEntryController extends Controller
         if( $file->destroy( $id ) ){
 
         	// Delete the file
-        	Storage::delete( $request->user()->id.'/'.$file->original_filename );
+        	if( Storage::exists( $request->user()->id.'/'.$file->original_filename ) ){
+        		Storage::delete( $request->user()->id.'/'.$file->original_filename );
+        	}
 
             $this->sys_notifications[] = array( 'type' => 'success', 'message' => '<strong><i class="fa fa-check"></i></strong> Arquivo excluído com sucesso!' );                   
             $request->session()->flash( 'sys_notifications', $this->sys_notifications );        

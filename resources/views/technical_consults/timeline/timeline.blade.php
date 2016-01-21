@@ -35,7 +35,7 @@
     </div>
         <div class="form-group">
             <div class="btn-group btn-group-sm">
-                <a href="{{ url('/consultas_tecnicas/create') }}" class="btn btn-success" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
+                <a href="{{ url('/consultas_tecnicas/create') }}" class="btn btn-success"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
             </div>
         </div>
     </div>

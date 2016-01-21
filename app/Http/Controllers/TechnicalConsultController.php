@@ -4,6 +4,7 @@ use App\Contact;
 use App\EmailMessage;
 use App\Helpers\Alfred;
 use App\TechnicalConsult;
+use App\Http\Controllers\FileEntryController;
 use Illuminate\Http\Request;
 use JavaScript;
 use Mail;
@@ -71,7 +72,7 @@ class TechnicalConsultController extends Controller {
 		$clients = $request->user()->clients; // all the clients
 
 		JavaScript::put([
-			'urlbase' => 'http://localhost/dev/consultas-tecnicas/public/',
+			'urlbase' => 'http://steel4web.dev/consultas-tecnicas/public/',
 			'date' => '',
 			'title' => '',
 			'description' => '',
@@ -101,6 +102,17 @@ class TechnicalConsultController extends Controller {
 		$data = $request->all();
 		$data['technical_consult']['owner_id'] = $request->user()->id;
 		$data['technical_consult']['color'] = (new Alfred())->randomColor();
+
+
+		$files = $request->file('file');
+
+        if( !empty($files) ){			
+			$fileupload = ( new FileEntryController())->upload( $request, false );
+			if( $fileupload['uploaded'] > 0 ){
+				$this->sys_notifications[] = array('type' => 'success', 'message' => $fileupload['uploaded'] . ' anexos enviados com sucesso!');
+			}
+		}
+
 
 		// CRIA CONSULTA TÉCNICA
 		$technical_consult = TechnicalConsult::create($data['technical_consult']);
@@ -140,6 +152,8 @@ class TechnicalConsultController extends Controller {
 
 		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Nova consulta técnica registrada com sucesso!');
 		$request->session()->flash('sys_notifications', $this->sys_notifications);
+
+		return redirect('consultas_tecnicas');
 		return back()->withInput($request->all());
 	}
 

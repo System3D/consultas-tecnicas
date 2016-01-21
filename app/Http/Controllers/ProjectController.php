@@ -110,7 +110,6 @@ class ProjectController extends Controller {
             return redirect( '/obras' );               
         }
 
-       
         $project->load('stages'); // Carrega etapas
         $project->load('disciplines'); // Carrega disciplinas
 
@@ -119,7 +118,7 @@ class ProjectController extends Controller {
         $contacts = $contacts->filter( function($contact) use ($project)
         {
             if ( !$project->contacts->contains( $contact->id ) ) {
-                return true;   
+                return true;
             }
         });
 
