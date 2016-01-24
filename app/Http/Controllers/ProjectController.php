@@ -3,249 +3,247 @@
 use App\Client;
 use App\Contact;
 use App\Project;
-use App\ProjectStage;
-use App\ProjectDiscipline;
-
-use Validator;
 use Illuminate\Http\Request;
+use Validator;
 
 class ProjectController extends Controller {
 
-    private $sys_notifications = array();
+	private $sys_notifications = array();
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index( Request $request, $client_id = null ) {        
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index(Request $request, $client_id = null) {
 
-        if ( $client_id != null ) {
-            $projects  = Project::where( 'client_id', $client_id )
-                                ->orderBy( $request->input( 'orderby', 'id' ), $request->input( 'order', 'ASC' ) )
-                                ->paginate( $request->input( 'paginate', 50 ) );
-        }else{
-            $projects = $request->user()->projects;        
-        }
+		if ($client_id != null) {
+			$projects = Project::where('client_id', $client_id)
+				->orderBy($request->input('orderby', 'id'), $request->input('order', 'ASC'))
+				->paginate($request->input('paginate', 50));
+		} else {
+			$projects = $request->user()->projects;
+		}
 
-        $clients = $request->user()->clients;      
+		$clients = $request->user()->clients;
 
-        return view( 'projects.index' )->with(['projects'=>$projects, 'clients'=>$clients]);
-    }
+		return view('projects.index')->with(['projects' => $projects, 'clients' => $clients]);
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create( Request $request, $client_id = null ) {        
-                
-        $project_client = Client::find( $client_id );        
-        $clients = $request->user()->clients;
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create(Request $request, $client_id = null) {
 
-        $view = ( $request->ajax() ) ? 'projects.create-modal' : 'projects.create';
-        return view( $view, compact('clients', 'client_id'))->with(['client' => @$project_client ]);
-    }
+		$project_client = Client::find($client_id);
+		$clients = $request->user()->clients;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store( Request $request ) {
-        
-        $validator = Validator::make( $request->all(), [
-            'title'     => 'required',  
-            'client_id' => 'required|integer',  
-        ]);     
+		$view = ($request->ajax()) ? 'projects.create-modal' : 'projects.create';
+		return view($view, compact('clients', 'client_id'))->with(['client' => @$project_client]);
+	}
 
-        if ($validator->fails()) {
-                        
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => $validator->errors()->first() );   
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(Request $request) {
 
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );
+		$validator = Validator::make($request->all(), [
+			'title' => 'required',
+			'client_id' => 'required|integer',
+		]);
 
-            return back()->withErrors($validator)->withInput( $request->all() );
-        }
+		if ($validator->fails()) {
 
-        $data = $request->all();        
-        $data['owner_id'] = $request->user()->id;        
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => $validator->errors()->first());
 
-        // Create a new Project
-        $project = Project::create( $data );
-        
-        if( $project ){
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
 
-            $project->stages()->create([
-                    'title'          => 'Geral',
-                    'project_id'    => $project->id,
-                    'owner_id'      => $request->user()->id,                    
-                ]);            
-            $project->save();
+			return back()->withErrors($validator)->withInput($request->all());
+		}
 
-            $this->sys_notifications[] = array( 'type' => 'success', 'message' => 'Nova obra criada com sucesso!' );                 
-            $this->sys_notifications[] = array( 'type' => 'success', 'message' => 'Etapa <strong>Geral</strong> adicionada para a nova Obra.' );
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );                
-            return redirect( '/obras/'.$project->id ); 
-        }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => 'Não foi possível adicionar a obra!' );             
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );       
-            return back()->withErrors($validator)->withInput( $request->all() );
-        }
-    }
+		$data = $request->all();
+		$data['owner_id'] = $request->user()->id;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int     $id
-     * @return Response
-     */
-    public function show( $id, Request $request, Validator $validator ) {
+		// Create a new Project
+		$project = Project::create($data);
 
-        $project = Project::find($id);
+		if ($project) {
 
-        if( !$project ){            
-            $sys_notifications[] = array( 'type' => 'danger', 'message' => 'A Obra solicitada não existe ou está corrompida.' ); 
-            $request->session()->flash( 'sys_notifications', $sys_notifications );    
-            return redirect( '/obras' );               
-        }
+			$project->stages()->create([
+				'title' => 'Geral',
+				'project_id' => $project->id,
+				'owner_id' => $request->user()->id,
+			]);
+			$project->save();
 
-        $project->load('stages'); // Carrega etapas
-        $project->load('disciplines'); // Carrega disciplinas
+			$this->sys_notifications[] = array('type' => 'success', 'message' => 'Nova obra criada com sucesso!');
+			$this->sys_notifications[] = array('type' => 'success', 'message' => 'Etapa <strong>Geral</strong> adicionada para a nova Obra.');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+			return redirect('/obras/' . $project->id);
+		} else {
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => 'Não foi possível adicionar a obra!');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+			return back()->withErrors($validator)->withInput($request->all());
+		}
+	}
 
-        $contacts = $request->user()->contacts;
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param int     $id
+	 * @return Response
+	 */
+	public function show($id, Request $request, Validator $validator) {
 
-        $contacts = $contacts->filter( function($contact) use ($project)
-        {
-            if ( !$project->contacts->contains( $contact->id ) ) {
-                return true;
-            }
-        });
+		$project = Project::find($id);
 
-        return view( 'projects.show', compact('project', 'contacts', 'request') );
+		if (!$project) {
+			$sys_notifications[] = array('type' => 'danger', 'message' => 'A Obra solicitada não existe ou está corrompida.');
+			$request->session()->flash('sys_notifications', $sys_notifications);
+			return redirect('/obras');
+		}
 
-    }
+		$project->load('stages'); // Carrega etapas
+		$project->load('disciplines'); // Carrega disciplinas
+		$project->load('technical_consults'); // Carrega Consultas Técnicas
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int     $id
-     * @return Response
-     */
-    public function edit( $id, Request $request ) {
-        
-        $project = Project::find($id);
-        $clients = $request->user()->clients;
-        
-        if( $project ){     
-            if( $request->ajax() )  return view('projects.edit-modal', compact('project', 'clients'));         
-            else                    return view('projects.edit', compact('project', 'clients'));         
-        }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => 'Obra não encontrada!' );   
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
-        }
+		$contacts = $request->user()->contacts;
 
-        return back()->withInput($request->all());
-    }
+		$contacts = $contacts->filter(function ($contact) use ($project) {
+			if (!$project->contacts->contains($contact->id)) {
+				return true;
+			}
+		});
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param int     $id
-     * @return Response
-     */
-    public function update( $id, Request $request ) {
-        
-        $validator = Validator::make($request->all(), [
-            'title' => 'required'            
-        ]);     
+		return view('projects.show', compact('project', 'contacts', 'request'));
 
-        if ($validator->fails()) {        
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => $validator->errors()->first() );   
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );
-            return app('Illuminate\Routing\UrlGenerator')->previous()->withInput( $request->all() );            
-        }
+	}
 
-        // UPDATE RESOURCE
-        $project = Project::find($id);       
-        $project->update( $request->all() );
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param int     $id
+	 * @return Response
+	 */
+	public function edit($id, Request $request) {
 
-        $this->sys_notifications[] = array( 'type' => 'success', 'message' => 'Obra atualizada com sucesso!' );  
-        $request->session()->flash( 'sys_notifications', $this->sys_notifications );
+		$project = Project::find($id);
+		$clients = $request->user()->clients;
 
-        return back()->withInput($request->all());
-    }
+		if ($project) {
+			if ($request->ajax()) {
+				return view('projects.edit-modal', compact('project', 'clients'));
+			} else {
+				return view('projects.edit', compact('project', 'clients'));
+			}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int     $id
-     * @return Response
-     */
-    public function destroy( $id, Request $request ) {
-        $project = Project::find($id);        
-        if(!$project){
-            return back()->withInput( $request->all() );
-        }
+		} else {
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => 'Obra não encontrada!');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+		}
 
-        if( $project->destroy( $id ) ){
-            $this->sys_notifications[] = array( 'type' => 'success', 'message' => '<strong><i class="fa fa-check"></i></strong> Obra excluída com sucesso!' );                   
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
-            
-            $data       = $request->all();
-            $back_to    = isset( $data['back_to'] ) ? $data['back_to'] : '/obras';
-            return redirect( $back_to )->withInput( $request->all() );
+		return back()->withInput($request->all());
+	}
 
-        }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a obra!' );                
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
-            return back()->withInput( $request->all() );
-        }
-    }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param int     $id
+	 * @return Response
+	 */
+	public function update($id, Request $request) {
 
+		$validator = Validator::make($request->all(), [
+			'title' => 'required',
+		]);
 
-    public function attachContact( Request $request, $project_id, $contact_id = null ) {
+		if ($validator->fails()) {
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => $validator->errors()->first());
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+			return app('Illuminate\Routing\UrlGenerator')->previous()->withInput($request->all());
+		}
 
-        $data = $request->all();
+		// UPDATE RESOURCE
+		$project = Project::find($id);
+		$project->update($request->all());
 
-        $project = Project::find( $project_id );
-        $contact = Contact::find( ( $contact_id != null ) ? $contact_id : $data['contact_id'] );
+		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Obra atualizada com sucesso!');
+		$request->session()->flash('sys_notifications', $this->sys_notifications);
 
-        if( !$contact || !$project ){
+		return back()->withInput($request->all());
+	}
 
-            $this->sys_notifications[] = array( 'type' => 'warning', 'message' => 'Erro! Obra ou Contato não encontrados.' );                   
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );
-            return back()->withInput( $request->all() );   
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param int     $id
+	 * @return Response
+	 */
+	public function destroy($id, Request $request) {
+		$project = Project::find($id);
+		if (!$project) {
+			return back()->withInput($request->all());
+		}
 
-        }
+		if ($project->destroy($id)) {
+			$this->sys_notifications[] = array('type' => 'success', 'message' => '<strong><i class="fa fa-check"></i></strong> Obra excluída com sucesso!');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
 
-        $project->contacts()->attach( $contact->id );
-            
-        $this->sys_notifications[] = array( 'type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> vinculado à Obra com sucesso!' );      
-        $request->session()->flash( 'sys_notifications', $this->sys_notifications );
-        return redirect( '/obras/'.$project_id.'#contatos' );  
+			$data = $request->all();
+			$back_to = isset($data['back_to']) ? $data['back_to'] : '/obras';
+			return redirect($back_to)->withInput($request->all());
 
-    }
+		} else {
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a obra!');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+			return back()->withInput($request->all());
+		}
+	}
 
+	public function attachContact(Request $request, $project_id, $contact_id = null) {
 
-    public function detachContact( Request $request, $project_id, $contact_id ) {
-        $project = Project::find( $project_id );
-        $contact = Contact::find( $contact_id );
+		$data = $request->all();
 
-        if( !$contact || !$project ){
+		$project = Project::find($project_id);
+		$contact = Contact::find(($contact_id != null) ? $contact_id : $data['contact_id']);
 
-            $this->sys_notifications[] = array( 'type' => 'warning', 'message' => 'Erro! Obra ou Contato não encontrados.' );                   
-            $request->session()->flash( 'sys_notifications', $this->sys_notifications );
-            return back()->withInput( $request->all() );   
+		if (!$contact || !$project) {
 
-        }
+			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Erro! Obra ou Contato não encontrados.');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+			return back()->withInput($request->all());
 
-        $project->contacts()->detach( $contact_id );
-            
-        $this->sys_notifications[] = array( 'type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> desvinculado da Obra com sucesso!' );      
-        $request->session()->flash( 'sys_notifications', $this->sys_notifications );
-        return redirect( '/obras/'.$project_id.'#contatos' );  
-    }
+		}
 
+		$project->contacts()->attach($contact->id);
+
+		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> vinculado à Obra com sucesso!');
+		$request->session()->flash('sys_notifications', $this->sys_notifications);
+		return redirect('/obras/' . $project_id . '#contatos');
+
+	}
+
+	public function detachContact(Request $request, $project_id, $contact_id) {
+		$project = Project::find($project_id);
+		$contact = Contact::find($contact_id);
+
+		if (!$contact || !$project) {
+
+			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Erro! Obra ou Contato não encontrados.');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+			return back()->withInput($request->all());
+
+		}
+
+		$project->contacts()->detach($contact_id);
+
+		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> desvinculado da Obra com sucesso!');
+		$request->session()->flash('sys_notifications', $this->sys_notifications);
+		return redirect('/obras/' . $project_id . '#contatos');
+	}
 
 }

@@ -26,16 +26,13 @@
             <div class="btn-group btn-group-sm">
                 <a class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
             </div>
-            <div class="btn-group btn-group-sm">
-                <a class="btn btn-info printtimeline" href="#"><i class="fa fa-print"></i> Imprimir</a>
-            </div>
         </div>
         <div class="form-group">
             &nbsp;
     </div>
         <div class="form-group">
             <div class="btn-group btn-group-sm">
-                <a href="{{ url('/consultas_tecnicas/create') }}" class="btn btn-success"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
+                <a href="{{ url('/consultas_tecnicas/create?'.http_build_query(['cliente_id'=>$technical_consults->first()->cliente_id, 'obra_id'=>$technical_consults->first()->project_id])) }}" class="btn btn-success"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
             </div>
         </div>
     </div>

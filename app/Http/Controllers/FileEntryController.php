@@ -31,36 +31,33 @@ class FileEntryController extends Controller
 	/*
 		Uplaod the files
 	*/
-	public function upload( Request $request, $redir = true ) {
+	public function upload( Request $request, $redir = true, $email_message_id = null ) {
  		
 		$files = $request->file('file');
 
+
         if( !empty($files) ){
         	$uploaded = 0;
+        	$filesuploadedids = array();
             foreach ($files as $file) {
 				$extension 	= $file->getClientOriginalExtension();
 
-				$entry = FileEntry::where('original_filename', '=', $file->getClientOriginalName())->get();
-				if( $entry->count() ){
-					$sys_notifications[] = array( 'type' => 'warning', 'message' => 'Já existe um arquivo com nome "'. $file->getClientOriginalName() .'"!' );		   		
-				 	// $request->session()->flash( 'sys_notifications', $sys_notifications );	   	
-					// return back()->withInput($request->all());
-				}else{
-
-	                // Storage::put( $file->getClientOriginalName(), file_get_contents($file) );
+				if( $email_message_id != null ){									 	
+					Storage::put( $request->user()->id.'/'.$email_message_id.'/'.$file->getClientOriginalName(), File::get($file));
+				}else{	              
 					Storage::put( $request->user()->id.'/'.$file->getClientOriginalName(), File::get($file));
-
-					$entry 			= new FileEntry();
-					$entry->mime 	= $file->getClientMimeType();
-					$entry->original_filename = $file->getClientOriginalName();				
-					$entry->filename = $file->getFilename().'.'.$extension;
-
-					$entry->owner_id = $request->user()->id;
-			 
-					$entry->save();
-
-					$uploaded++;
 				}
+				
+				$entry 						= new FileEntry();
+				$entry->mime 				= $file->getClientMimeType();
+				$entry->original_filename 	= $file->getClientOriginalName();				
+				$entry->filename 			= $file->getFilename().'.'.$extension;
+				$entry->owner_id 			= $request->user()->id;
+				$entry->save();
+
+				$filesuploadedids[] 		= $entry->id;
+
+				$uploaded++;
             }
 
             if( (count( $files ) - $uploaded ) != 0 ){
@@ -75,8 +72,8 @@ class FileEntryController extends Controller
 		
 		if( $redir == true ){			
 			return back()->withInput($request->all());
-		}else{
-			return array('uploaded'=>$uploaded, 'error'=>count( $files ) - $uploaded);
+		}else{					
+			return array('uploaded'=>$uploaded, 'error'=>count( $files ) - $uploaded, 'ids' => $filesuploadedids);
 		}
 		
 	}
@@ -154,5 +151,23 @@ class FileEntryController extends Controller
             return back()->withInput( $request->all() );
         }
     }
+
+
+
+    public function add(Request $request) {
+ 
+		$file = $request->file('filefield');
+		$extension = $file->getClientOriginalExtension();
+		Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+		$entry = new Fileentry();
+		$entry->mime = $file->getClientMimeType();
+		$entry->original_filename = $file->getClientOriginalName();
+		$entry->filename = $file->getFilename().'.'.$extension;
+ 
+		$entry->save();
+ 
+		return redirect('fileentry');
+		
+	}
 
 }

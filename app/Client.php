@@ -1,8 +1,5 @@
 <?php namespace App;
 
-use App\Project;
-use App\User;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model {
@@ -14,46 +11,45 @@ class Client extends Model {
 
 	protected $appends = array('slug');
 
-	public function getSlugAttribute($value)
-    {
-    	$value = $this->name;
+	public function getSlugAttribute($value) {
+		$value = $this->name;
 
-    	if (function_exists('iconv')) {
-	        $value = @iconv('UTF-8', 'ASCII//TRANSLIT', $value);
-	    }
-	    $value = preg_replace("/[^a-zA-Z0-9 -]/", "", $value);
-	    $value = strtolower($value);
-	    $value = str_replace(" ", "-", $value);	  
+		if (function_exists('iconv')) {
+			$value = @iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+		}
+		$value = preg_replace("/[^a-zA-Z0-9 -]/", "", $value);
+		$value = strtolower($value);
+		$value = str_replace(" ", "-", $value);
 
-    	return strtolower($value);
-    }
+		return strtolower($value);
+	}
 
-    public function setSlugAttribute($value)
-    {
-    	$value = $this->name;
+	public function setSlugAttribute($value) {
+		$value = $this->name;
 
-    	if (function_exists('iconv')) {
-	        $value = @iconv('UTF-8', 'ASCII//TRANSLIT', $value);
-	    }
-	    $value = preg_replace("/[^a-zA-Z0-9 -]/", "", $value);
-	    $value = strtolower($value);
-	    $value = str_replace(" ", "-", $value);	  
+		if (function_exists('iconv')) {
+			$value = @iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+		}
+		$value = preg_replace("/[^a-zA-Z0-9 -]/", "", $value);
+		$value = strtolower($value);
+		$value = str_replace(" ", "-", $value);
 
-        $this->attributes['slug'] = strtolower($value);
-    }
-	
-	public function projects()
-	{
+		$this->attributes['slug'] = strtolower($value);
+	}
+
+	public function projects() {
 		return $this->hasMany('App\Project', 'client_id');
 	}
 
-	public function contacts()
-	{
+	public function contacts() {
 		return $this->hasMany('App\Contact', 'client_id');
 	}
 
-	public function owner()
-	{
+	public function technical_consults() {
+		return $this->hasMany('App\TechnicalConsult', 'cliente_id');
+	}
+
+	public function owner() {
 		return $this->belongsTo('App\User');
 	}
 

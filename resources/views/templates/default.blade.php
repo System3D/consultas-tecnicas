@@ -214,9 +214,6 @@
                                     <li>
                                         <a href="{!! url('obras/create') !!}">Adicionar Obra</a>
                                     </li>
-                                    <li>
-                                        <a href="{!! url('obras/disciplinas') !!}">Disciplinas</a>
-                                    </li>
                                 </ul>
                                 @endif
                         </li>
@@ -224,6 +221,16 @@
                             <a href="{!! url('consultas_tecnicas') !!}">
                                 <i class="fa fa-check"></i> <span>Consultas Técnicas</span>
                             </a>
+                                @if ( Request::is('consultas_tecnicas*') )
+                                <ul>
+                                    <li>
+                                        <a href="{!! url('consultas_tecnicas') !!}">Ver todas</a>
+                                    </li>
+                                    <li>
+                                        <a href="{!! url('consultas_tecnicas/create') !!}">Adicionar Consulta Técnica</a>
+                                    </li>
+                                </ul>
+                                @endif
                         </li>
                     </ul>
                 </section>

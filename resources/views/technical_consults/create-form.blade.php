@@ -30,26 +30,31 @@
 		<div class="input-group">
 			<select name="technical_consult[client_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">
 				@foreach($clients as $client)
-					<option value="{{ $client->id }}">{{ $client->name }} / {{ $client->company }}</option>
-				@endforeach
-			</select>
-			<span class="input-group-btn">
-				<a href="{{ url('clientes/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
-			</span>
-		</div><!-- /input-group -->
-	</div>
+                    <option value="{{ $client->id }}">{{ $client->name }} / {{ $client->company }}</option>
+                @endforeach
+            </select>
+            <span class="input-group-btn">
+                <a href="{{ url('clientes/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
+        </span>
+    </div><!-- /input-group -->
+</div>
 </div>
 
 <div class="form-group technical_consult_contact" style="display:none;">
 	<label for="technical_consult_contact" class="col-sm-2 control-label">Contato:</label>
 	<div class="col-sm-5">
+        <div class="input-group">
+            <select name="technical_consult[contact_id]" id="technical_consult_contact" class="form-control" required="required">
+                <option value=""></option>
+            </select>
+            <span class="input-group-btn">
+                <a href="{{ url('contatos/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
+            </span>
+        </div>
+    </div>
+    <div class="col-sm-5">
 		<div class="input-group">
-			<select name="technical_consult[contact_id]" id="technical_consult_contact" class="form-control" required="required">
-				<option value=""></option>
-			</select>
-			<span class="input-group-btn">
-				<a href="{{ url('contatos/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
-			</span>
+			<p class="form-control-static" id="contact_email"></p>
 		</div>
 	</div>
 </div>
@@ -108,7 +113,7 @@
 
 <div id="email_message_date">
 
-    <legend>Dados</legend>
+<legend>Dados adicionais</legend>
 
     <div class="form-group">
     	<label for="input" class="col-sm-2 control-label">Classificação</label>
@@ -152,70 +157,30 @@
 <div class="row">
     <label class="col-lg-2 control-label" for="">Anexos: </label>
     <div class="col-lg-6">
-        <div class="form-group">
+        <div class="input-group">
             <input type="file" class="form-control" id="" name="file[]" placeholder="Input field" multiple>
         </div>
-    </div>    
+    </div>
+</div>
+
+&nbsp;
+
+<div class="row">
+    <label for="email_message_time" class="col-sm-2 control-label">&nbsp;</label>
+    <div class="col-sm-5">
+
+        <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+
+    </div>
 </div>
 
 
-
-<div class="form-group">
-	<div class="col-sm-5 col-sm-offset-2">
-		<button type="submit" class="btn btn-primary btn-block">Salvar</button>
-	</div>
-</div>
-
-{!! Form::close() !!}
-
-{!! Form::open(['url' => url('/upload'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'uploadFile']) !!}
-
-	<div class="row">
-		<label class="col-lg-2 control-label" for="fileInput">Anexos: </label>
-		<div class="col-lg-6">
-			<div class="form-group">
-				<input type="file" class="form-control" id="fileInput" name="file[]" placeholder="Input field" multiple>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Upload</button>
-		</div>
-	</div>
-{!! Form::close() !!}
-
-<script>
-    var form      = document.getElementById('uploadFile');
-	var fileinput = document.getElementById('fileInput');
-	var request   = new XMLHttpRequest();
-
-	form.addEventListener('submit',function (e) {
-		e.preventDefault();
-		var formdata = new FormData( form );
-		request.open('post', urlbase+'/upload');
-		request.addEventListener('load', transferComplete);
-		request.send( formdata );
-	})
-
-    fileinput.addEventListener('change', function (e) {
-        e.preventDefault();
-        form.trigger('submit');
-    })
+    {!! Form::close() !!}
 
 
-
-	var transferComplete = function ( data ){
-		response = JSON.parse( data.currentTarget.response );
-		if( response.success ){
-			alert( 'Uploaded o/' );
-		}
-		console.log( data.currentTarget.response );
-	}
-</script>
-
-
-@section('footer-scripts')
-<script>
-	var buildCreateTechnicalConsultForm = function(){
+    @section('footer-scripts')
+    <script>
+    var buildCreateTechnicalConsultForm = function(){
 
         var loadClients = function(){
 			// console.log( urlbase );
@@ -245,7 +210,8 @@
             })
             .done(function( data ) {
                 $.each(data, function(index, val) {
-                    $('#technical_consult_client').append('<option value="'+val.id+'">'+val.name+'</option>');
+                    selected = ( cliente_id == val.id ) ? 'selected' : '';
+                    $('#technical_consult_client').append('<option value="'+val.id+'" '+selected+'>'+val.name+'</option>');
                 });
                 $('.technical_consult_client').slideDown();
                 $('.loading').addClass('hidden');
@@ -280,6 +246,9 @@
                 });
                 $('.technical_consult_contact').slideDown();
                 $('.loading').addClass('hidden');
+
+                showemail();
+
             })
             .fail(function() {
                 $('#technical_consult_contact').html('<option value="">Erro ao carregar contatos</option>');
@@ -308,8 +277,13 @@
             })
             .done(function( data ) {
 
+                obra_id;
+                var selected;
+                console.log( obra_id );
+
                 $.each(data, function(index, val) {
-                    $('#technical_consult_project').append('<option value="'+val.id+'">'+val.title+'</option>');
+                    selected = ( obra_id == val.id ) ? 'selected' : '';
+                    $('#technical_consult_project').append('<option value="'+val.id+'" '+selected+'>'+val.title+'</option>');
                 });
 
                 $('.technical_consult_project').slideDown();
@@ -398,19 +372,39 @@
 
         // loadContacts( $('#technical_consult_client').val() );
         $('#email_message_date').hide();
+
     };
 
-	buildCreateTechnicalConsultForm();
+    buildCreateTechnicalConsultForm();
 
 
     $('#technical_consults_create').change(function(event) {
         var type = $('#email_message_type input:checked').val();
+
         if( type == 2 || type == 0 ){
             $('#email_message_date').show();
         }else{
             $('#email_message_date').hide();
         }
+
+        showemail();
+
     });
+
+    var showemail = function () {
+        var client = $('#technical_consult_client option:selected').val();
+        var contact = $('#technical_consult_contact option:selected').val();
+        $.ajax({
+            // url: urlbase+'/api/clients/',
+            url: urlbase+'api/clients/'+client+'/contacts/'+contact,
+            type: 'GET',
+            dataType: 'json',
+            data: '',
+        })
+        .done(function( data ) {
+            $('#contact_email').text(data.email);
+        });
+    }
 
 </script>
 

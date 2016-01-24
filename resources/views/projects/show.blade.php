@@ -4,10 +4,10 @@
 
 {!! Breadcrumbs::render( 'project', $project )  !!}
 
-<section class="panel">
+<section class="panel hidden-print">
 	<header class="panel-heading">
 		<div class="pull-right">
-			{!! Form::open(array('url' => 'obras/'.$project->id , 'method'  => 'delete' )) !!}                   
+			{!! Form::open(array('url' => 'obras/'.$project->id , 'method'  => 'delete' )) !!}
 				<a href="{!! url( '/obras/'.$project->id.'/edit') !!}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">
 					<i class="fa fa-pencil"></i> EDITAR
 				</a>
@@ -16,8 +16,8 @@
 		</div>
 		Obra <strong>{!! $project->title !!}</strong>
 	</header>
-	<div class="panel-body">		
-		
+	<div class="panel-body">
+
 
 		<div role="tabpanel">
 		    <!-- Nav tabs -->
@@ -34,11 +34,8 @@
 		        <li role="presentation">
 		            <a href="#contatos" aria-controls="contatos" role="tab" data-toggle="tab">Contatos</a>
 		        </li>
-		        <li role="presentation">
-		            <a href="#consultas-tecnicas" aria-controls="consultas-tecnicas" role="tab" data-toggle="tab">Consultas Técnicas</a>
-		        </li>
 		    </ul>
-		
+
 		    <!-- Tab panes -->
 		    <div class="tab-content">
 
@@ -67,9 +64,9 @@
 									<tr>
 										<td class="text-right"><strong>Alterado:</strong></td>
 										<td>{!! date('d/m/Y', strtotime($project->updated_at)) !!}</td>
-									</tr>										
+									</tr>
 								</tbody>
-							</table>							
+							</table>
 						</div>
 						<div class="col-sm-4">
 							<table class="table table-condensed">
@@ -90,38 +87,37 @@
 									<tr>
 										<td class="text-right"><strong>Criado em:</strong></td>
 										<td>{!! date('d/m/Y', strtotime($project->client->created_at)) !!}</td>
-									</tr>										
+									</tr>
 								</tbody>
-							</table>	
+							</table>
 						</div>
 						<div class="col-sm-4"></div>
 					</div>
-					
+
 		        </div>
-		        
+
 
 		        <!-- ETAPAS -->
 		        <div role="tabpanel" class="tab-pane" id="etapas">
 					<div class="navbar">
 			        	<div class="pull-right">
-			        		
-                			<a href="{!! url('obras/'.$project->id.'/etapas/create') !!}" class="btn btn-success btn-xs navbar-btn" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i> ADICIONAR</a>		        		        			
-	        			</div>        			
+
+                			<a href="{!! url('obras/'.$project->id.'/etapas/create') !!}" class="btn btn-success btn-xs navbar-btn" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i> ADICIONAR</a>
+	        			</div>
 			        	<p class="navbar-text navbar-left">
-		        			
-			        	</p>	
-		        	</div>					
+
+			        	</p>
+		        	</div>
 					<table class="table table-hover">
 						<thead>
-							<tr>								
+							<tr>
 								<th>Título</th>
-								<th>Consultas Técnicas</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							
-							@foreach ($project->stages as $stage)								
+
+							@foreach ($project->stages as $stage)
 								<tr>
 									<td>{{ $stage->title }}</td>
 									<td></td>
@@ -150,25 +146,25 @@
 				<!-- DISCIPLINAS -->
 		        <div role="tabpanel" class="tab-pane" id="disciplinas">
 		        	<div class="navbar">
-			        	<div class="pull-right">	        		        			
+			        	<div class="pull-right">
 		                	<a href="{!! url('obras/'.$project->id.'/disciplinas/create') !!}" class="btn btn-success btn-xs navbar-btn" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> ADICIONAR</a>
-	        			</div>        			
+	        			</div>
 			        	<p class="navbar-text navbar-left">
-		        			
-			        	</p>	
+
+			        	</p>
 		        	</div>
 		        	<div class="">
 		        		<table class="table table-hover">
 							<thead>
-								<tr>								
+								<tr>
 									<th>Título</th>
 									<th>Consultas Técnicas</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								
-								@foreach ($project->disciplines as $discipline)								
+
+								@foreach ($project->disciplines as $discipline)
 									<tr>
 										<td>{{ $discipline->title }}</td>
 										<td></td>
@@ -201,30 +197,30 @@
 		        	<div class="navbar">
 			        	<div class="navbar-form navbar-right">
 							{!! Form::open(array('url' => 'obras/'.$project->id.'/contatos/attach', 'class' => 'form-inline')) !!}
-							
-								<div class="form-group form-group-xs">									
-									
+
+								<div class="form-group form-group-xs">
+
 									<select name="contact_id" id="input" class="form-control input-sm" required="required">
 										<option selected="selected" value="">-- Selecione --</option>
 										@foreach ($project->client->contacts as $contact)
 											<option value="{{ $contact->id }}">{{ $contact->name }} / {{ $contact->company }}</option>
 										@endforeach
 									</select>
-							
-									<button type="submit" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> ADICIONAR</button>
-							
+
+									<button type="submit" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Vincular à Obra</button>
+
 								</div>
 
 							{!! Form::close() !!}
-			     		</div>        			
+			     		</div>
 			        	<div class="navbar-text navbar-left">
-					
+
 			        	</div>
 		        	</div>
 		        	<div class="collapse" id="collapseExample">
 
 		        		@include('contacts.create-form')
-			        
+
 		        	</div>
 		        	<div class="" >
 
@@ -233,21 +229,19 @@
 								<tr>
 									<th width="40">#</th>
 									<th>Nome</th>
-									<th>Empresa</th>					
-									<th>Obras</th>
-									<!-- <th>Price</th> -->					
+									<th>Empresa</th>
+									<!-- <th>Price</th> -->
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-									
+
 								@foreach ($project->contacts as $projectcontact)
-									
+
 									<tr title="" >
 										<td><a href="{{ url( '/contatos/'.$projectcontact->id) }}">{{ $projectcontact->id }}</a></td>
 										<td><strong><a href="{{ url( '/contatos/'.$projectcontact->id) }}">{{ $projectcontact->name }}</a></strong></td>
-										<td><a href="{{ url( '/contatos/'.$projectcontact->id) }}">{{ $projectcontact->company }}</a></td>
-										<td></td>					
+
 										<td>
 											<div class="pull-right hidden-phone">
 
@@ -259,32 +253,30 @@
 												{!! Form::close() !!}
 							             	</div>
 										</td>
-									</tr>								
-									
+									</tr>
+
 								@endforeach
 							</tbody>
 						</table>
-						
+
 		        	</div>
 		        </div>
-		        <div role="tabpanel" class="tab-pane" id="consultas-tecnicas">
-		       		<div class="navbar">
-			        	<div class="navbar-right">	    
-		                	<a href="{!! url('obras/'.$project->id.'/consultas_tecnicas/create') !!}" class="btn btn-success btn-xs navbar-btn"><i class="fa fa-plus"></i> ADICIONAR</a>
-		     			</div>        			
-			        	<p class="navbar-text navbar-left">
-		        			
-			        	</p>	
-		        	</div>
-		        	<div class="">
-		        		{{-- @include('technical_consults.index_timeline') --}}
-		        	</div>
-		        </div>
-				
 
 		    </div>
 		</div>
 
 	</div>
 </section>
+
+<section>
+	<section class="panel">
+		<header class="panel-heading">
+			Consultas Técnicas da Obra
+		</header>
+
+		@include('technical_consults.timeline.timeline', array('technical_consults' => $project->technical_consults))
+
+	</section>
+</section>
+
 @stop

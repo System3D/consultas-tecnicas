@@ -5,7 +5,7 @@
 <section class="panel">
 	<header class="panel-heading">
 		<div class="pull-right">
-			{!! Form::open(array('url' => 'clientes/'.$client->id , 'method'  => 'delete' )) !!}                   	
+			{!! Form::open(array('url' => 'clientes/'.$client->id , 'method'  => 'delete' )) !!}
 				{{-- <a href="{!! url('/clientes') !!}" class="btn btn-default btn-xs">
 					<i class="fa fa-bars"></i> Ver todos
 				</a> --}}
@@ -22,11 +22,11 @@
 		</header>
 		<div class="panel-body">
 
-			<div class="">			  
+			<div class="">
 				<h4><strong>{!! $client->name !!}</strong><br><small>{!! $client->company !!}</small></h4>
 				&nbsp;
 			</div>
-			
+
 			<div role="tabpanel">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
@@ -35,9 +35,6 @@
 					</li>
 					<li role="presentation" class="">
 						<a href="#obras" aria-controls="obras" role="tab" data-toggle="tab">Obras</a>
-					</li>
-					<li role="presentation" class="">
-						<a href="#emails" aria-controls="emails" role="tab" data-toggle="tab">E-mails</a>
 					</li>
 					<li role="presentation" class="">
 						<a href="#contatos" aria-controls="contatos" role="tab" data-toggle="tab">Contatos</a>
@@ -70,56 +67,56 @@
 							<div class="col-lg-10">
 								<p class="form-control-static">{!! $client->phones !!}</p>
 							</div>
-						</div>	
+						</div>
 						<div class="form-group">
 							<label for="inputCompany" class="col-lg-2 col-sm-2 control-label">Empresa</label>
 							<div class="col-lg-10">
 								<p class="form-control-static">{!! $client->company !!}</p>
 							</div>
-						</div>	
+						</div>
 						<div class="form-group">
 							<label for="inputAddress" class="col-lg-2 col-sm-2 control-label">Endereço</label>
 							<div class="col-lg-10">
 								<p class="form-control-static">{!! $client->address !!}</p>
 							</div>
-						</div>	
+						</div>
 						<div class="form-group">
 							<label for="inputNotes" class="col-lg-2 col-sm-2 control-label">Obeservações</label>
 							<div class="col-lg-10">
 								<p class="form-control-static">{!!  $client->notes !!}</p>
 							</div>
-						</div>	
-						{!! Form::close() !!}  
+						</div>
+						{!! Form::close() !!}
 
 					</div>
 
 					<!-- OBRAS -->
 					<div role="tabpanel" class="tab-pane" id="obras">
-						
-						<div class="row">							
+
+						<div class="row">
 							<div class="col-md-6">
-								
-							</div>							
-							<div class="col-sm-6 text-right">								
-								<a href="{!! url('clientes/'.$client->id.'/obras/create') !!}" class="btn btn-success btn-xs navbar-btn"><i class="fa fa-plus"></i> ADICIONAR</a>			
-							</div>        			
+
+							</div>
+							<div class="col-sm-6 text-right">
+								<a href="{!! url('clientes/'.$client->id.'/obras/create') !!}" class="btn btn-success btn-xs navbar-btn"><i class="fa fa-plus"></i> ADICIONAR</a>
+							</div>
 						</div>
 
 						@include('projects.index-table', ['projects'=>$client->projects, 'client_id'=>$client->id] )
-						
+
 					</div>
 
 					<!-- CONTATOS -->
 					<div role="tabpanel" class="tab-pane" id="contatos">
-						
+
 						<div class="navbar">
 				        	<div class="navbar-form navbar-right">
 								<a href="{{ url('clientes/'.$client->id.'/contatos/create') }}" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> ADICIONAR</a>
-				     		</div>        			
+				     		</div>
 				        	<div class="navbar-text navbar-left">
-						
+
 				        	</div>
-			        	</div>			        	
+			        	</div>
 			        	<div class="" >
 
 							<table class="table table-hover" id="contacts-list">
@@ -127,25 +124,25 @@
 									<tr>
 										<th width="40">#</th>
 										<th>Nome</th>
-										<th>Empresa</th>					
+										<th>Empresa</th>
 										<th>Obras</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-										
+
 									@foreach ($client->contacts as $clientcontact)
-										
+
 										<tr title="" >
 											<td><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->id }}</a></td>
 											<td><strong><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->name }}</a></strong></td>
 											<td><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->company }}</a></td>
-											<td></td>					
+											<td></td>
 											<td>
 												<div class="pull-right hidden-phone">
 
 													{!! Form::open(array('url' => url('clientes/'.$client->id.'/contatos/'.$clientcontact->id ), 'role' => 'form', 'method' => 'delete' )) !!}
-													
+
 														<input type="hidden" name="_method" value="delete">
 
 														<input type="hidden" name="back_to" value="{{ url('clientes/'.$client->id.'#contatos' ) }}">
@@ -157,35 +154,19 @@
 
 								             	</div>
 											</td>
-										</tr>								
-										
+										</tr>
+
 									@endforeach
 								</tbody>
 							</table>
 
 			        	</div>
-						
-					</div>
 
-					<!-- EMAILS -->
-					<div role="tabpanel" class="tab-pane" id="emails">
-						
-						<div class="row">							
-							<div class="col-md-6">
-								
-							</div>							
-							<div class="col-sm-6 text-right">								
-								<a href="{!! url('clientes/'.$client->id.'/obras/create') !!}" class="btn btn-success btn-xs navbar-btn"><i class="fa fa-plus"></i> ADICIONAR</a>			
-							</div>        			
-						</div>
-
-						@include('projects.index-table', ['projects'=>$client->projects, 'client_id'=>$client->id] )
-						
 					</div>
 
 				</div>
 			</div>
-			
+
 		</div>
 	</section>
 	@stop

@@ -2,9 +2,10 @@
 
 use App\Contact;
 use App\EmailMessage;
+use App\FileEntry;
 use App\Helpers\Alfred;
-use App\TechnicalConsult;
 use App\Http\Controllers\FileEntryController;
+use App\TechnicalConsult;
 use Illuminate\Http\Request;
 use JavaScript;
 use Mail;
@@ -71,17 +72,20 @@ class TechnicalConsultController extends Controller {
 
 		$clients = $request->user()->clients; // all the clients
 
+		$data = $request->all();
+
 		JavaScript::put([
 			'urlbase' => 'http://steel4web.dev/consultas-tecnicas/public/',
 			'date' => '',
 			'title' => '',
 			'description' => '',
-			'contact_id' => '',
-			'project_id' => '',
-			'project_stage_id' => '',
-			'project_discipline_id' => '',
+			'cliente_id' => @$data['cliente_id'],
+			'contato_id' => @$data['contato_id'],
+			'obra_id' => @$data['obra_id'],
+			'obra_stage_id' => '',
+			'obra_discipline_id' => '',
 			'color' => '',
-			'owner_id' => '',
+			'owner_id' => $request->user()->id,
 		]);
 
 		if ($request->ajax()) {
@@ -103,16 +107,8 @@ class TechnicalConsultController extends Controller {
 		$data['technical_consult']['owner_id'] = $request->user()->id;
 		$data['technical_consult']['color'] = (new Alfred())->randomColor();
 
-
-		$files = $request->file('file');
-
-        if( !empty($files) ){			
-			$fileupload = ( new FileEntryController())->upload( $request, false );
-			if( $fileupload['uploaded'] > 0 ){
-				$this->sys_notifications[] = array('type' => 'success', 'message' => $fileupload['uploaded'] . ' anexos enviados com sucesso!');
-			}
-		}
-
+		$data['email_message']['date'] = (empty($data['email_message']['date'])) ? date('Y-m-d') : $data['email_message']['date'];
+		$data['email_message']['time'] = (empty($data['email_message']['time'])) ? date('H:i') : $data['email_message']['time'];
 
 		// CRIA CONSULTA TÉCNICA
 		$technical_consult = TechnicalConsult::create($data['technical_consult']);
@@ -135,13 +131,6 @@ class TechnicalConsultController extends Controller {
 		$email_data['body_text'] = strip_tags($data['technical_consult']['description']);
 
 		// CRIA EMAIL MESSAGE
-		// 	sEND MAIL
-		Mail::send('emails.message', ['email_data' => $email_data], function ($m) use ($email_data) {
-
-			$m->from('garcia@web3d.com.br', 'Aplicativo do Garcia');
-			$m->to('tonetlds@gmail.com', 'L. Tonet')->subject('Seu e-mail!');
-		});
-
 		$email_message = EmailMessage::create($email_data);
 
 		if (!$email_message) {
@@ -149,6 +138,35 @@ class TechnicalConsultController extends Controller {
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return back()->withInput($request->all());
 		}
+
+		// ATTACH FILES
+		$files = $request->file('file');
+
+		if ($files[0] != null) {
+			$filesupload = (new FileEntryController())->upload($request, false, $email_message->id);
+			if ($filesupload['uploaded'] > 0) {
+				$this->sys_notifications[] = array('type' => 'success', 'message' => $filesupload['uploaded'] . ' arquivos anexados');
+			}
+
+		}
+		if (!empty($filesupload['ids'])) {
+			$anexos = array();
+			foreach ($filesupload['ids'] as $key => $fileid) {
+				$entry = FileEntry::find($fileid);
+				$entry->email_message_id = $email_message->id;
+				$entry->save();
+				$anexos[] = $entry;
+			}
+		}
+
+		// SEND MAIL
+		Mail::send('emails.message', ['email_data' => $email_data], function ($message) use ($email_data, $anexos, $request, $email_message) {
+			foreach ($anexos as $anexo) {
+				$message->attach(storage_path('app/' . $request->user()->id . '/' . $email_message->id . '/' . $anexo->original_filename));
+			}
+			$message->from('garcia@web3d.com.br', 'Aplicativo do Garcia');
+			$message->to('tonetlds@gmail.com', 'L. Tonet')->subject('Seu e-mail!');
+		});
 
 		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Nova consulta técnica registrada com sucesso!');
 		$request->session()->flash('sys_notifications', $this->sys_notifications);

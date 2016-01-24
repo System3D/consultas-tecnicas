@@ -15,6 +15,10 @@ class CreateForeignKeys extends Migration {
 			$table->foreign('project_stage_id')->references('id')->on('obras_etapas')
 				->onDelete('cascade')
 				->onUpdate('cascade');
+
+			$table->foreign('cliente_id')->references('id')->on('clientes')
+				->onDelete('cascade')
+				->onUpdate('cascade');
 		});
 		Schema::table('contatos', function (Blueprint $table) {
 			$table->foreign('owner_id')->references('id')->on('users')
@@ -69,6 +73,7 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('consultas_tecnicas', function (Blueprint $table) {
 			$table->dropForeign('consultas_tecnicas_project_stage_id_foreign');
+			$table->dropForeign('consultas_tecnicas_cliente_id_foreign');
 		});
 		Schema::table('contatos', function (Blueprint $table) {
 			$table->dropForeign('contatos_owner_id_foreign');
