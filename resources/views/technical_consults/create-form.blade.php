@@ -3,7 +3,73 @@
 <input type="hidden" name="technical_consult_id" value="<?php echo @$data['technical_consult'] ?>">
 <input type="hidden" name="email_message_id" value="<?php echo @$data['email_message_id'] ?>">
 
+@if ( @$data['technical_consult'] )
+    <legend>Consulta Técnica CT0{{ @$data['technical_consult'] }}</legend>
+@else
+    <legend>Consulta Técnica</legend>
+@endif
 
+<div class="form-group">
+	<label class="col-lg-2 control-label" for="uname">Tipo: </label>
+	<div class="col-lg-6">
+		<div class="radio" id="email_message_type">
+
+            @if ( !@$data['technical_consult'] )
+                <label>
+                    <input type="radio" name="email_message[type]" value="1" checked="checked">
+                    Envio
+                </label>
+    			&nbsp;
+            @else
+
+    			<label>
+    				<input type="radio" name="email_message[type]" value="2" checked="{{ ( isset($data['email_message']) )?'checked':'' }}">
+    				Retorno
+    			</label>
+            @endif
+			&nbsp;
+			<label>
+				<input type="radio" name="email_message[type]" value="0">
+				Acontecimento
+			</label>
+		</div>
+	</div>
+</div>
+
+<div class="form-group technical_consult_client">
+	<label for="technical_consult_client" class="col-sm-2 control-label">Cliente:</label>
+	<div class="col-sm-5">
+		<div class="input-group">
+			<select name="technical_consult[cliente_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">
+				@foreach($clients as $client)
+                    <option value="{{ $client->id }}">{{ $client->name }} / {{ $client->company }}</option>
+                @endforeach
+            </select>
+            <span class="input-group-btn">
+                <a href="{{ url('clientes/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
+        </span>
+    </div><!-- /input-group -->
+</div>
+</div>
+
+<div class="form-group technical_consult_contact" style="display:none;">
+	<label for="technical_consult_contact" class="col-sm-2 control-label">Contato:</label>
+	<div class="col-sm-5">
+        <div class="input-group">
+            <select name="technical_consult[contact_id]" id="technical_consult_contact" class="form-control" required="required">
+                <option value=""></option>
+            </select>
+            <span class="input-group-btn">
+                <a href="{{ url('contatos/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
+            </span>
+        </div>
+    </div>
+    <div class="col-sm-5">
+		<div class="input-group">
+			<p class="form-control-static" id="contact_email"></p>
+		</div>
+	</div>
+</div>
 
 <legend>Obra</legend>
 
@@ -54,74 +120,6 @@
 	<div class="col-sm-5">
 		<textarea name="technical_consult[description]" id="input" class="form-control" rows="5"></textarea>
 	</div>
-</div>
-
-@if ( @$data['technical_consult'] )
-    <legend>Consulta Técnica CT0{{ @$data['technical_consult'] }}</legend>
-@else
-    <legend>Consulta Técnica</legend>
-@endif
-
-<div class="form-group">
-    <label class="col-lg-2 control-label" for="uname">Tipo: </label>
-    <div class="col-lg-6">
-        <div class="radio" id="email_message_type">
-
-            @if ( !@$data['technical_consult'] )
-                <label>
-                    <input type="radio" name="email_message[type]" value="1" checked="checked">
-                    Envio
-                </label>
-                &nbsp;
-            @else
-
-                <label>
-                    <input type="radio" name="email_message[type]" value="2" checked="{{ ( isset($data['email_message']) )?'checked':'' }}">
-                    Retorno
-                </label>
-            @endif
-            &nbsp;
-            <label>
-                <input type="radio" name="email_message[type]" value="0">
-                Acontecimento
-            </label>
-        </div>
-    </div>
-</div>
-
-<div class="form-group technical_consult_client">
-    <label for="technical_consult_client" class="col-sm-2 control-label">Cliente:</label>
-    <div class="col-sm-5">
-        <div class="input-group">
-            <select name="technical_consult[cliente_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">
-                @foreach($clients as $client)
-                    <option value="{{ $client->id }}">{{ $client->name }} / {{ $client->company }}</option>
-                @endforeach
-            </select>
-            <span class="input-group-btn">
-                <a href="{{ url('clientes/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
-        </span>
-    </div><!-- /input-group -->
-</div>
-</div>
-
-<div class="form-group technical_consult_contact" style="display:none;">
-    <label for="technical_consult_contact" class="col-sm-2 control-label">Contato:</label>
-    <div class="col-sm-5">
-        <div class="input-group">
-            <select name="technical_consult[contact_id]" id="technical_consult_contact" class="form-control" required="required">
-                <option value=""></option>
-            </select>
-            <span class="input-group-btn">
-                <a href="{{ url('contatos/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
-            </span>
-        </div>
-    </div>
-    <div class="col-sm-5">
-        <div class="input-group">
-            <p class="form-control-static" id="contact_email"></p>
-        </div>
-    </div>
 </div>
 
 
