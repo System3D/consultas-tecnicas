@@ -14,7 +14,7 @@ class CreateEmailMessagesTable extends Migration {
 			$table->string('to')->nullable()->index();
 			$table->string('subject')->nullable();
 			$table->text('body_text')->nullable();
-			$table->string('body_html')->nullable();
+			$table->text('body_html')->nullable();
 			$table->text('headers');
 			$table->integer('consulta_tecnica_id')->nullable()->unsigned();
 			$table->integer('email_message_id')->nullable()->unsigned();
@@ -31,13 +31,16 @@ class CreateEmailMessagesTable extends Migration {
 
 			$table->foreign('email_message_id')
 				->references('id')->on('email_messages')
-				->onDelete('cascade');
+				->onDelete('set null');
 
 		});
 
 	}
 
 	public function down() {
+		Schema::table('email_messages', function (Blueprint $table) {
+			$table->dropForeign('email_messages_email_message_id_foreign');
+		});
 		Schema::drop('email_messages');
 	}
 }

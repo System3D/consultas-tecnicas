@@ -32,7 +32,7 @@
     </div>
         <div class="form-group">
             <div class="btn-group btn-group-sm">
-                <a href="{{ url('/consultas_tecnicas/create?'.http_build_query(['cliente_id'=>$technical_consults->first()->cliente_id, 'obra_id'=>$technical_consults->first()->project_id])) }}" class="btn btn-success"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
+                <a href="{{ url('/consultas_tecnicas/create?'.http_build_query(['cliente_id'=>@$project->client->id, 'obra_id'=>@$project->id])) }}" class="btn btn-success"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
             </div>
         </div>
     </div>
@@ -44,12 +44,14 @@
     }
 </style>
 
-<div class="timelinescroll">
     <ul class="timeline" id="timeline">
 
         @foreach ($technical_consults as $technical_consult)
 
-            @foreach ($technical_consult->emails as $email)
+            <?php $reversed = $technical_consult->emails->reverse();
+$reversed->all();?>
+
+            @foreach ($reversed->all() as $email)
 
                 @if ( $email->type == 2 )
                     @include( 'technical_consults.timeline.timeline_reply' )
@@ -64,4 +66,3 @@
         @endforeach
 
     </ul>
-</div>

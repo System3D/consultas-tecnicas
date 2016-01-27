@@ -14,10 +14,6 @@
 				<h4 class="list-group-item-heading">
 					<div class="pull-right">
 						{!! Form::open(array('url' => 'consultas_tecnicas/'.$technical_consult->id , 'method'  => 'delete' )) !!}
-						<a href="{!! url( '/consultas_tecnicas/'.$technical_consult->id.'/edit') !!}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">
-							<i class="fa fa-pencil"></i> EDITAR
-						</a>
-						<a class="btn btn-default btn-xs" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</a>
 						<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta consulta técnica e todas as conversas anexadas?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
 						{!! Form::close() !!}
 					</div>
@@ -32,7 +28,7 @@
 						<a class="btn-xs btn-link"><i class="fa fa-warning"></i> Sem resposta</a>
 					@endif
 					@if ($email->attachments->count() > 0)
-						<a href="#email_message_{{ current($email->attachments->toArray())['id'] }}" class="btn-xs btn-link"><i class="fa fa-reply"></i> {{ $email->attachments->count() }} Anexos</a>
+						<a href="{{  url('/consultas_tecnicas/'.$technical_consult->id.'/'.$email->id.'/anexos')  }}" class="btn-xs btn-link" data-toggle="modal" data-target="#modal"><i class="fa fa-reply"></i> {{ $email->attachments->count() }} Anexos</a>
 					@else
 						<a href="#" class="btn-xs btn-link"><i class="fa fa-warning"></i> Sem anexos</a>
 					@endif

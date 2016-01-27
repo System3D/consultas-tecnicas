@@ -9,12 +9,12 @@
 				<header class="panel-heading text-center">
 					Entrar
 				</header>
-				<div class="panel-body">					
+				<div class="panel-body">
 
 					@if (count($errors) > 0)
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger">{{ $error }}</div>
-                        @endforeach      
+                        @endforeach
                     @endif
 
 
@@ -41,7 +41,7 @@
 								<p class="text-right form-control-static pull-right">
 									<a href="{!! url('password/email') !!}" class="">Perdeu a senha?</a>
 								</p>
-								<div class="checkbox">
+								<div class="checkbox pull-left">
 									<label>
 										<input type="checkbox" name="remember"> Permanecer conectado
 									</label>
@@ -54,16 +54,16 @@
 								<button type="submit" class="btn btn-success btn-block">Entrar</button>
 							</div>
 							<div class="col-lg-5">
-								<p class="text-right form-control-static">
+								<!-- <p class="text-right form-control-static">
 									<a href="{!! url('register') !!}" class="">Criar nova conta</a>
-								</p>								
+								</p> -->
 							</div>
 						</div>
 
 					</form>
 
 				</div>
-			</section>			
+			</section>
 		</div>
 	</div>
 </div>

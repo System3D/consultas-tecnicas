@@ -128,9 +128,6 @@
 												<input type="hidden" name="_method" value="DELETE">
 
 					                        	<a href="{{ url('obras/'.$project->id.'/etapas/'.$stage->id.'/edit') }}" class="btn btn-default btn-xs" data-target="#modal" data-toggle="modal"><i class="fa fa-pencil"></i></a>
-												<a href="#" class="btn btn-default btn-xs" title="Criar consulta técnica">
-													<i class="fa fa-envelope"></i>
-												</a>
 						                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta etapa?');"><i class="fa fa-times"></i></button>
 
 					                        {!! Form::close() !!}
@@ -175,9 +172,6 @@
 													<input type="hidden" name="_method" value="DELETE">
 
 						                        	<a href="{{ url('obras/'.$project->id.'/disciplinas/'.$discipline->id.'/edit') }}" class="btn btn-default btn-xs" data-target="#modal" data-toggle="modal"><i class="fa fa-pencil"></i></a>
-													<a href="#" class="btn btn-default btn-xs" title="Criar consulta técnica">
-														<i class="fa fa-envelope"></i>
-													</a>
 							                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta disciplina?');"><i class="fa fa-times"></i></button>
 
 						                        {!! Form::close() !!}

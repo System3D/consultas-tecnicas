@@ -16,11 +16,11 @@ class EmailMessage extends Model {
 	}
 
 	public function replies() {
-		return $this->hasMany('App\EmailMessage', 'id', 'email_message_id');
+		return $this->hasMany('App\EmailMessage');
 	}
 
 	public function attachments() {
-		return $this->hasMany('App\FileEntry', 'id', 'email_message_id');
+		return $this->hasMany('App\FileEntry');
 	}
 
 }

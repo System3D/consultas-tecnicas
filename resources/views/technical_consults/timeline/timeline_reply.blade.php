@@ -1,4 +1,4 @@
-<li id="email_message_{{ $email->id }}" class="mix technical_consult_{{ $technical_consult->id }} email_message_{{ $email->id }} email_message_reply {{ ( $email->type == 2 ) ? 'timeline-inverted' : '' }} {{ ( $email->replies->count() > 0 ) ? '' : 'email_message_noreply' }}" data-id="{{ $email->id }}" data-ctid="{{ $technical_consult->id }}" data-date="{!! date('Y-m-d', strtotime($email->date)) !!}"  data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
+<li id="email_message_{{ $email->id }}" class="mix technical_consult_{{ $technical_consult->id }} email_message_{{ $email->id }} email_message_reply {{ ( $email->type == 2 ) ? 'timeline-inverted' : '' }}" data-id="{{ $email->id }}" data-ctid="{{ $technical_consult->id }}" data-date="{!! date('Y-m-d', strtotime($email->date)) !!}"  data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
 
 
     <div class="timeline-date label label-default">
@@ -30,17 +30,18 @@
     </div>
     <ul class="nav nav-justified hidden-print">
         <li class="active text-left">
-            <a href="#" class=""><i class="fa fa-paperclip"></i> {{ $email->replies->count() }} anexos</a>
+            <a href="{{ url('/consultas_tecnicas/'.$technical_consult->id.'/'.$email->id.'/anexos') }}" data-toggle="modal" data-target="#modal" class=""><i class="fa fa-paperclip"></i> {{ $email->attachments->count() }} anexos</a>
         </li>
         <li class="text-left">
-            @if ($email->replies->count() > 0)
-            <a href="#email_message_{{ current($email->replies->toArray())['id'] }}" class="scrollto"><i class="fa fa-reply"></i> {{ $email->replies->count() }} respostas</a>
-            @endif
+            <p class="form-control-static text-center">
+                <a href="{{ url('/consultas_tecnicas/'.$technical_consult->id) }}" data-toggle="modal" data-target="#modal" class="btn btn-xs btn-default btn-block"><i class="fa fa-eye"></i> Ver</a>
+            </p>
         </li>
-        <li class="text-left">
-            @if ($email->replies->count() > 0)
-            <a href="#email_message_{{ current($email->replies->toArray())['id'] }}" class="scrollto"><i class="fa fa-reply"></i> {{ $email->replies->count() }} respostas</a>
-            @endif
+        <li class="">
+            <p class="form-control-static text-center">
+                <a href="{{ url('/consultas_tecnicas/create?'.http_build_query(['cliente_id'=>$technical_consult->cliente_id, 'obra_id'=>$technical_consult->project_id, 'technical_consult'=>$technical_consult->id, 'email_message_id'=>$email->id])) }}" data-toggle="modal" class="btn btn-xs btn-default btn-block"><i class="fa fa-plus"></i> Resposta</a>
+            </p>
+
         </li>
     </ul>
 </div>
