@@ -1,20 +1,32 @@
 {!! Form::open(array('url' => url('consultas_tecnicas'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'technical_consults_create', "enctype"=>"multipart/form-data")) !!}
 
-<legend>Consulta Técnica</legend>
+<input type="hidden" name="technical_consult_id" value="<?php echo @$data['technical_consult'] ?>">
+<input type="hidden" name="email_message_id" value="<?php echo @$data['email_message_id'] ?>">
+
+@if ( @$data['technical_consult'] )
+    <legend>Consulta Técnica CT0{{ @$data['technical_consult'] }}</legend>
+@else
+    <legend>Consulta Técnica</legend>
+@endif
 
 <div class="form-group">
 	<label class="col-lg-2 control-label" for="uname">Tipo: </label>
 	<div class="col-lg-6">
 		<div class="radio" id="email_message_type">
-			<label>
-				<input type="radio" name="email_message[type]" value="1" checked="checked">
-				Envio
-			</label>
-			&nbsp;
-			<label>
-				<input type="radio" name="email_message[type]" value="2">
-				Retorno
-			</label>
+
+            @if ( !@$data['technical_consult'] )
+                <label>
+                    <input type="radio" name="email_message[type]" value="1" checked="checked">
+                    Envio
+                </label>
+    			&nbsp;
+            @else
+
+    			<label>
+    				<input type="radio" name="email_message[type]" value="2" checked="{{ ( isset($data['email_message']) )?'checked':'' }}">
+    				Retorno
+    			</label>
+            @endif
 			&nbsp;
 			<label>
 				<input type="radio" name="email_message[type]" value="0">
@@ -28,7 +40,7 @@
 	<label for="technical_consult_client" class="col-sm-2 control-label">Cliente:</label>
 	<div class="col-sm-5">
 		<div class="input-group">
-			<select name="technical_consult[client_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">
+			<select name="technical_consult[cliente_id]" id="technical_consult_client" class="form-control remoteload" required="required" data-target="#technical_consult_project">
 				@foreach($clients as $client)
                     <option value="{{ $client->id }}">{{ $client->name }} / {{ $client->company }}</option>
                 @endforeach
@@ -186,8 +198,7 @@
 			// console.log( urlbase );
             /* Act on the event */
             $.ajax({
-                // url: urlbase+'/api/clients/',
-                url: urlbase+'api/clients',
+                url: urlbase+'/api/clients',
                 type: 'GET',
                 dataType: 'json',
                 data: '',
@@ -228,7 +239,7 @@
         var loadContacts = function(client_id){
             /* Act on the event */
             $.ajax({
-                url: urlbase+'api/clients/'+client_id+'/contacts',
+                url: urlbase+'/api/clients/'+client_id+'/contacts',
                 type: 'GET',
                 dataType: 'json',
                 data: '',
@@ -259,7 +270,7 @@
         var loadProjects = function( client_id ){
             /* Act on the event */
             $.ajax({
-                url: urlbase+'api/clients/' + client_id + '/projects',
+                url: urlbase+'/api/clients/' + client_id + '/projects',
                 type: 'GET',
                 dataType: 'json',
                 data: '',
@@ -304,7 +315,7 @@
         var loadProjectStages = function( client_id, project_id ){
             /* Act on the event */
             $.ajax({
-                url: urlbase+'api/clients/' + client_id + '/projects/' + project_id + '/stages',
+                url: urlbase+'/api/clients/' + client_id + '/projects/' + project_id + '/stages',
                 type: 'GET',
                 dataType: 'json',
                 data: '',
@@ -334,7 +345,7 @@
         var loadProjectDisciplines = function( client_id, project_id ){
             /* Act on the event */
             $.ajax({
-                url: urlbase+'api/clients/' + client_id + '/projects/' + project_id + '/disciplines',
+                url: urlbase+'/api/clients/' + client_id + '/projects/' + project_id + '/disciplines',
                 type: 'GET',
                 dataType: 'json',
                 data: '',
@@ -395,8 +406,8 @@
         var client = $('#technical_consult_client option:selected').val();
         var contact = $('#technical_consult_contact option:selected').val();
         $.ajax({
-            // url: urlbase+'/api/clients/',
-            url: urlbase+'api/clients/'+client+'/contacts/'+contact,
+            // url: urlbase+'//api/clients/',
+            url: urlbase+'/api/clients/'+client+'/contacts/'+contact,
             type: 'GET',
             dataType: 'json',
             data: '',

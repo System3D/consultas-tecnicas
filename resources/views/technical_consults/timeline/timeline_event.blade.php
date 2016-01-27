@@ -45,18 +45,10 @@
         <?php echo html_entity_decode($email->body_html); ?>
     </div>
     <ul class="nav nav-justified hidden-print">
-        <li class="active text-left">
-            <a href="#" class=""><i class="fa fa-paperclip"></i> {{ $email->replies->count() }} anexos</a>
-        </li>
-        <li class="text-left">
-            @if ($email->replies->count() > 0)
-            <a href="#email_message_{{ current($email->replies->toArray())['id'] }}" class="scrollto"><i class="fa fa-reply"></i> {{ $email->replies->count() }} respostas</a>
-            @endif
-        </li>
-        <li class="text-left">
-            @if ($email->replies->count() > 0)
-            <a href="#email_message_{{ current($email->replies->toArray())['id'] }}" class="scrollto"><i class="fa fa-reply"></i> {{ $email->replies->count() }} respostas</a>
-            @endif
+        <li class="text-center">
+            <p class="form-control-static text-center">
+                <a href="{{ url('/consultas_tecnicas/'.$technical_consult->id) }}" data-toggle="modal" data-target="#modal" class="btn btn-xs btn-default btn-block"><i class="fa fa-eye"></i> Ver</a>
+            </p>
         </li>
     </ul>
 </div>

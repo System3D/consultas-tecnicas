@@ -17,25 +17,24 @@
 				<tr>
 					<th width="40">#</th>
 					<th>Nome</th>
-					<th>Empresa</th>					
+					<th>Empresa</th>
 					<th>Obras</th>
-					<!-- <th>Price</th> -->					
+					<!-- <th>Price</th> -->
 					<th></th>
 				</tr>
 			</thead>
-			<tbody>				
+			<tbody>
 
-				@foreach ($clients as $client)				
+				@foreach ($clients as $client)
 
 				<tr title="{{ $client->notes }}">
 					<td><a href="{{ url('clientes/'.$client->id) }}">{{	$client->id }}</a></td>
 					<td><strong><a href="{{ url('clientes/'.$client->id) }}">{{	$client->name }}</a></strong></td>
 					<td><a href="{{ url('clientes/'.$client->id) }}">{{	$client->company }}</a></td>
-					<td>{{  count( $client->projects ) }}</td>					
+					<td>{{  count( $client->projects ) }}</td>
 					<td>
 						<div class="pull-right hidden-phone">
-	                        {!! Form::open(array('url' => 'clientes/'.$client->id , 'method'  => 'delete' )) !!}	                        	
-		                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-check"></i></a>
+	                        {!! Form::open(array('url' => 'clientes/'.$client->id , 'method'  => 'delete' )) !!}
 	                        	<a href="{{ url('clientes/'.$client->id.'/edit') }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a>
 								<a href="mailto:{!!	$client->email !!}" class="btn btn-default btn-xs" title="Enviar e-mail para {!! $client->name !!}">
 									<i class="fa fa-envelope"></i>

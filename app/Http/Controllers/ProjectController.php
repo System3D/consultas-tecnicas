@@ -119,6 +119,14 @@ class ProjectController extends Controller {
 			}
 		});
 
+		// echo "<pre>";
+		// foreach ($project->technical_consults as $technical_consults) {
+		// 	foreach ($technical_consults->emails as $email) {
+		// 		print_r($email->replies);
+		// 	}
+		// }
+		// exit;
+
 		return view('projects.show', compact('project', 'contacts', 'request'));
 
 	}
@@ -244,6 +252,20 @@ class ProjectController extends Controller {
 		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> desvinculado da Obra com sucesso!');
 		$request->session()->flash('sys_notifications', $this->sys_notifications);
 		return redirect('/obras/' . $project_id . '#contatos');
+	}
+
+	public function dashboard(Request $request, $client_id = null) {
+		if ($client_id != null) {
+			$projects = Project::where('client_id', $client_id)
+				->orderBy($request->input('orderby', 'id'), $request->input('order', 'ASC'))
+				->paginate($request->input('paginate', 50));
+		} else {
+			$projects = $request->user()->projects;
+		}
+
+		$clients = $request->user()->clients;
+
+		return view('dashboard')->with(['projects' => $projects, 'clients' => $clients]);
 	}
 
 }

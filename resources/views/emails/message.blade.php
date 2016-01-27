@@ -138,9 +138,9 @@
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td bgcolor="#ffffff" width="100" align="center">
-                                        <a href="#" target="_blank">
-                                            <img alt="Logo" src="<?php echo $message->embed('img/steel4web.png'); ?>" width="181" height="35" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0">
-                                        </a>
+
+                                            CONSULTA TÉCNICA CT0{{$email_data['consulta_tecnica_id']}}
+
                                     </td>
                                 </tr>
                             </table>
@@ -185,7 +185,7 @@
                             <table width="500" border="0" cellspacing="0" cellpadding="0" align="center" class="responsive-table">
                                 <tr>
                                     <td align="center" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
-                                        <span class="appleFooter" style="color:#666666;">System3d. Nova Prata-RS</span><br><a class="original-only" style="color: #666666; text-decoration: none;">Unsubscribe</a><span class="original-only" style="font-family: Arial, sans-serif; font-size: 12px; color: #444444;">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span><a style="color: #666666; text-decoration: none;">View this email in your browser</a>
+
                                     </td>
                                 </tr>
                             </table>

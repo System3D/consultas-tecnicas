@@ -1,9 +1,9 @@
 {!! Form::open(array('url' => 'obras/etapas', 'class'=>"form-horizontal" )) !!}
-	
+
 	<div class="form-group">
 		<label for="inputCompany" class="col-lg-2 col-sm-2 control-label">Obra</label>
 		<div class="col-lg-10">
-			
+
 			@if ( $project )
 				<p class="form-control-static">{{ $project->title }}   <small classs="text-muted">de <i>{{ $project->client->name }} / {{ $project->client->company }}</i></small></p>
 				<input type="hidden" name="project_id" id="inputProject_id" class="form-control" value="{{ $project->id }}">
@@ -12,11 +12,11 @@
 					<option value="">-- Selecione uma Obra --</option>
 					@foreach ($projects as $p)
 						<option value="{{ $p->id }}">{{ $p->name }}</option>
-					@endforeach						
-				</select>					
+					@endforeach
+				</select>
 			@endif
 		</div>
-	</div>			
+	</div>
 
 	<div class="form-group">
 		<label for="inputName" class="col-lg-2 col-sm-2 control-label">Título</label>
@@ -24,7 +24,7 @@
 			<input type="text" name="title" class="form-control" id="inputName" placeholder="Título" value="{!! old('title') !!}" required="required">
 		</div>
 	</div>
-	
+
 	<div class="form-group">
 		<label for="inputNotes" class="col-lg-2 col-sm-2 control-label">Descrição</label>
 		<div class="col-lg-10">
@@ -33,21 +33,9 @@
 	</div>
 
 	<div class="form-group">
-		<label for="inputStatus" class="col-lg-2 col-sm-2 control-label">Status</label>
-		<div class="col-lg-10">
-			<select name="status" id="inputStatus" class="form-control">
-				<option value="">-- Selecione --</option>
-				<option value="Aguardando">Aguardando</option>
-				<option value="Em andamento">Em andamento</option>
-				<option value="Finalizada">Finalizada</option>
-			</select>					
-		</div>
-	</div>		
-
-	<div class="form-group">
 		<div class="col-lg-offset-2 col-lg-10">
 			<button type="submit" class="btn btn-success">Salvar</button>
 		</div>
 	</div>
 
-{!! Form::close() !!}  
+{!! Form::close() !!}

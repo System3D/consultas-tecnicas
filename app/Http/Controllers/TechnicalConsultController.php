@@ -9,6 +9,7 @@ use App\TechnicalConsult;
 use Illuminate\Http\Request;
 use JavaScript;
 use Mail;
+use Validator;
 
 class TechnicalConsultController extends Controller {
 
@@ -75,7 +76,7 @@ class TechnicalConsultController extends Controller {
 		$data = $request->all();
 
 		JavaScript::put([
-			'urlbase' => 'http://steel4web.dev/consultas-tecnicas/public/',
+			'urlbase' => url('/'),
 			'date' => '',
 			'title' => '',
 			'description' => '',
@@ -89,9 +90,9 @@ class TechnicalConsultController extends Controller {
 		]);
 
 		if ($request->ajax()) {
-			return view('technical_consults.create-modal', compact('clients'));
+			return view('technical_consults.create-modal', compact('clients', 'data'));
 		} else {
-			return view('technical_consults.create', compact('clients'));
+			return view('technical_consults.create', compact('clients', 'data'));
 		}
 
 	}
@@ -101,9 +102,12 @@ class TechnicalConsultController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request) {
+	public function store(Request $request, Validator $validator) {
 
 		$data = $request->all();
+
+		// dd($data);
+
 		$data['technical_consult']['owner_id'] = $request->user()->id;
 		$data['technical_consult']['color'] = (new Alfred())->randomColor();
 
@@ -111,17 +115,23 @@ class TechnicalConsultController extends Controller {
 		$data['email_message']['time'] = (empty($data['email_message']['time'])) ? date('H:i') : $data['email_message']['time'];
 
 		// CRIA CONSULTA TÉCNICA
-		$technical_consult = TechnicalConsult::create($data['technical_consult']);
+		if (isset($data['technical_consult_id']) && $data['technical_consult_id'] > 0) {
+			$technical_consult = TechnicalConsult::find($data['technical_consult_id']);
+		} else {
+			$technical_consult = TechnicalConsult::create($data['technical_consult']);
+		}
 
 		if (!$technical_consult) {
-			$this->sys_notifications[] = array('type' => 'danger', 'message' => $validator->errors()->first());
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => 'Erro ao criar consulta técnica');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return back()->withInput($request->all());
 		}
 
 		$email_data = $data['email_message'];
 		$email_data['date'] = date('Y-m-d H:i:s', strtotime($email_data['date'] . ' ' . $email_data['time'] . ':00'));
-		$email_data['to'] = Contact::find($data['technical_consult']['contact_id'])->email;
+		$contact = Contact::find($data['technical_consult']['contact_id']);
+		$email_data['to'] = $contact->email;
+		$email_data['toname'] = $contact->name;
 		$email_data['from'] = $request->user()->email;
 		$email_data['subject'] = $data['technical_consult']['title'];
 		$email_data['consulta_tecnica_id'] = $technical_consult->id;
@@ -129,6 +139,8 @@ class TechnicalConsultController extends Controller {
 
 		$email_data['body_html'] = $data['technical_consult']['description'];
 		$email_data['body_text'] = strip_tags($data['technical_consult']['description']);
+
+		$email_data['email_message_id'] = ($data['email_message_id'] && !empty($data['email_message_id'])) ? $data['email_message_id'] : null;
 
 		// CRIA EMAIL MESSAGE
 		$email_message = EmailMessage::create($email_data);
@@ -145,12 +157,12 @@ class TechnicalConsultController extends Controller {
 		if ($files[0] != null) {
 			$filesupload = (new FileEntryController())->upload($request, false, $email_message->id);
 			if ($filesupload['uploaded'] > 0) {
-				$this->sys_notifications[] = array('type' => 'success', 'message' => $filesupload['uploaded'] . ' arquivos anexados');
+				// $this->sys_notifications[] = array('type' => 'success', 'message' => $filesupload['uploaded'] . ' arquivos anexados');
 			}
 
 		}
+		$anexos = array();
 		if (!empty($filesupload['ids'])) {
-			$anexos = array();
 			foreach ($filesupload['ids'] as $key => $fileid) {
 				$entry = FileEntry::find($fileid);
 				$entry->email_message_id = $email_message->id;
@@ -160,18 +172,21 @@ class TechnicalConsultController extends Controller {
 		}
 
 		// SEND MAIL
-		Mail::send('emails.message', ['email_data' => $email_data], function ($message) use ($email_data, $anexos, $request, $email_message) {
-			foreach ($anexos as $anexo) {
-				$message->attach(storage_path('app/' . $request->user()->id . '/' . $email_message->id . '/' . $anexo->original_filename));
-			}
-			$message->from('garcia@web3d.com.br', 'Aplicativo do Garcia');
-			$message->to('tonetlds@gmail.com', 'L. Tonet')->subject('Seu e-mail!');
-		});
+		if ($email_data['type'] == 1) {
+			Mail::send('emails.message', ['email_data' => $email_data], function ($message) use ($email_data, $anexos, $request, $email_message, $technical_consult) {
+				foreach ($anexos as $anexo) {
+					$message->attach(storage_path('app/' . $request->user()->id . '/' . $email_message->id . '/' . $anexo->original_filename));
+				}
+				$message->from($email_data['from'], 'Consultas Técnicas');
+				$message->to($email_data['to'], $email_data['toname'])->subject('Consulta Técnica CT0' . $technical_consult->id);
+				$message->bcc('tonetlds@gmail.com', $email_data['toname'])->subject('Consulta Técnica CT0' . $technical_consult->id);
+			});
+		}
 
 		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Nova consulta técnica registrada com sucesso!');
 		$request->session()->flash('sys_notifications', $this->sys_notifications);
 
-		return redirect('consultas_tecnicas');
+		return redirect('obras/');
 		return back()->withInput($request->all());
 	}
 
@@ -218,8 +233,25 @@ class TechnicalConsultController extends Controller {
 	 * @param int     $id
 	 * @return Response
 	 */
-	public function destroy($id) {
+	public function destroy(Request $request, $id) {
+		$ct = TechnicalConsult::find($id);
+		if (!$ct) {
+			$sys_notifications[] = array('type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Consulta Tecnica não encontrado!');
+			$request->session()->flash('sys_notifications', $sys_notifications);
+			return back()->withInput($request->all());
+		}
 
+		if ($ct->destroy($id)) {
+			$sys_notifications[] = array('type' => 'success', 'message' => '<strong><i class="fa fa-check"></i></strong> Consulta Tecnica excluído com sucesso!');
+		} else {
+			$sys_notifications[] = array('type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a consulta técnica!');
+		}
+
+		$request->session()->flash('sys_notifications', $sys_notifications);
+
+		$data = $request->all();
+		$back_to = isset($data['back_to']) ? $data['back_to'] : '/obras/';
+		return redirect($back_to)->withInput($request->all());
 	}
 
 	/**

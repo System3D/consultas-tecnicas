@@ -71,8 +71,9 @@ $(document).ready(function($) {
    
 
     $('ul.timeline li').click(function(event) {
-        $('#timeline').mixItUp('filter', '.technical_consult_'+$(this).data('ctid'));
-        console.log( $( 'li.technical_consult_'+$(this).data('id') ) );
+        // $('#timeline').mixItUp('filter', '.technical_consult_'+$(this).data('ctid'));
+        
+        // console.log( $( 'li.technical_consult_'+$(this).data('id') ) );
     });
 
 

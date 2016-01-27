@@ -1,5 +1,5 @@
 {!! Form::open(array('url' => 'obras', 'class'=>"form-horizontal" )) !!}
-			
+
 	<div class="form-group">
 		<label for="inputName" class="col-lg-2 col-sm-2 control-label">Título</label>
 		<div class="col-lg-10">
@@ -16,7 +16,7 @@
 	<div class="form-group">
 		<label for="inputCompany" class="col-lg-2 col-sm-2 control-label">Cliente</label>
 		<div class="col-lg-10">
-			
+
 			@if ( $client_id )
 				<p class="form-control-static">{{ $client->name }}</p>
 				<input type="hidden" name="client_id" id="inputClient_id" class="form-control" value="{{ $client_id }}">
@@ -26,34 +26,16 @@
 						<option value="">-- Selecione --</option>
 						@foreach ($clients as $c)
 							<option value="{{ $c->id }}" {{  (	$c->id == $client_id ) ? 'selected' : '' }}>{{ $c->name }}</option>
-						@endforeach						
-					</select>					
+						@endforeach
+					</select>
 					<span class="input-group-btn">
 						<a href="{{ url('clientes/create') }}" class="btn btn-default" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i></a>
-					</span>			
+					</span>
 				</div>
 			@endif
 		</div>
-	</div>			
-		
-	<div class="form-group">
-		<label for="inputStatus" class="col-lg-2 col-sm-2 control-label">Status</label>
-		<div class="col-lg-10">
-			<select name="status" id="inputStatus" class="form-control">
-				<option value="">-- Selecione --</option>
-				<option value="Aguardando">Aguardando</option>
-				<option value="Em andamento">Em andamento</option>
-				<option value="Finalizada">Finalizada</option>
-			</select>					
-		</div>
-	</div>		
-
-	<div class="form-group">
-		<label for="inputDate" class="col-lg-2 col-sm-2 control-label">Data</label>
-		<div class="col-lg-10">
-			<input type="date" name="date" class="form-control" id="inputDate" placeholder="Título" value="{!! old('date') !!}">
-		</div>
 	</div>
+
 
 	<div class="form-group">
 		<div class="col-lg-offset-2 col-lg-10">
@@ -61,4 +43,4 @@
 		</div>
 	</div>
 
-{!! Form::close() !!}  
+{!! Form::close() !!}

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -9,14 +9,10 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the Closure to execute when that URI is requested.
 |
-*/
-use App\User;
-use App\Http\Controllers\Controller;
-
-
+ */
 
 /*
-	Authentication routes
+Authentication routes
  */
 
 // Authentication routes...
@@ -36,14 +32,13 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
+Route::group(['middleware' => 'auth'], function () {
 
+	// Route::get('/', function () {
+	// 	return view('dashboard');
+	// });
+	Route::get('/', 'ProjectController@dashboard');
 
-Route::group(['middleware' => 'auth'], function () {	
-	
-	Route::get('/', function () {
-	    return view('dashboard');
-	});
-	
 	// CLIENTES
 	Route::resource('clientes', 'ClientController');
 	Route::post('clientes/{client_id}/contatos/attach', 'ClientController@attachContact'); // send contact_id via POST
@@ -66,20 +61,22 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('obras/{obra_id}/contatos/{contact_id}/detach', 'ProjectController@detachContact'); // send contact_id via POST
 
 	// CONSULTAS TÉCNICAS / TIMELINE
+	Route::get('consultas_tecnicas/semresposta', 'TechnicalConsultController@semresposta');
+	Route::get('consultas_tecnicas/acontecimentos', 'TechnicalConsultController@acontecimentos');
 	Route::get('consultas_tecnicas/timeline', 'TechnicalConsultController@timeline');
 	Route::get('consultas_tecnicas/print', 'TechnicalConsultController@printTimeline');
 	// Route::resource('consultas_tecnicas/status', 'TechnicalConsultStatusController');
 	// Route::resource('consultas_tecnicas/tipos', 'TechnicalConsultTypeController');
 	// CONSULTA TÉCNICA X > EMAILS
+	Route::get('consultas_tecnicas/{consulta_tecnica_id}/{email_message_id}/anexos', 'EmailMessageController@anexos');
 	Route::get('consultas_tecnicas/{consulta_tecnica_id}/emails', 'TechnicalConsultController@getEmails');
 	// CONSULTAS TÉCNICAS
 	Route::resource('consultas_tecnicas', 'TechnicalConsultController');
 
-	
 	// OBRA X > CONSULTAS TÉCNICAS
 	Route::resource('obras/{obra_id}/etapas/{etapa_id}/consultas_tecnicas', 'TechnicalConsultController');
 	Route::resource('obras/{obra_id}/etapas/{etapa_id}/consultas_tecnicas', 'TechnicalConsultController');
-	
+
 	Route::resource('users', 'UserController');
 	Route::resource('contatos', 'ContactController');
 	Route::resource('emailmessage', 'EmailMessageController');
@@ -104,11 +101,11 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 
 	Route::group(['prefix' => 'api'], function () {
-			
-		Route::get('/{resource_name?}/{resource_id?}/attach/{attached_resource_name?}/{attached_resource_id?}', 'ApiController@attach');	
-		Route::get('/{resource_name?}/{resource_id?}/{resource_relationship?}/{related_resource_id?}/{related_related_resource?}', 'ApiController@index');	
-		Route::post('/{resource_name?}/{resource_id?}/{resource_relationship?}/{related_resource_id?}/{related_related_resource?}', 'ApiController@store');	
-		
+
+		Route::get('/{resource_name?}/{resource_id?}/attach/{attached_resource_name?}/{attached_resource_id?}', 'ApiController@attach');
+		Route::get('/{resource_name?}/{resource_id?}/{resource_relationship?}/{related_resource_id?}/{related_related_resource?}', 'ApiController@index');
+		Route::post('/{resource_name?}/{resource_id?}/{resource_relationship?}/{related_resource_id?}/{related_related_resource?}', 'ApiController@store');
+
 	});
 
 	// Upload files
@@ -117,8 +114,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('arquivos', ['as' => 'files', 'uses' => 'FileEntryController@index']);
 	Route::get('arquivos/{filename}', ['as' => 'filesrc', 'uses' => 'FileEntryController@view']);
 	Route::get('arquivos/{filename}/download', ['as' => 'downloadfile', 'uses' => 'FileEntryController@download']);
-	Route::post('arquivos/upload',['as' => 'addentry', 'uses' => 'FileEntryController@upload']);
-	
-	Route::delete('arquivos/{file_id}',['as' => 'deletefile', 'uses' => 'FileEntryController@delete']);
-	
+	Route::post('arquivos/upload', ['as' => 'addentry', 'uses' => 'FileEntryController@upload']);
+
+	Route::delete('arquivos/{file_id}', ['as' => 'deletefile', 'uses' => 'FileEntryController@delete']);
+
 });
