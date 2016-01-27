@@ -12,6 +12,15 @@
 		    	<a href="{{ url('/consultas_tecnicas/create') }}" class="btn btn-success btn-block"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
 		    </div>
 		</section>
+		<br>
+		<section class="panel">
+		    <header class="panel-heading">
+		        Adicionar Obra
+		    </header>
+		    <div class="panel-body">
+		    	<a href="{{ url('/obras/create') }}" class="btn btn-success btn-block"><i class="fa fa-plus"></i> NOVA OBRA</a>
+		    </div>
+		</section>
 	</div>
 	<div class="col-sm-6">
 		<section class="panel">
@@ -48,15 +57,6 @@
 
 		</section>
 	</div>
-	<div class="col-sm-6">
-		<section class="panel">
-		    <header class="panel-heading">
-		        Adicionar Obra
-		    </header>
-		    <div class="panel-body">
-		    	<a href="{{ url('/obras/create') }}" class="btn btn-success btn-block"><i class="fa fa-plus"></i> NOVA OBRA</a>
-		    </div>
-		</section>
-	</div>
+
 </div>
 @stop
