@@ -8,44 +8,18 @@
 	<header class="panel-heading">
 		<div class="pull-right">
 			{!! Form::open(array('url' => 'obras/'.$project->id , 'method'  => 'delete' )) !!}
-				<a href="{!! url( '/obras/'.$project->id.'/edit') !!}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">
-					<i class="fa fa-pencil"></i> EDITAR
-				</a>
-                <button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
-            {!! Form::close() !!}
+			<a href="{!! url( '/obras/'.$project->id.'/edit') !!}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">
+				<i class="fa fa-pencil"></i> EDITAR
+			</a>
+			<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
+			{!! Form::close() !!}
 		</div>
 		Obra <strong>{!! $project->title !!}</strong>
 	</header>
 	<div class="panel-body">
 
-
-		<div role="tabpanel">
-		    <!-- Nav tabs -->
-		    <ul class="nav nav-tabs" role="tablist">
-		    	<li role="presentation" class="active">
-		            <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Resumo</a>
-		        </li>
-		        <li role="presentation" class="">
-		            <a href="#etapas" aria-controls="etapas" role="tab" data-toggle="tab">Etapas</a>
-		        </li>
-		        <li role="presentation">
-		            <a href="#disciplinas" aria-controls="disciplinas" role="tab" data-toggle="tab">Disciplinas</a>
-		        </li>
-		        <li role="presentation">
-		            <a href="#contatos" aria-controls="contatos" role="tab" data-toggle="tab">Contatos</a>
-		        </li>
-		    </ul>
-
-		    <!-- Tab panes -->
-		    <div class="tab-content">
-
-		    	<!-- RESUMO -->
-		    	<div role="tabpanel" class="tab-pane active" id="overview">
-
-		    		<div class="well-sm"></div>
-
-					<div class="row">
-						<div class="col-sm-4">
+		<div class="row">
+						<div class="col-sm-6">
 							<table class="table table-condensed">
 								<thead>
 									<tr>
@@ -68,7 +42,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-6">
 							<table class="table table-condensed">
 								<thead>
 									<tr>
@@ -94,169 +68,131 @@
 						<div class="col-sm-4"></div>
 					</div>
 
-		        </div>
+		<div class="row">
 
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<!-- ETAPAS -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a href="{!! url('obras/'.$project->id.'/etapas/create') !!}" class="btn btn-success btn-xs pull-right" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i> ADICIONAR</a>
+						<h3 class="panel-title">ETAPAS</h3>
+					</div>
 
-		        <!-- ETAPAS -->
-		        <div role="tabpanel" class="tab-pane" id="etapas">
-					<div class="navbar">
-			        	<div class="pull-right">
-
-                			<a href="{!! url('obras/'.$project->id.'/etapas/create') !!}" class="btn btn-success btn-xs navbar-btn" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i> ADICIONAR</a>
-	        			</div>
-			        	<p class="navbar-text navbar-left">
-
-			        	</p>
-		        	</div>
 					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>Título</th>
-								<th></th>
-							</tr>
-						</thead>
 						<tbody>
 
 							@foreach ($project->stages as $stage)
-								<tr>
-									<td>{{ $stage->title }}</td>
-									<td></td>
-									<td>
-										<div class="pull-right">
-					                        {!! Form::open(array('url' => 'obras/etapas/'.$stage->id )) !!}
+							<tr>
+								<td>{{ $stage->title }}</td>
+								<td></td>
+								<td>
+									<div class="pull-right">
+										{!! Form::open(array('url' => 'obras/etapas/'.$stage->id )) !!}
 
-												<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_method" value="DELETE">
 
-					                        	<a href="{{ url('obras/'.$project->id.'/etapas/'.$stage->id.'/edit') }}" class="btn btn-default btn-xs" data-target="#modal" data-toggle="modal"><i class="fa fa-pencil"></i></a>
-						                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta etapa?');"><i class="fa fa-times"></i></button>
+										<a href="{{ url('obras/'.$project->id.'/etapas/'.$stage->id.'/edit') }}" class="btn btn-default btn-xs" data-target="#modal" data-toggle="modal"><i class="fa fa-pencil"></i></a>
+										<button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta etapa?');"><i class="fa fa-times"></i></button>
 
-					                        {!! Form::close() !!}
-					                 	</div>
-									</td>
-								</tr>
+										{!! Form::close() !!}
+									</div>
+								</td>
+							</tr>
 							@endforeach
 
 						</tbody>
 					</table>
-		        </div>
+				</div>
 
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 				<!-- DISCIPLINAS -->
-		        <div role="tabpanel" class="tab-pane" id="disciplinas">
-		        	<div class="navbar">
-			        	<div class="pull-right">
-		                	<a href="{!! url('obras/'.$project->id.'/disciplinas/create') !!}" class="btn btn-success btn-xs navbar-btn" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> ADICIONAR</a>
-	        			</div>
-			        	<p class="navbar-text navbar-left">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a href="{!! url('obras/'.$project->id.'/disciplinas/create') !!}" class="btn btn-success btn-xs pull-right" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> ADICIONAR</a>
+						<h3 class="panel-title">DISCIPLINAS</h3>
+					</div>
 
-			        	</p>
-		        	</div>
-		        	<div class="">
-		        		<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Título</th>
-									<th>Consultas Técnicas</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
+					<table class="table table-hover">
+						<tbody>
 
-								@foreach ($project->disciplines as $discipline)
-									<tr>
-										<td>{{ $discipline->title }}</td>
-										<td></td>
-										<td>
-											<div class="pull-right">
-						                        {!! Form::open(array('url' => 'obras/disciplinas/'.$discipline->id )) !!}
+							@foreach ($project->disciplines as $discipline)
+							<tr>
+								<td>{{ $discipline->title }}</td>
+								<td></td>
+								<td>
+									<div class="pull-right">
+										{!! Form::open(array('url' => 'obras/disciplinas/'.$discipline->id )) !!}
 
-													<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_method" value="DELETE">
 
-						                        	<a href="{{ url('obras/'.$project->id.'/disciplinas/'.$discipline->id.'/edit') }}" class="btn btn-default btn-xs" data-target="#modal" data-toggle="modal"><i class="fa fa-pencil"></i></a>
-							                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta disciplina?');"><i class="fa fa-times"></i></button>
+										<a href="{{ url('obras/'.$project->id.'/disciplinas/'.$discipline->id.'/edit') }}" class="btn btn-default btn-xs" data-target="#modal" data-toggle="modal"><i class="fa fa-pencil"></i></a>
+										<button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta disciplina?');"><i class="fa fa-times"></i></button>
 
-						                        {!! Form::close() !!}
-						                 	</div>
-										</td>
-									</tr>
-								@endforeach
+										{!! Form::close() !!}
+									</div>
+								</td>
+							</tr>
+							@endforeach
 
-							</tbody>
-						</table>
-		        	</div>
-		        </div>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<!-- CONTATOS -->
+				<div class="panel panel-default" id="contatos">
+					<div class="panel-heading">
+						<h3 class="panel-title">CONTATOS</h3>
+					</div>
 
 
-		        <!-- CONTATOS -->
-		        <div role="tabpanel" class="tab-pane" id="contatos">
-		        	<div class="navbar">
-			        	<div class="navbar-form navbar-right">
-							{!! Form::open(array('url' => 'obras/'.$project->id.'/contatos/attach', 'class' => 'form-inline')) !!}
 
-								<div class="form-group form-group-xs">
+					{!! Form::open(array('url' => 'obras/'.$project->id.'/contatos/attach', 'class' => 'panel-body')) !!}
 
-									<select name="contact_id" id="input" class="form-control input-sm" required="required">
-										<option selected="selected" value="">-- Selecione --</option>
-										@foreach ($project->client->contacts as $contact)
-											<option value="{{ $contact->id }}">{{ $contact->name }} / {{ $contact->company }}</option>
-										@endforeach
-									</select>
+					<div class="input-group input-group-sm">
+						<select name="contact_id" id="input" class="form-control input-sm" required="required">
+							<option selected="selected" value="">-- Selecione --</option>
+							@foreach ($project->client->contacts as $contact)
+							<option value="{{ $contact->id }}">{{ $contact->name }} / {{ $contact->company }}</option>
+							@endforeach
+						</select>
 
-									<button type="submit" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Vincular à Obra</button>
+				      	<div class="input-group-btn">
+				        	<button type="submit" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Vincular</button>
+				      	</div><!-- /btn-group -->
+				    </div><!-- /input-group -->
 
-								</div>
+					{!! Form::close() !!}
 
-							{!! Form::close() !!}
-			     		</div>
-			        	<div class="navbar-text navbar-left">
+					<table class="table table-hover" id="contacts-list">
+						<tbody>
 
-			        	</div>
-		        	</div>
-		        	<div class="collapse" id="collapseExample">
+							@foreach ($project->contacts as $projectcontact)
 
-		        		@include('contacts.create-form')
+							<tr title="" >
+								<td><strong><a href="{{ url( '/contatos/'.$projectcontact->id) }}">{{ $projectcontact->name }}</a></strong></td>
 
-		        	</div>
-		        	<div class="" >
+								<td>
+									<div class="pull-right hidden-phone">
 
-						<table class="table table-hover" id="contacts-list">
-							<thead>
-								<tr>
-									<th width="40">#</th>
-									<th>Nome</th>
-									<th>Empresa</th>
-									<!-- <th>Price</th> -->
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
+										{!! Form::open(array('url' => url('obras/'.$project->id.'/contatos/'.$projectcontact->id.'/detach'), 'role' => 'form' )) !!}
 
-								@foreach ($project->contacts as $projectcontact)
+										<a href="{{ url( '/contatos/'.$projectcontact->id.'/edit') }}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal"><i class="fa fa-pencil"></i></a>
+										<button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Desvincular este contato desta obra?');" title="Desvincular contato"><i class="fa fa-scissors"></i></button>
 
-									<tr title="" >
-										<td><a href="{{ url( '/contatos/'.$projectcontact->id) }}">{{ $projectcontact->id }}</a></td>
-										<td><strong><a href="{{ url( '/contatos/'.$projectcontact->id) }}">{{ $projectcontact->name }}</a></strong></td>
+										{!! Form::close() !!}
+									</div>
+								</td>
+							</tr>
 
-										<td>
-											<div class="pull-right hidden-phone">
+							@endforeach
+						</tbody>
+					</table>
 
-												{!! Form::open(array('url' => url('obras/'.$project->id.'/contatos/'.$projectcontact->id.'/detach'), 'role' => 'form' )) !!}
 
-													<a href="{{ url( '/contatos/'.$projectcontact->id.'/edit') }}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal"><i class="fa fa-pencil"></i></a>
-							                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Desvincular este contato desta obra?');" title="Desvincular contato"><i class="fa fa-scissors"></i></button>
-
-												{!! Form::close() !!}
-							             	</div>
-										</td>
-									</tr>
-
-								@endforeach
-							</tbody>
-						</table>
-
-		        	</div>
-		        </div>
-
-		    </div>
+				</div>
+			</div>
 		</div>
 
 	</div>
