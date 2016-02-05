@@ -46,3 +46,22 @@ Breadcrumbs::register('technical_consults_create', function ($breadcrumbs) {
 	$breadcrumbs->parent('technical_consults');
 	$breadcrumbs->push('Nova Consultas Técnica');
 });
+
+// CONSULTAS TÉCNICAS
+Breadcrumbs::register('consultas_tecnicas', function ($breadcrumbs, $technical_consult) {
+	$breadcrumbs->parent('project', $technical_consult->project);
+	// $breadcrumbs->parent('consultas_tecnicas', $technical_consult->client);
+	$breadcrumbs->push('Consulta Técnica CT' . str_pad($technical_consult->id, 3, "0", STR_PAD_LEFT), url('clientes/' . $technical_consult->client_id . '/obras/' . $technical_consult->id));
+});
+Breadcrumbs::register('consultas_tecnicas_criar_envio', function ($breadcrumbs) {
+	// $breadcrumbs->parent('project');
+	$breadcrumbs->push('Nova Consulta Técnica');
+});
+Breadcrumbs::register('consultas_tecnicas_criar_retorno', function ($breadcrumbs) {
+	// $breadcrumbs->parent('consultas_tecnicas');
+	$breadcrumbs->push('Registrar Retorno');
+});
+Breadcrumbs::register('consultas_tecnicas_criar_evento', function ($breadcrumbs) {
+	// $breadcrumbs->parent('consultas_tecnicas');
+	$breadcrumbs->push('Registrar Evento');
+});

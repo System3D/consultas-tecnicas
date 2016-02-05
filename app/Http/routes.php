@@ -73,6 +73,8 @@ Route::group(['middleware' => 'auth'], function () {
 	// CONSULTAS TÉCNICAS
 	Route::resource('consultas_tecnicas', 'TechnicalConsultController');
 
+	require (__DIR__ . '/Routes/consultas-tecnicas.php');
+
 	// OBRA X > CONSULTAS TÉCNICAS
 	Route::resource('obras/{obra_id}/etapas/{etapa_id}/consultas_tecnicas', 'TechnicalConsultController');
 	Route::resource('obras/{obra_id}/etapas/{etapa_id}/consultas_tecnicas', 'TechnicalConsultController');

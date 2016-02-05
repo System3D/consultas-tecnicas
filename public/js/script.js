@@ -95,30 +95,30 @@ $(document).ready(function($) {
         $(".modal [data-target=#modal]").click(function(ev) {
 
             ev.preventDefault();
-            $("#modal .modal-dialog .modal-content").html('<p class="text-center well-lg">' + '<span class="fa fa-spinner fa-spin"></span>' + '</p>');
-
             var target = $(this).attr("href");
 
-            $("#modal .modal-dialog .modal-content").load(target, function() {
+            $("#modal .modal-dialog .modal-content").html('<p class="text-center well-lg">' + '<span class="fa fa-spinner fa-spin"></span>' + '</p>');
+            
+            $("#modal .modal-dialog").load(target, function() {            
                 $("#modal").modal("show");
             }).error(function(data) {
-                $("#modal").find('.modal-content').html(data).modal("show");
+                $("#modal").find('.modal-dialog').html(data).modal("show");
             });;
 
         });
 
         //Bootstrap WYSIHTML5 - text editor
-        // $(".modal textarea.wysihtml5").wysihtml5({
-        //     "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-        //     "emphasis": true, //Italics, bold, etc. Default true
-        //     "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-        //     "html": false, //Button which allows you to edit the generated HTML. Default false
-        //     "link": true, //Button to insert a link. Default true
-        //     "image": true, //Button to insert an image. Default true,
-        //     "color": false, //Button to change color of font  
-        //     "blockquote": true, //Blockquote  
-        //     "size": 'xs' //default: none, other options are xs, sm, lg
-        // });
+        $(".modal textarea.wysihtml5").wysihtml5({
+            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": true, //Button to insert a link. Default true
+            "image": true, //Button to insert an image. Default true,
+            "color": false, //Button to change color of font  
+            "blockquote": true, //Blockquote  
+            "size": 'xs' //default: none, other options are xs, sm, lg
+        });
 
         /* BAR-RATING */
         $('.modal .bar-rating').barrating({            
@@ -136,7 +136,7 @@ $(document).ready(function($) {
 
         // TINYMCE
         tinymce.init({
-            selector: 'textarea',
+            selector: 'textarea.tinymce',
             height: 500,
             plugins: [
                 'advlist autolink lists link image charmap print preview anchor',
@@ -204,39 +204,45 @@ $(document).ready(function($) {
     });
 
 
-    //Bootstrap WYSIHTML5 - text editor
-    // $("textarea.wysihtml5").wysihtml5({
-    //     "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-    //     "emphasis": true, //Italics, bold, etc. Default true
-    //     "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-    //     "html": false, //Button which allows you to edit the generated HTML. Default false
-    //     "link": true, //Button to insert a link. Default true
-    //     "image": true, //Button to insert an image. Default true,
-    //     "color": false, //Button to change color of font  
-    //     "blockquote": true, //Blockquote  
-    //     "size": 'xs' //default: none, other options are xs, sm, lg
-    // });
+    // Bootstrap WYSIHTML5 - text editor
+    $("textarea.wysihtml5").wysihtml5({
+        "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+        "emphasis": true, //Italics, bold, etc. Default true
+        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+        "html": false, //Button which allows you to edit the generated HTML. Default false
+        "link": true, //Button to insert a link. Default true
+        "image": false, //Button to insert an image. Default true,
+        "color": false, //Button to change color of font  
+        "blockquote": true, //Blockquote  
+        "size": 'sm' //default: none, other options are xs, sm, lg
+    });
 
 
     // TINYMCE
     tinymce.init({
-        selector: 'textarea',
-        height: 500,
+        selector: 'textarea.tinymce',
+        menubar: false,
+        toolbar_items_size: 'small',
+        height : 300,        
+        theme: 'modern',
         plugins: [
             'advlist autolink lists link image charmap print preview anchor',
             'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code'
+            'insertdatetime media table contextmenu paste code paste textcolor'
         ],
-        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        content_css: [
-            '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-            '//www.tinymce.com/css/codepen.min.css'
-        ]
+        toolbar: 'styleselect | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
+        statusbar: false
     });
 
 
     /* TIMEAGO */
     $('.timeago').timeago();
+
+
+    /* Bootstrap Select */
+    $('.selectpicker').selectpicker({            
+        size: 4
+    });
 
 
 });

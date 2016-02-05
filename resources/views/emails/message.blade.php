@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>STEEL4WEB</title>
+
 <!--
 
     An email present from your friends at Litmus (@litmusapp)
@@ -139,7 +140,15 @@
                                 <tr>
                                     <td bgcolor="#ffffff" width="100" align="center">
 
-                                            CONSULTA TÉCNICA CT0{{$email_data['consulta_tecnica_id']}}
+                                            <h5>CONSULTA TÉCNICA CT{{$email_data['consulta_tecnica_id']}}</h5>
+                                            <small>
+                                              OBRA <strong>{{ strtoupper( $email_data['obra'] ) }}</strong> |
+                                              ETAPA <strong>{{ strtoupper( $email_data['etapa'] ) }}</strong> |
+                                              DISCIPLINA <strong>{{ strtoupper( $email_data['disciplina'] ) }}</strong>
+                                              <br>
+                                              {{ date('d/m/Y', strtotime($email_data['date']) ) . " - " . date('H:i', strtotime($email_data['time']) ) }}
+                                            </small>
+
 
                                     </td>
                                 </tr>
@@ -165,6 +174,7 @@
                                 </tr>
                                 <tr>
                                     <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy"><?php echo $email_data['body_html'] ?></td>
+
                                 </tr>
                             </table>
                         </td>
@@ -185,6 +195,7 @@
                             <table width="500" border="0" cellspacing="0" cellpadding="0" align="center" class="responsive-table">
                                 <tr>
                                     <td align="center" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
+
 
                                     </td>
                                 </tr>

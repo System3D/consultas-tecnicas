@@ -3236,8 +3236,9 @@ vertical-align: top;
 }
 
 .panel-heading {
-  border-bottom: 1px solid #eee;
-  background-color: #FAFAFA;
+  border-bottom: 1px solid #39435C;
+  background-color: #283744;
+  color: #fff;
 }
 
 .msg-in {
@@ -3296,7 +3297,9 @@ vertical-align: top;
   border-width: 6px;
   margin-top: -6px;
 }
-
+.anexos .list-group {
+    margin-bottom: 0;
+}
 
 /*=Chat=*/
 ul.chat-list {
@@ -4279,7 +4282,24 @@ only screen and (min-device-pixel-ratio : 1.5),
 /* MODALS */
 .modal-header {
     padding: 10px 15px;
-    background-color: #e5e5e5;
+    background-color: #141C22;
+    color: #fff;
+}
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+}
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    /* border: 1px solid #999; */
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
 }
 
 

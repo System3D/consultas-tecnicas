@@ -268,7 +268,7 @@
 			Consultas Técnicas da Obra
 		</header>
 
-		@include('technical_consults.timeline.timeline', array('technical_consults' => $project->technical_consults))
+		@include('consultas_tecnicas.timeline.timeline', array('email_messages' => $email_messages))
 
 	</section>
 </section>

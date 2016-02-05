@@ -15,6 +15,10 @@ class EmailMessage extends Model {
 		return $this->belongsTo('App\TechnicalConsult', 'consulta_tecnica_id');
 	}
 
+	public function consulta_tecnica() {
+		return $this->belongsTo('App\ConsultaTecnica', 'consulta_tecnica_id');
+	}
+
 	public function replies() {
 		return $this->hasMany('App\EmailMessage');
 	}

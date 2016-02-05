@@ -119,15 +119,16 @@ class ProjectController extends Controller {
 			}
 		});
 
-		// echo "<pre>";
-		// foreach ($project->technical_consults as $technical_consults) {
-		// 	foreach ($technical_consults->emails as $email) {
-		// 		print_r($email->replies);
-		// 	}
-		// }
-		// exit;
+		$consultas_tecnicas = $project->consultas_tecnicas;
+		foreach ($consultas_tecnicas as $consulta_tecnica) {
+			foreach ($consulta_tecnica->emails as $email_message) {
+				$email_messages[] = $email_message;
+			}
+		}
 
-		return view('projects.show', compact('project', 'contacts', 'request'));
+		$email_messages = collect($email_messages)->sortByDesc('date');
+
+		return view('projects.show', compact('project', 'contacts', 'request', 'email_messages'));
 
 	}
 

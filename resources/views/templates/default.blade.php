@@ -233,8 +233,6 @@
     <script src="{{ asset('js/plugins/fullcalendar/fullcalendar.js') }}" type="text/javascript"></script>
     <!-- timago -->
     <script src="{{ asset('js/plugins/timeago/jquery.timeago.js') }}" type="text/javascript"></script>
-    <!-- Bootstrap Select -->
-    <script src="{{ asset('js/plugins/bootstrap-select/bootstrap-select.min.js') }}" rel="stylesheet" type="text/css"></script>
     <!--VALIDATE JS -->
     <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
     <!--TinySort JS -->
@@ -245,6 +243,8 @@
     <script src="{{ asset('js/plugins/tinymce/tinymce.min.js') }}" type="text/javascript"></script>
     <!-- jquery.printElement -->
     <script src="{{ asset('js/plugins/printElement/jquery.printElement.min.js') }}" type="text/javascript"></script>
+    <!-- Bootstrap Select -->
+    <script src="{{ asset('js/plugins/bootstrap-select/bootstrap-select.min.js') }}" type="text/javascript"></script>
 
 
 

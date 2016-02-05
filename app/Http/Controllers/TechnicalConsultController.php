@@ -262,25 +262,25 @@ class TechnicalConsultController extends Controller {
 	 */
 	public function timeline(Request $request) {
 
-		$view = $request->input('view', 'timeline');
-		switch ($view) {
-		case 'chronologic':
-			$email_messages = EmailMessage::where('owner_id', $request->user()->id)
-				->where('');
-			# code...
-			break;
+		// $view = $request->input('view', 'timeline');
+		// switch ($view) {
+		// case 'chronologic':
+		// 	$email_messages = EmailMessage::where('owner_id', $request->user()->id)
+		// 		->where('');
+		// 	# code...
+		// 	break;
 
-		default:
-			$technical_consults = TechnicalConsult::where('owner_id', $request->user()->id)->get();
-			# code...
-			break;
-		}
+		// default:
+		// 	$technical_consults = TechnicalConsult::where('owner_id', $request->user()->id)->get();
+		// 	# code...
+		// 	break;
+		// }
 
-		if ($request->ajax()) {
-			return view('technical_consults.timeline.timeline', compact('technical_consults'));
-		} else {
-			return view('technical_consults.index', compact('technical_consults'));
-		}
+		// if ($request->ajax()) {
+		// 	return view('technical_consults.timeline.timeline', compact('technical_consults'));
+		// } else {
+		// 	return view('technical_consults.index', compact('technical_consults'));
+		// }
 
 	}
 
