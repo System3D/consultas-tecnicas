@@ -100,7 +100,7 @@ class ConsultasTecnicasController extends Controller {
 			// CRIA ACONTECIMENTO
 			$technical_consult = ConsultaTecnica::create($data['technical_consult']);
 			// CRIA EMAIL MESSAGE
-			//$email_message = new EmailMessage;
+			$email_message = new EmailMessage;
 
 			break;
 
@@ -168,6 +168,7 @@ class ConsultasTecnicasController extends Controller {
 		$email_message->consulta_tecnica_id = $technical_consult->id;
 		$email_message->owner_id = $request->user()->id;
 		$email_message->body_html = $email_data['description'];
+		$email_message->rating = @$email_data['rating'];
 
 		// SALVA EMAIL MESSAGE
 		$email_message->save();
@@ -241,8 +242,14 @@ class ConsultasTecnicasController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id) {
-		//
+	public function show(Request $request, $id) {
+		$technical_consult = ConsultaTecnica::find($id);
+
+		if ($request->ajax()) {
+			return view('consultas_tecnicas.exibir-modal', compact('technical_consult'));
+		} else {
+			return view('consultas_tecnicas.exibir', compact('technical_consult'));
+		}
 	}
 
 	/**

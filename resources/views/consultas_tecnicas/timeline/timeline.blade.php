@@ -35,6 +35,11 @@
                 <a href="{{ url('/consultas-tecnicas/create?'.http_build_query(['cliente'=>@$project->client->id, 'project_id'=>@$project->id])) }}" class="btn btn-success"><i class="fa fa-plus"></i> NOVA CONSULTA TÉCNICA</a>
             </div>
         </div>
+        <div class="form-group">
+            <div class="btn-group btn-group-sm">
+                <a href="{{ url('/consultas-tecnicas/create?'.http_build_query(['tipo'=>'evento', 'cliente'=>@$project->client->id, 'project_id'=>@$project->id])) }}" class="btn btn-default"><i class="fa fa-plus"></i> REGISTRAR ACONTECIMENTO</a>
+            </div>
+        </div>
     </div>
 </nav>
 
@@ -49,11 +54,11 @@
         @foreach ($email_messages as $email)
 
             @if ( $email->type == 2 )
-                @include( 'technical_consults.timeline.timeline_reply' )
+                @include( 'consultas_tecnicas.timeline.timeline_retorno' )
             @elseif ( $email->type == 1 )
-                @include( 'technical_consults.timeline.timeline_send' )
+                @include( 'consultas_tecnicas.timeline.timeline_envio' )
             @else
-                @include( 'technical_consults.timeline.timeline_event' )
+                @include( 'consultas_tecnicas.timeline.timeline_evento' )
             @endif
 
         @endforeach

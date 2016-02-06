@@ -10,6 +10,8 @@ class EmailMessage extends Model {
 	public $timestamps = true;
 	protected $fillable = array('type', 'from', 'to', 'subject', 'body_text', 'body_html', 'headers', 'consulta_tecnica_id', 'email_message_id', 'status', 'rating', 'date');
 	protected $visible = array('id', 'type', 'from', 'to', 'subject', 'body_text', 'body_html', 'headers', 'consulta_tecnica_id', 'email_message_id', 'status', 'rating', 'date');
+	public $ratingclass;
+	public $ratinglabel;
 
 	public function tecnhical_consult() {
 		return $this->belongsTo('App\TechnicalConsult', 'consulta_tecnica_id');

@@ -65,10 +65,10 @@
 
 					<div class="form-group">
 						<div class="col-sm-10 col-sm-offset-2">
-							<input type="checkbox" name="sendnow" class="" checked="checked">  Enviar e-mail ao salvar
+							<input type="checkbox" name="sendnow" id="sendnow" class="">  Enviar e-mail ao salvar
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group" id="sendtome">
 						<div class="col-sm-10 col-sm-offset-2">
 							<input type="checkbox" name="sendtome" class="">  Receber uma cópia <small class="text-muted">&lt;{{ Auth::user()->email }}&gt; </small>
 						</div>
@@ -85,4 +85,19 @@
 	</div>
 </section>
 
+@stop
+
+@section('footer-scripts')
+<script>
+	$(document).ready(function($) {
+		$('#sendtome').slideUp(150);
+		$('#sendnow').change(function(event) {
+			if( $(this).is(':checked') ){
+				$('#sendtome').slideDown(150);
+			}else{
+				$('#sendtome').slideUp(150);
+			}
+		});
+	});
+</script>
 @stop

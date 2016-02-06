@@ -142,28 +142,29 @@
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 				<!-- CONTATOS -->
 				<div class="panel panel-default" id="contatos">
+
 					<div class="panel-heading">
+						<a href="{{ url('clientes/'.$project->client_id.'/contatos/create') }}" class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> ADICIONAR</a>
 						<h3 class="panel-title">CONTATOS</h3>
 					</div>
 
+					@if ($project->client->contacts->diff( $project->contacts )->count() > 0)
+						{!! Form::open(array('url' => 'obras/'.$project->id.'/contatos/attach', 'class' => 'panel-body')) !!}
 
+							<div class="input-group input-group-sm">
+								<select name="contact_id" id="input" class="form-control input-sm" required="required">
+									<option selected="selected" value="">-- Selecione --</option>
+									@foreach ($project->client->contacts->diff( $project->contacts ) as $contact)
+										<option value="{{ $contact->id }}">{{ $contact->name }} / {{ $contact->company }}</option>
+									@endforeach
+								</select>
 
-					{!! Form::open(array('url' => 'obras/'.$project->id.'/contatos/attach', 'class' => 'panel-body')) !!}
-
-					<div class="input-group input-group-sm">
-						<select name="contact_id" id="input" class="form-control input-sm" required="required">
-							<option selected="selected" value="">-- Selecione --</option>
-							@foreach ($project->client->contacts as $contact)
-							<option value="{{ $contact->id }}">{{ $contact->name }} / {{ $contact->company }}</option>
-							@endforeach
-						</select>
-
-				      	<div class="input-group-btn">
-				        	<button type="submit" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Vincular</button>
-				      	</div><!-- /btn-group -->
-				    </div><!-- /input-group -->
-
-					{!! Form::close() !!}
+						      	<div class="input-group-btn">
+						        	<button type="submit" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Vincular</button>
+						      	</div><!-- /btn-group -->
+						    </div><!-- /input-group -->
+						{!! Form::close() !!}
+					@endif
 
 					<table class="table table-hover" id="contacts-list">
 						<tbody>

@@ -28,7 +28,7 @@
 				<span class="badge">{{ $project->disciplines->count() }}</span> Disciplinas
 			</td>
 			<td class="text-center">
-				<span class="badge">{{ $project->technical_consults->count() }}</span> Consultas Técnicas
+				<span class="badge">{{ $project->consultas_tecnicas->count() }}</span> Consultas Técnicas
 			</td>
 			<td>
 				<div class="pull-right hidden-phone">

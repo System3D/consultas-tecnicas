@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Consultas Técnicas | Garcia</title>
+    <title>Consultas Técnicas</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta name="description" content="Developed By Luciano Tonet">
     <meta name="keywords" content="Bootstrap 3, Laravel 5.1, Responsive">

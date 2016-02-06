@@ -62,7 +62,7 @@ echo $doc->saveHTML();
                             'project_stage_id'=>$email->consulta_tecnica->project_stage_id,
                             'consulta_tecnica_id'=>$email->consulta_tecnica_id,
                             'email_message_id'=>$email->id,
-                            'tipo'=>'retorno'])) }}" data-toggle="modal" class="btn btn-xs btn-default btn-block"><i class="fa fa-plus"></i> Resposta</a>
+                            'tipo'=>'retorno'])) }}" data-toggle="modal" class="btn btn-xs btn-default btn-outline btn-block"><i class="fa fa-plus"></i> Resposta</a>
                     </p>
 
             </li>

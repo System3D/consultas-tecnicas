@@ -125,7 +125,8 @@
 										<th width="40">#</th>
 										<th>Nome</th>
 										<th>Empresa</th>
-										<th>Obras</th>
+										<th>E-mail</th>
+										<th>Telefones</th>
 										<th></th>
 									</tr>
 								</thead>
@@ -135,19 +136,20 @@
 
 										<tr title="" >
 											<td><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->id }}</a></td>
-											<td><strong><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->name }}</a></strong></td>
-											<td><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->company }}</a></td>
-											<td></td>
+											<td><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->name }}</a></td>
+											<td>{{ $clientcontact->company }}</td>
+											<td><a href="mailto:{{ $clientcontact->email }}">{{ $clientcontact->email }}</a></td>
+											<td>{{ $clientcontact->phones }}</td>
 											<td>
 												<div class="pull-right hidden-phone">
 
-													{!! Form::open(array('url' => url('clientes/'.$client->id.'/contatos/'.$clientcontact->id ), 'role' => 'form', 'method' => 'delete' )) !!}
+													{!! Form::open(array('url' => url('contatos/'.$clientcontact->id ), 'role' => 'form', 'method' => 'delete' )) !!}
 
 														<input type="hidden" name="_method" value="delete">
 
 														<input type="hidden" name="back_to" value="{{ url('clientes/'.$client->id.'#contatos' ) }}">
 
-														<a href="{{ url( 'clientes/'.$client->id.'/contatos/'.$clientcontact->id.'/edit') }}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal"><i class="fa fa-pencil"></i></a>
+														<a href="{{ url( 'contatos/'.$clientcontact->id.'/edit') }}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal"><i class="fa fa-pencil"></i></a>
 								                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Exluir este contato permanentemente?');"><i class="fa fa-times"></i></button>
 
 													{!! Form::close() !!}
