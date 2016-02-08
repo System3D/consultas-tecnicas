@@ -46,6 +46,12 @@ class ConsultasTecnicasController extends Controller {
 
 		$disciplina = $obra->disciplines->find(@$data['disciplina']);
 
+		if (count(@$obra->contacts) == 0) {
+			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Nenhum contato vinculado à obra!<br/>Você precisa vincular ao menos um contato à obra para poder criar uma Consulta Técnica.');
+			$request->session()->flash('sys_notifications', $this->sys_notifications);
+			return back();
+		}
+
 		$inputdata = array();
 		$inputdata['contatos'] = $obra->contacts->lists('name', 'id');
 		$inputdata['etapas'] = $obra->stages->lists('title', 'id');

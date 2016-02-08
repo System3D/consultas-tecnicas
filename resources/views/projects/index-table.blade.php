@@ -6,7 +6,6 @@
 			@if ( !@$client_id )
 				<th>Cliente</th>
 			@endif
-			<th class="text-center" colspan="3"></th>
 			<th></th>
 		</tr>
 	</thead>
@@ -21,23 +20,21 @@
 				<td><a href="{{ url('clientes/'.$project->client->id) }}">{{ $project->client->name }}</a></td>
 			@endif
 
-			<td class="text-center">
+			<!-- <td class="">
 				<span class="badge">{{ $project->stages->count() }}</span> Etapas
 			</td>
-			<td class="text-center">
+			<td class="">
 				<span class="badge">{{ $project->disciplines->count() }}</span> Disciplinas
-			</td>
-			<td class="text-center">
-				<span class="badge">{{ $project->consultas_tecnicas->count() }}</span> Consultas Técnicas
-			</td>
-			<td>
-				<div class="pull-right hidden-phone">
-                    {!! Form::open(array('url' => 'obras/'.$project->id , 'method'  => 'delete' )) !!}
-                    	<a href="{{ url('obras/'.$project->id.'/edit') }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a>
-                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-times"></i></button>
+			</td> -->
+			<td class="text-right">
+                {!! Form::open(array('url' => 'obras/'.$project->id , 'method'  => 'delete' )) !!}
+	                <a href="{{ url('/consultas-tecnicas/create?'.http_build_query(['cliente'=>@$project->client->id, 'project_id'=>@$project->id])) }}" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> CONSULTA TÉCNICA</a>
 
-                    {!! Form::close() !!}
-             	</div>
+	                <a href="{{ url('/consultas-tecnicas/create?'.http_build_query(['tipo'=>'evento', 'cliente'=>@$project->client->id, 'project_id'=>@$project->id])) }}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> ACONTECIMENTO</a>
+
+                	<a href="{{ url('obras/'.$project->id.'/edit') }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a>
+                    <button class="btn btn-xs btn-danger" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-times"></i></button>
+                {!! Form::close() !!}
 			</td>
 		</tr>
 		@endforeach

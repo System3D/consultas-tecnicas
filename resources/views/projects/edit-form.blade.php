@@ -10,7 +10,7 @@
 	<div class="form-group">
 		<label for="inputDescription" class="col-lg-2 col-sm-2 control-label">Descrição</label>
 		<div class="col-lg-10">
-			<textarea name="description" class="form-control" id="inputDescription">{!!  $project->description or old('description') !!}</textarea>
+			<textarea name="description" class="form-control tinymce" id="inputDescription">{!!  $project->description or old('description') !!}</textarea>
 		</div>
 	</div>
 

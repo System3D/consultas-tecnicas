@@ -32,7 +32,12 @@
 						</div>
 						<label for="input" class="col-sm-2">Disciplina:</label>
 						<div class="col-sm-4">
+							@if ( count(@$inputdata['disciplinas']) > 0)
 							{!! Form::select('technical_consult[project_discipline_id]', $inputdata['disciplinas'], old('disciplina', @$disciplina->id), ["class"=>"form-control selectpicker","title"=>"Informe a disciplina"]) !!}
+							@else
+								<p class="text-muted"><i class="fa fa-warning"></i> Nenhuma disciplina cadastrada</p>
+							@endif
+
 						</div>
 					</div>
 

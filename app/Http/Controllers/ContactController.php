@@ -45,7 +45,10 @@ class ContactController extends Controller {
 	 * @return Response
 	 */
 	public function store(Request $request) {
-		$validator = Validator::make($request->all(), [
+
+		$data = $request->all();
+
+		$validator = Validator::make($data, [
 			'email' => 'required|unique:contatos|max:255|email',
 		]);
 
@@ -55,10 +58,10 @@ class ContactController extends Controller {
 
 			$request->session()->flash('sys_notifications', $sys_notifications);
 
-			return back()->withInput($request->all());
+			return back()->withInput($data);
 		}
 
-		$contact = Contact::create($request->all());
+		$contact = Contact::create($data);
 
 		if ($contact) {
 			$sys_notifications[] = array('type' => 'success', 'message' => 'Contato salvo com sucesso!');
@@ -68,7 +71,7 @@ class ContactController extends Controller {
 
 		$request->session()->flash('sys_notifications', $sys_notifications);
 
-		return back()->withErrors($validator)->withInput($request->all());
+		return back()->withErrors($validator)->withInput($data);
 	}
 
 	/**

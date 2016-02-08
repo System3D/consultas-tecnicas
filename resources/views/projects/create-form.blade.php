@@ -9,7 +9,7 @@
 	<div class="form-group">
 		<label for="inputNotes" class="col-lg-2 col-sm-2 control-label">Descrição</label>
 		<div class="col-lg-10">
-			<textarea name="description" class="form-control" id="inputNotes">{!! old('description') !!}</textarea>
+			<textarea name="description" class="form-control tinymce" id="inputNotes">{!! old('description') !!}</textarea>
 		</div>
 	</div>
 
