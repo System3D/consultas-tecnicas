@@ -5,14 +5,16 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateClientesTable extends Migration {
 
-	public function up()
-	{
-		Schema::create('clientes', function(Blueprint $table) {
+	public function up() {
+		Schema::create('clientes', function (Blueprint $table) {
 
-			$table->increments('id');			
-			$table->string('name')->nullable();
-			$table->string('email')->nullable();
+			$table->increments('id');
+			$table->text('name')->nullable();
+			$table->text('responsavel')->nullable();
+			$table->text('email')->nullable();
+			$table->text('email2')->nullable();
 			$table->text('address')->nullable();
+			$table->text('cep')->nullable();
 			$table->text('phones')->nullable();
 			$table->string('company')->nullable();
 			$table->string('slug')->nullable();
@@ -21,8 +23,7 @@ class CreateClientesTable extends Migration {
 		});
 	}
 
-	public function down()
-	{
+	public function down() {
 		Schema::drop('clientes');
 	}
 }

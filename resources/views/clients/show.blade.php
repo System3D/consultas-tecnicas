@@ -57,9 +57,19 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="inputresponsavel" class="col-lg-2 col-sm-2 control-label">Responsável</label>
+							<div class="col-lg-10">
+								<p class="form-control-static">{!! $client->responsavel !!}</p>
+							</div>
+						</div>
+						<div class="form-group">
 							<label for="inputEmail" class="col-lg-2 col-sm-2 control-label">E-mail</label>
 							<div class="col-lg-10">
-								<p class="form-control-static">{!! $client->email !!}</p>
+								<p class="form-control-static"><a href="mailto:{!! $client->email !!}">{!! $client->email !!}</a>
+								@if($client->email2)
+									<a href="mailto:{!! $client->email2 !!}"> {!! $client->email2 !!}</a>
+								@endif
+								</p>
 							</div>
 						</div>
 						<div class="form-group">
@@ -78,6 +88,12 @@
 							<label for="inputAddress" class="col-lg-2 col-sm-2 control-label">Endereço</label>
 							<div class="col-lg-10">
 								<p class="form-control-static">{!! $client->address !!}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputcep" class="col-lg-2 col-sm-2 control-label">CEP</label>
+							<div class="col-lg-10">
+								<p class="form-control-static">{!! $client->cep !!}</p>
 							</div>
 						</div>
 						<div class="form-group">
