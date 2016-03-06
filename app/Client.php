@@ -6,8 +6,8 @@ class Client extends Model {
 
 	protected $table = 'clientes';
 	public $timestamps = true;
-	protected $fillable = array('id', 'email', 'name', 'company', 'address', 'phones', 'slug', 'owner_id');
-	protected $visible = array('id', 'email', 'name', 'company', 'address', 'phones', 'slug', 'owner_id');
+	protected $fillable = array('id', 'email', 'name', 'company', 'responsavel', 'email2', 'cep', 'address', 'city', 'phones', 'slug', 'obs', 'owner_id');
+	protected $visible = array('id', 'email', 'name', 'company', 'responsavel', 'email2', 'cep', 'address', 'city', 'phones', 'slug', 'obs', 'owner_id');
 
 	protected $appends = array('slug');
 

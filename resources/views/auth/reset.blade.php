@@ -7,7 +7,7 @@
         <div class="col-md-6 col-md-offset-3 col-md-6 col-md-offset-3">
             <section class="panel">
                 <header class="panel-heading text-center">
-                    Reset password
+                    Alterar senha
                 </header>
                 <div class="panel-body">
 
@@ -18,7 +18,7 @@
                         @if (count($errors) > 0)
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger">{{ $error }}</div>
-                            @endforeach                            
+                            @endforeach
                         @endif
 
                         <div class="form-group">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">                                
+                        <div class="form-group">
                             <label for="inputPassword" class="col-lg-2 col-sm-2 control-label"></label>
                             <div class="col-lg-10">
                                 <input type="password" class="form-control" id="inputPassword" placeholder="Repita sua senha" name="password_confirmation" value="">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-lg-5">
                                 <p class="text-right form-control-static">
-                                    
+
                                 </p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                     </form>
 
                 </div>
-            </section>          
+            </section>
         </div>
     </div>
 </div>

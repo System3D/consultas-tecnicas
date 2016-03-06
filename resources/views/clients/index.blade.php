@@ -17,7 +17,8 @@
 				<tr>
 					<th width="40">#</th>
 					<th>Nome</th>
-					<th>Empresa</th>
+					<th>Responsável</th>
+					<th>Emails</th>
 					<th>Obras</th>
 					<!-- <th>Price</th> -->
 					<th></th>
@@ -29,8 +30,15 @@
 
 				<tr title="{{ $client->notes }}">
 					<td><a href="{{ url('clientes/'.$client->id) }}">{{	$client->id }}</a></td>
-					<td><strong><a href="{{ url('clientes/'.$client->id) }}">{{	$client->name }}</a></strong></td>
-					<td><a href="{{ url('clientes/'.$client->id) }}">{{	$client->company }}</a></td>
+					<td><strong><a href="{{ url('clientes/'.$client->id) }}">{{	$client->name }}</a></strong><br>
+						<small>{{	$client->address }}. CEP {{	$client->cep }}</small>
+					</td>
+					<td><a href="{{ url('clientes/'.$client->id) }}">{{	$client->responsavel }}</a></td>
+					<td><a href="mailto:{{	$client->email }}">{{	$client->email }}</a>
+								@if($client->email2)
+									<br/><a href="mailto:{!! $client->email2 !!}">{!! $client->email2 !!}</a>
+								@endif
+								</td>
 					<td>{{  count( $client->projects ) }}</td>
 					<td>
 						<div class="pull-right hidden-phone">

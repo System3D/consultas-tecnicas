@@ -57,9 +57,19 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputEmail" class="col-lg-2 col-sm-2 control-label">E-mail</label>
+							<label for="inputresponsavel" class="col-lg-2 col-sm-2 control-label">Responsável</label>
 							<div class="col-lg-10">
-								<p class="form-control-static">{!! $client->email !!}</p>
+								<p class="form-control-static">{!! $client->responsavel !!}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail" class="col-lg-2 col-sm-2 control-label">E-mails</label>
+							<div class="col-lg-10">
+								<p class="form-control-static"><a href="mailto:{!! $client->email !!}">{!! $client->email !!}</a>
+								@if($client->email2)
+									<br/><a href="mailto:{!! $client->email2 !!}">{!! $client->email2 !!}</a>
+								@endif
+								</p>
 							</div>
 						</div>
 						<div class="form-group">
@@ -81,9 +91,15 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputNotes" class="col-lg-2 col-sm-2 control-label">Obeservações</label>
+							<label for="inputcep" class="col-lg-2 col-sm-2 control-label">CEP</label>
 							<div class="col-lg-10">
-								<p class="form-control-static">{!!  $client->notes !!}</p>
+								<p class="form-control-static">{!! $client->cep !!}</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputobs" class="col-lg-2 col-sm-2 control-label">Obeservações</label>
+							<div class="col-lg-10">
+								<p class="form-control-static">{!!  $client->obs !!}</p>
 							</div>
 						</div>
 						{!! Form::close() !!}

@@ -47,12 +47,18 @@ class DatabaseSeeder extends Seeder {
 				 */
 			foreach (range(1, 3) as $index_client) {
 
+				$empresa = $faker->company();
 				$client = new Client;
+				$client->name = $empresa;
+				$client->responsavel = $faker->firstName() . " " . $faker->lastName();
 				$client->email = $faker->email();
-				$client->name = $faker->name();
-				$client->company = $faker->company();
-				$client->address = '';
-				$client->phones = '';
+				$client->email2 = $faker->email();
+				$client->phones = $faker->phoneNumber() . ", " . $faker->phoneNumber();
+				$client->company = $empresa;
+				$client->address = $faker->streetAddress();
+				$client->city = $faker->city();
+				$client->cep = $faker->postcode();
+				$client->obs = $faker->sentence($nbWords = 6, $variableNbWords = true);
 
 				$slug = $client->slug;
 				$client->slug = $slug;

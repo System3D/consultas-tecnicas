@@ -17,10 +17,10 @@
                         @if (count($errors) > 0)
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger">{{ $error }}</div>
-                            @endforeach      
+                            @endforeach
                         @endif
 
-                        <div class="form-group">                            
+                        <div class="form-group">
                             <div class="text-center">
                                 <p>Para redefinir sua senha informe seu e-mail abaixo.<br/>Lhe enviaremos um link para você criar uma nova senha.</p>
                             </div>
@@ -39,14 +39,14 @@
                                     Receber link
                                 </button>
                             </div>
-                            <div class="col-lg-5">                                
+                            <div class="col-lg-5">
                                 <a href="{!! url('login') !!}" class="btn btn-default btn-block">Cancelar</a>
                             </div>
                         </div>
                     </form>
 
                 </div>
-            </section>          
+            </section>
         </div>
     </div>
 </div>
