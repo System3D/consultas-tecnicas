@@ -31,7 +31,7 @@
 				<tr title="{{ $client->notes }}">
 					<td><a href="{{ url('clientes/'.$client->id) }}">{{	$client->id }}</a></td>
 					<td><strong><a href="{{ url('clientes/'.$client->id) }}">{{	$client->name }}</a></strong><br>
-						<small>{{	$client->address }}. CEP {{	$client->cep }}</small>
+						<small>{{	$client->address }}. {{	$client->city }}. CEP {{	$client->cep }}</small>
 					</td>
 					<td><a href="{{ url('clientes/'.$client->id) }}">{{	$client->responsavel }}</a></td>
 					<td><a href="mailto:{{	$client->email }}">{{	$client->email }}</a>

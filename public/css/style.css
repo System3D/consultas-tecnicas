@@ -3971,6 +3971,11 @@ white-space: nowrap;
 padding: 10px 15px;
 text-transform: uppercase;
 }
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #283744;
+    border-color: #283744;
+}
 .bg-info {
 background-color: #7acbee;
 color: white;

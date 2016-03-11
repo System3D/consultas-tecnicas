@@ -20,50 +20,48 @@
 
 		<div class="row">
 						<div class="col-sm-6">
-							<table class="table table-condensed">
-								<thead>
-									<tr>
-										<th class="text-center" colspan="2">RESUMO</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="text-right"><strong>Título:</strong></td>
-										<td>{{ $project->title }}</td>
-									</tr>
-									<tr>
-										<td class="text-right"><strong>Data:</strong></td>
-										<td>{!! date('d/m/Y', strtotime($project->created_at)) !!}</td>
-									</tr>
-									<tr>
-										<td class="text-right"><strong>Alterado:</strong></td>
-										<td>{!! date('d/m/Y', strtotime($project->updated_at)) !!}</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">RESUMO</h3>
+								</div>
+								<table class="table table-condensed">
+									<tbody>
+										<tr>
+											<td class="text-right"><strong>Título:</strong></td>
+											<td>{{ $project->title }}</td>
+										</tr>
+										<tr>
+											<td class="text-right"><strong>Data:</strong></td>
+											<td>{!! date('d/m/Y', strtotime($project->created_at)) !!}</td>
+										</tr>
+										<tr>
+											<td class="text-right"><strong>Alterado:</strong></td>
+											<td>{!! date('d/m/Y', strtotime($project->updated_at)) !!}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 						<div class="col-sm-6">
-							<table class="table table-condensed">
-								<thead>
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">CLIENTE</h3>
+								</div>
+								<table class="table table-condensed">
+									<tbody>
 									<tr>
-										<th class="text-center" colspan="2">CLIENTE</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="text-right"><strong>Nome:</strong></td>
-										<td>{{ $project->client->name }}</td>
-									</tr>
-									<tr>
-										<td class="text-right"><strong>Empresa:</strong></td>
-										<td>{!! $project->client->company !!}</td>
-									</tr>
-									<tr>
-										<td class="text-right"><strong>Criado em:</strong></td>
-										<td>{!! date('d/m/Y', strtotime($project->client->created_at)) !!}</td>
+										<td class="text-center">
+											<strong>{{ $project->client->name }}</strong>
+											<br>
+											{!! $project->client->address !!}
+											<br>{!! $project->client->city !!}. CEP {!! $project->client->cep !!}
+											<br>{!! $project->client->phones !!}
+											<br>{!! $project->client->email !!} | {!! $project->client->email2 !!}
+										</td>
 									</tr>
 								</tbody>
 							</table>
+							</div>
 						</div>
 						<div class="col-sm-4"></div>
 					</div>
@@ -72,7 +70,7 @@
 
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 				<!-- ETAPAS -->
-				<div class="panel panel-default">
+				<div class="panel panel-info">
 					<div class="panel-heading">
 						<a href="{!! url('obras/'.$project->id.'/etapas/create') !!}" class="btn btn-success btn-xs pull-right" data-target="#modal" data-toggle="modal"><i class="fa fa-plus"></i> ADICIONAR</a>
 						<h3 class="panel-title">ETAPAS</h3>
@@ -107,7 +105,7 @@
 			</div>
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 				<!-- DISCIPLINAS -->
-				<div class="panel panel-default">
+				<div class="panel panel-info">
 					<div class="panel-heading">
 						<a href="{!! url('obras/'.$project->id.'/disciplinas/create') !!}" class="btn btn-success btn-xs pull-right" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> ADICIONAR</a>
 						<h3 class="panel-title">DISCIPLINAS</h3>
@@ -141,7 +139,7 @@
 			</div>
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 				<!-- CONTATOS -->
-				<div class="panel panel-default" id="contatos">
+				<div class="panel panel-info" id="contatos">
 
 					<div class="panel-heading">
 						<a href="{{ url('clientes/'.$project->client_id.'/contatos/create') }}" class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> ADICIONAR</a>
