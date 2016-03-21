@@ -7,7 +7,7 @@
 		<div class="pull-right">
 			<i class="fa fa-refresh fa-spin loading hidden"></i>
 		</div>
-		Registrar Retorno {{ @$inputdata['title'] }}
+		Registrar Retorno {{ @$inputdata['title'] }} - Obra {{ $obra->title }}
 	</header>
 	<div class="panel-body">
 
@@ -29,38 +29,13 @@
 						</div>
 					</div>
 
-<!-- 					<div class="form-group">
-						<label for="input" class="col-sm-2">Obra:</label>
-						<div class="col-sm-10">
-							<input type="text" name="technical_consult[project]" id="" class="form-control disabled readonly" value="{{ $obra->title }}" required="required" title="" disabled>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="input" class="col-sm-2">Etapa:</label>
-						<div class="col-sm-4">
-							{!! Form::select('technical_consult[project_stage_id]', $inputdata['etapas'], old('disciplina', $etapa->id), ["class"=>"form-control disabled readonly","disabled","title"=>"Informe a etapa"]) !!}
-						</div>
-						<label for="input" class="col-sm-2">Disciplina:</label>
-						<div class="col-sm-4">
-							{!! Form::select('technical_consult[project_discipline_id]', $inputdata['disciplinas'], old('disciplina', @$disciplina->id), ["class"=>"form-control disabled readonly","disabled","title"=>"Informe a disciplina"]) !!}
-						</div>
-					</div>
- -->
 					<div class="form-group">
 						<label for="input" class="col-sm-2">Assunto:</label>
 						<div class="col-sm-10">
 							<input type="text" name="technical_consult[title]" id="" class="form-control disabled" value="{{ $inputdata['assunto'] }}" required="required" title="" disabled>
 						</div>
 					</div>
-					<!-- <div class="form-group">
-						<label for="" class="col-sm-2">Destinatários:</label>
-						<div class="col-sm-10">
-							{!! Form::select('email_message[to][]', $inputdata['contatos'], old('contatos'), ["class"=>"form-control selectpicker","required"=>"required","multiple","title"=>"Escolha os contatos"]) !!}
-
-						</div>
-					</div>
- -->
+					
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<textarea name="email_message[description]" id="" class="form-control tinymce" rows="4"></textarea>
@@ -92,7 +67,7 @@
 				        <div class="col-sm-10">
 				            <div class="row">
 				                <div class="col-md-4">
-			                		<input type="date" name="email_message[date]" id="email_message_date" value="{{ date('Y-m-d') }}" class="form-control">
+			                		<input type="text" name="email_message[date]" id="email_message_date" value="{{ date('d/m/Y') }}" class="form-control datepicker">
 				                </div>
 				                <!-- <label for="email_message_time" class="col-sm-2 control-label">Hora:</label> -->
 				                <div class="col-md-4">
@@ -124,4 +99,31 @@
 
 	</div>
 </section>
+@stop
+
+@section('footer-scripts')
+<script>
+	$(document).ready(function($) {
+		$('#sendtome').slideUp(150);
+		$('#sendnow').change(function(event) {
+			if( $(this).is(':checked') ){
+				$('#sendtome').slideDown(150);
+			}else{
+				$('#sendtome').slideUp(150);
+			}
+		});
+
+		// datepicker
+		$('.datepicker').datepicker({	
+			format: "dd/mm/yyyy",
+            language: "pt-BR",
+            autoclose: true,
+            todayHighlight: false,
+            todayBtn: "linked",
+            showOnFocus: true,
+            immediateUpdates: true,
+		});
+
+	});
+</script>
 @stop

@@ -16,8 +16,10 @@
     <link href="{{ asset('css/morris/morris.css') }}" rel="stylesheet" type="text/css" />
     <!-- jvectormap -->
     <link href="{{ asset('css/jvectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Date Picker -->
-    <link href="{{ asset('css/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
+    
+    <!-- DateTime Picker -->
+    <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
+
     <!-- fullCalendar -->
     <!-- <link href="{{ asset('css/fullcalendar/fullcalendar.css') }}" rel="stylesheet" type="text/css" /> -->
     <!-- Daterange picker -->
@@ -206,25 +208,28 @@
 
             </aside><!-- /.right-side -->
 
-                </div><!-- ./wrapper -->
+        </div><!-- ./wrapper -->
 
+        <!-- jQuery 2.0.2 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> -->
+        <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
 
-                <!-- jQuery 2.0.2 -->
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-                <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
+        <!-- jQuery UI 1.10.3 -->
+        <script src="{{ asset('js/jquery-ui-1.10.3.min.js') }}" type="text/javascript"></script>
+        <!-- Bootstrap -->
+        <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+        <!-- daterangepicker -->
+        <script src="{{ asset('js/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
 
-                <!-- jQuery UI 1.10.3 -->
-                <script src="{{ asset('js/jquery-ui-1.10.3.min.js') }}" type="text/javascript"></script>
-                <!-- Bootstrap -->
-                <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-                <!-- daterangepicker -->
-                <script src="{{ asset('js/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
-
-                <script src="{{ asset('js/plugins/chart.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/plugins/chart.js') }}" type="text/javascript"></script>
 
     <!-- PLUGINS -->
-    <!-- datepicker
-    <script src="{{ asset('js/plugins/datepicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>-->
+
+    <!-- DateTime Picker -->
+    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    <!-- DateTime Picker  -->
+    <script src="{{ asset('locales/bootstrap-datepicker.pt-BR.min.js') }}" type="text/javascript"></script>
+
      <!-- Bootstrap WYSIHTML5 -->
     <script src="{{ asset('js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}" type="text/javascript"></script>
     <!-- iCheck -->

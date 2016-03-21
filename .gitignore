@@ -1,2 +1,9 @@
-/vendor
+exe/
+vendor/
+node_modules/
+bootstrap/cache/
+storage/
+.env.*.php
+.env.php
 .env
+composer.lock

@@ -7,7 +7,7 @@
 		<div class="pull-right">
 			<i class="fa fa-refresh fa-spin loading hidden"></i>
 		</div>
-		Registrar Acontecimento - OBRA {{ $obra->id }}
+		Registrar Acontecimento - OBRA {{ $obra->title }}
 	</header>
 	<div class="panel-body">
 		{!! Form::open(array('url' => url('consultas-tecnicas'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'technical_consults_create', "enctype"=>"multipart/form-data")) !!}
@@ -73,8 +73,8 @@
 				        <label for="email_message_date" class="col-sm-2 control-label">Data:</label>
 				        <div class="col-sm-10">
 				            <div class="row">
-				                <div class="col-md-4">
-			                		<input type="date" name="email_message[date]" id="email_message_date" value="{{ date('Y-m-d') }}" class="form-control">
+				                <div class="col-md-4">									
+			                		<input type="text" name="email_message[date]" id="email_message_date" value="{{ date('d/m/Y') }}" class="form-control datepicker">
 				                </div>
 				                <div class="col-md-4">
 			                		<input type="time" name="email_message[time]" id="email_message_time" value="{{ date('H:i') }}" class="form-control">
@@ -118,6 +118,18 @@
 				$('#sendtome').slideUp(150);
 			}
 		});
+
+		// datepicker
+		$('.datepicker').datepicker({	
+			format: "dd/mm/yyyy",
+            language: "pt-BR",
+            autoclose: true,
+            todayHighlight: false,
+            todayBtn: "linked",
+            showOnFocus: true,
+            immediateUpdates: true,
+		});
+
 	});
 </script>
 @stop

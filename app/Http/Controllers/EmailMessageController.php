@@ -84,9 +84,10 @@ class EmailMessageController extends Controller {
 
 		$request->session()->flash('sys_notifications', $sys_notifications);
 
-		$data = $request->all();
-		$back_to = isset($data['back_to']) ? $data['back_to'] : '/obras/';
-		return redirect($back_to)->withInput($request->all());
+		// $data = $request->all();
+		// $back_to = isset($data['back_to']) ? $data['back_to'] : '/obras/';
+		// return redirect($back_to)->withInput($request->all());
+		return back();
 	}
 
 	public function anexos(Request $request, $technical_consult_id = null, $email_message_id = null) {

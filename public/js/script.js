@@ -99,7 +99,7 @@ $(document).ready(function($) {
 
             $("#modal .modal-dialog .modal-content").html('<p class="text-center well-lg">' + '<span class="fa fa-spinner fa-spin"></span>' + '</p>');
             
-            $("#modal .modal-dialog").load(target, function() {            
+            $("#modal .modal-dialog .modal-content").load(target, function() {            
                 $("#modal").modal("show");
             }).error(function(data) {
                 $("#modal").find('.modal-dialog').html(data).modal("show");

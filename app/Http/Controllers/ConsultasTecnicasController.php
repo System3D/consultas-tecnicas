@@ -31,8 +31,7 @@ class ConsultasTecnicasController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create(Request $request) {
-		// dd($request->all());
-
+		
 		$data = $request->all();
 		$data['tipo'] = (isset($data['tipo'])) ? $data['tipo'] : 'envio';
 
@@ -56,9 +55,7 @@ class ConsultasTecnicasController extends Controller {
 		$inputdata['contatos'] = $obra->contacts->lists('name', 'id');
 		$inputdata['etapas'] = $obra->stages->lists('title', 'id');
 		$inputdata['disciplinas'] = $obra->disciplines->lists('title', 'id');
-		$inputdata['email_message_id'] = @$data['email_message_id'];
-
-		// return view('consultas_tecnicas.criar')->with($data);
+		$inputdata['email_message_id'] = @$data['email_message_id'];		
 
 		switch ($data['tipo']) {
 		case 'evento':
@@ -85,8 +82,7 @@ class ConsultasTecnicasController extends Controller {
 			break;
 		}
 
-		$consultastecnicas = ConsultaTecnica::all();
-		dd($consultastecnicas);
+		$consultastecnicas = ConsultaTecnica::all();		
 		return $consultastecnicas;
 	}
 
@@ -136,7 +132,9 @@ class ConsultasTecnicasController extends Controller {
 			break;
 		}
 
-		$data['email_message']['date'] = (empty($data['email_message']['date'])) ? date('Y-m-d') : $data['email_message']['date'];
+
+		$date = str_replace('/', '-', $data['email_message']['date']);
+		$data['email_message']['date'] = (empty($data['email_message']['date'])) ? date('Y-m-d') :  date('Y-m-d', strtotime($date ) );
 		$data['email_message']['time'] = (empty($data['email_message']['time'])) ? date('H:i') : $data['email_message']['time'];
 		$email_message->date = date('Y-m-d H:i:s', strtotime($data['email_message']['date'] . ' ' . $data['email_message']['time']));
 
