@@ -170,7 +170,7 @@
 							@foreach ($project->contacts as $projectcontact)
 
 							<tr title="" >
-								<td><strong><a href="{{ url( '/contatos/'.$projectcontact->id) }}">{{ $projectcontact->name }}</a></strong></td>
+								<td><strong><a href="{{ url( '/contatos/'.$projectcontact->id) }}" data-toggle="modal" data-target="#modal">{{ $projectcontact->name }} <small>{{ ($projectcontact->company)? ' - '.$projectcontact->company : '' }}</small></a></strong></td> 
 
 								<td>
 									<div class="pull-right hidden-phone">

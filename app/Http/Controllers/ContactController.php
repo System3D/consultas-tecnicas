@@ -146,7 +146,7 @@ class ContactController extends Controller {
 		$sys_notifications[] = array('type' => 'success', 'message' => 'Contato atualizado com sucesso!');
 		$request->session()->flash('sys_notifications', $sys_notifications);
 
-		return redirect('/contatos/' . $contact->id);
+		return back();
 	}
 
 	/**

@@ -41,8 +41,9 @@ class SendEmail extends Job implements SelfHandling {
 					$message->attach(storage_path('app/' . $request->user()->id . '/' . $this->email_message->id . '/' . $anexo->original_filename));
 				}
 				$message->subject('Consulta Técnica CT' . $this->technical_consult->id);
-				$message->from($request->user()->email, 'Consultas Técnicas');
-				$message->to($contato->email, $contato->name);
+				// $message->from( $request->user()->email, 'Consultas Técnicas');
+				$message->from( config('mail.from.address'), config('mail.from.name'));
+				$message->to($contato->email, $contato->name );
 				if (!empty($this->email_data['bcc'])) {
 					$message->bcc($this->email_data['bcc']);
 				}

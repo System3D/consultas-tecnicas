@@ -52,7 +52,10 @@ class ConsultasTecnicasController extends Controller {
 		}
 
 		$inputdata = array();
-		$inputdata['contatos'] = $obra->contacts->lists('name', 'id');
+		foreach ( $obra->contacts as $contato) {
+			$inputdata['contatos'][$contato->id] = $contato->name . ' - ' . $contato->company;
+		}
+
 		$inputdata['etapas'] = $obra->stages->lists('title', 'id');
 		$inputdata['disciplinas'] = $obra->disciplines->lists('title', 'id');
 		$inputdata['email_message_id'] = @$data['email_message_id'];		
@@ -133,7 +136,11 @@ class ConsultasTecnicasController extends Controller {
 		}
 
 
-		$date = str_replace('/', '-', $data['email_message']['date']);
+		if(isset($data['email_message']['date'])){
+			$date = str_replace('/', '-', $data['email_message']['date']);
+		}else{
+			$date = date('Y-m-d');			
+		}
 		$data['email_message']['date'] = (empty($data['email_message']['date'])) ? date('Y-m-d') :  date('Y-m-d', strtotime($date ) );
 		$data['email_message']['time'] = (empty($data['email_message']['time'])) ? date('H:i') : $data['email_message']['time'];
 		$email_message->date = date('Y-m-d H:i:s', strtotime($data['email_message']['date'] . ' ' . $data['email_message']['time']));
@@ -218,19 +225,10 @@ class ConsultasTecnicasController extends Controller {
 
 			// PROCESS THE JOB
 			$this->dispatch(new SendEmail($email_data, $anexos, $request, $email_message, $technical_consult, $contatos));
+			
+			//return view('emails.message', compact('email_data', 'anexos', 'request', 'email_message', 'technical_consult', 'contatos'));
 
 			$this->sys_notifications[] = array('type' => 'success', 'message' => 'E-mail enviado!');
-
-			// foreach ($contatos as $contato) {
-			// Mail::send('emails.message', ['email_data' => $email_data], function ($message) use ($email_data, $anexos, $request, $email_message, $technical_consult, $contatos) {
-			// 	foreach ($anexos as $anexo) {
-			// 		$message->attach(storage_path('app/' . $request->user()->id . '/' . $email_message->id . '/' . $anexo->original_filename));
-			// 	}
-			// 	$message->from($request->user()->email, 'Consultas Técnicas');
-			// 	$message->to(array_shift($contatos)['email'], array_shift($contatos)['name'])
-			// 		->bcc(explode(',', $email_data['to']))
-			// 		->subject('Consulta Técnica CT' . $technical_consult->id);
-			// });
 
 		}
 

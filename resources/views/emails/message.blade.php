@@ -122,23 +122,27 @@
     }
 </style>
 </head>
-<body style="margin: 0; padding: 0;">
+<body style="margin: 0px; padding: 30px 0px 30px; background-color: #ffffff">
 
     <!-- HEADER -->
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td bgcolor="#ffffff" align="center">
+            <td bgcolor="" align="center">
                 <!-- HIDDEN PREHEADER TEXT -->
                 <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
                     Entice the open with some amazing preheader text. Use a little mystery and get those subscribers to read through...
                 </div>
-                <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper">
+                <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper" bgcolor="#ffffff" style="
+    border: 1px solid #D6D6D6;
+    border-radius: 3px;
+    border-bottom: 0px;
+">
                     <!-- LOGO/PREHEADER TEXT -->
                     <tr>
                         <td style="padding: 20px 0px 30px 0px;" class="logo" align="center">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td bgcolor="#ffffff" width="100" align="center">
+                                    <td bgcolor="" width="100" align="center">
 
                                             <h5>CONSULTA TÉCNICA CT{{$email_data['consulta_tecnica_id']}}</h5>
                                             <small>
@@ -161,19 +165,24 @@
     </table>
 
     <!-- ONE COLUMN SECTION -->
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="">
         <tr>
-            <td bgcolor="#ffffff" align="center" style="padding: 15px 15px 15px 15px;" class="section-padding">
-                <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table">
+            <td align="center" style="padding: 0px;" class="section-padding">
+                <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table" bgcolor="#ffffff">
                     <tr>
                         <td>
                             <!-- COPY -->
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="30" bgcolor="" style="
+          border: 1px solid #D6D6D6;
+          border-radius: 3px;
+          border-bottom: 0px;
+          border-top: none;
+          ">
                                 <tr>
-                                    <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">{{$email_data['subject']}}</td>
+                                    <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333;" class="padding-copy">{{$email_data['subject']}}</td>
                                 </tr>
                                 <tr>
-                                    <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy"><?php echo $email_data['body_html'] ?></td>
+                                    <td align="left" style="font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666; padding-top: 0px;" class="padding-copy"><?php echo $email_data['body_html'] ?></td>
 
                                 </tr>
                             </table>
@@ -187,12 +196,16 @@
     <!-- FOOTER -->
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td bgcolor="#ffffff" align="center">
+            <td bgcolor="" align="center">
                 <table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
                     <tr>
-                        <td style="padding: 70px 0px 20px 0px;" align="center">
+                        <td style="" align="center">
                             <!-- UNSUBSCRIBE COPY -->
-                            <table width="500" border="0" cellspacing="0" cellpadding="0" align="center" class="responsive-table">
+                            <table width="500" border="0" cellpadding="20" cellpadding="0" align="center" class="responsive-table" style="
+          border: 1px solid #D6D6D6;
+          border-radius: 3px;          
+          border-top: none;
+          " bgcolor="#ffffff">
                                 <tr>
                                     <td align="center" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
 
