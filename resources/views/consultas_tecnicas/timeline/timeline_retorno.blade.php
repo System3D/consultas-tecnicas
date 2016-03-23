@@ -1,4 +1,4 @@
-<li id="email_message_{{ $email->id }}" class="mix technical_consult_{{ $email->consulta_tecnica_id }} email_message_{{ $email->id }} email_message_reply {{ ( $email->type == 2 ) ? 'timeline-inverted' : '' }}" data-id="{{ $email->id }}" data-ctid="{{ $email->consulta_tecnica_id }}" data-date="{!! date('Y-m-d', strtotime($email->date)) !!}"  data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
+<li id="email_message_{{ $email->id }}" class="mix technical_consult_{{ $email->consulta_tecnica_id }} email_message_{{ $email->id }} email_message_reply {{ ( $email->type == 2 ) ? 'timeline-inverted' : '' }}" data-id="{{ $email->id }}" data-ctid="{{ $email->consulta_tecnica_id }}" data-date="{{ date( 'd/m/Y', strtotime( $email->date )) }}"  data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
 
 
     <div class="timeline-date label label-default">
@@ -32,8 +32,8 @@ default:
 ?>
             <span class="pull-right label label-{{ $email->ratingclass }}">{!! $email->ratinglabel !!}</span>
 
-            <h4 class="timeline-title"><strong>CT {{ str_pad( $email->consulta_tecnica_id, 3, "0", STR_PAD_LEFT ) }}  <small class="text-muted">
-                Respondido <time class="timeago" datetime="{{ date( 'Y-m-d H:i:s', strtotime( $email->date )) }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time>
+            <h4 class="timeline-title"><strong>{{ $email->consulta_tecnica->formattedCod('CT #') }}<small class="text-lowercase">
+                <time class="timeago" datetime="{{ $email->date }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time>
             </small></strong>
             <br>
             <small>
@@ -44,6 +44,7 @@ default:
 
     </div>
     <div class="timeline-body">
+
         <strong><?php echo html_entity_decode($email->subject); ?></strong><br>
         <?php echo html_entity_decode($email->body_html); ?>
     </div>

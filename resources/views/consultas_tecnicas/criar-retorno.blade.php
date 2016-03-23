@@ -7,7 +7,7 @@
 		<div class="pull-right">
 			<i class="fa fa-refresh fa-spin loading hidden"></i>
 		</div>
-		Registrar Retorno {{ @$inputdata['title'] }} - Obra {{ $obra->title }}
+		Registrar Retorno {{ $inputdata['title'] }} - Obra {{ $obra->title }}
 	</header>
 	<div class="panel-body">
 

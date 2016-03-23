@@ -144,7 +144,7 @@
                                 <tr>
                                     <td bgcolor="" width="100" align="center">
 
-                                            <h5>CONSULTA TÉCNICA CT{{$email_data['consulta_tecnica_id']}}</h5>
+                                            <h5>CONSULTA TÉCNICA {{$email_data['consulta_tecnica_id']}}</h5>
                                             <small>
                                               OBRA <strong>{{ strtoupper( $email_data['obra'] ) }}</strong> |
                                               ETAPA <strong>{{ strtoupper( $email_data['etapa'] ) }}</strong> |

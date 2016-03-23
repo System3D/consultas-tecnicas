@@ -19,18 +19,17 @@ $(document).ready(function($) {
                         }
                         ctID = $(el).data('ctid');
                     }); 
-                }else{
-                    var messageDate;
-                    $('ul#timeline li.mix').each(function(index, el) {
+                }
+                var messageDate;
+                $('ul#timeline li.mix:visible').each(function(index, el) {
 
-                        if( messageDate == $(el).data('date') ){                            
-                            $(el).find('.timeline-date').hide();        
-                        }else{                            
-                            $(el).find('.timeline-date').show();
-                        }
-                        messageDate = $(el).data('date');
-                    });                    
-                }               
+                    if( messageDate == $(el).data('date') ){                            
+                        $(el).find('.timeline-date').hide();        
+                    }else{                            
+                        $(el).find('.timeline-date').show();
+                    }
+                    messageDate = $(el).data('date');
+                });                                    
 
             },
             onMixStart: function(state, futureState){
@@ -236,7 +235,7 @@ $(document).ready(function($) {
 
 
     /* TIMEAGO */
-    $('.timeago').timeago();
+//    $('.timeago').timeago();
 
 
     /* Bootstrap Select */

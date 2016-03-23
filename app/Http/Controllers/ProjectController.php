@@ -126,7 +126,7 @@ class ProjectController extends Controller {
 			}
 		}
 
-		$email_messages = collect(@$email_messages)->sortByDesc('date');
+		$email_messages = collect(@$email_messages)->sortByDesc('id')->sortByDesc('date');
 
 		return view('projects.show', compact('project', 'contacts', 'request', 'email_messages'));
 

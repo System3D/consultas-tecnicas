@@ -7,7 +7,7 @@
 		<div class="pull-right">
 			<i class="fa fa-refresh fa-spin loading hidden"></i>
 		</div>
-		Registrar Acontecimento - OBRA {{ $obra->title }}
+		Registrar Acontecimento {{$inputdata['title']}} - OBRA {{ $obra->title }}
 	</header>
 	<div class="panel-body">
 		{!! Form::open(array('url' => url('consultas-tecnicas'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'technical_consults_create', "enctype"=>"multipart/form-data")) !!}

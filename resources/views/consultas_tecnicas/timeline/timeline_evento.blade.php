@@ -1,4 +1,4 @@
-<li class="mix technical_consult_{{ $email->consulta_tecnica_id }} email_message_{{ $email->id }} email_message_event" data-id="{{ $email->id }}" data-ctid="{{ $email->consulta_tecnica_id }}" data-date="{!! date('Y-m-d', strtotime($email->date)) !!}" data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
+<li class="mix technical_consult_{{ $email->consulta_tecnica_id }} email_message_{{ $email->id }} email_message_event" data-id="{{ $email->id }}" data-ctid="{{ $email->consulta_tecnica_id }}" data-date="{{ date( 'd/m/Y', strtotime( $email->date )) }}" data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
 
     <div class="timeline-date label label-default">
         {{ date('d/m/Y', strtotime($email->date)) }}
@@ -29,8 +29,8 @@
                 <a href="#" class="text-warning"><i class="fa fa-exclamation-circle"></i> Acontecimento</a>
             </small>
 
-            <h4 class="timeline-title"><strong>CT {{ str_pad( $email->consulta_tecnica_id, 3, "0", STR_PAD_LEFT ) }}</strong> <small class="text-muted">
-                Registrado <time class="timeago" datetime="{{ date( 'Y-m-d H:i:s', strtotime( $email->date )) }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time>
+            <h4 class="timeline-title"><strong>{{ $email->consulta_tecnica->formattedCod('CT #') }}</strong> <small class="text-lowercase">
+                <time class="timeago" datetime="{{ $email->date }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time>
             </small>
             <br>
             <small>

@@ -58,14 +58,19 @@ class ConsultasTecnicasController extends Controller {
 
 		$inputdata['etapas'] = $obra->stages->lists('title', 'id');
 		$inputdata['disciplinas'] = $obra->disciplines->lists('title', 'id');
-		$inputdata['email_message_id'] = @$data['email_message_id'];		
+		$inputdata['email_message_id'] = @$data['email_message_id'];	
+
+
+
 
 		switch ($data['tipo']) {
 		case 'evento':
+			$inputdata['title'] = $obra->consultas_tecnicas->first()->nextFormattedCod("CT #");
 			return view('consultas_tecnicas.criar-evento', compact('inputdata', 'obra', 'etapa', 'disciplina'));
 			break;
 
 		case 'retorno':
+
 
 			$consultatecnica = ConsultaTecnica::find(@$data['consulta_tecnica_id']);
 
@@ -74,13 +79,14 @@ class ConsultasTecnicasController extends Controller {
 				//$request->session()->flash('sys_notifications', $this->sys_notifications);
 				return back()->withFlash('sys_notifications', $this->sys_notifications);
 			}
-			$inputdata['assunto'] = $consultatecnica->emails->first()->subject;
-			$inputdata['title'] = "CT-" . str_pad($consultatecnica->id, 4, 0, STR_PAD_LEFT);
+			$inputdata['assunto'] = $consultatecnica->emails->first()->subject;			
+			$inputdata['title'] = $consultatecnica->formattedCod('CT #');
 			$inputdata['anexos'] = $consultatecnica->emails->first()->attachments;
 			return view('consultas_tecnicas.criar-retorno', compact('inputdata', 'obra', 'etapa', 'disciplina', 'consultatecnica'));
 			break;
 
 		default:
+			$inputdata['title'] = $obra->consultas_tecnicas->first()->nextFormattedCod("CT #");
 			return view('consultas_tecnicas.criar-envio', compact('inputdata', 'obra', 'etapa', 'disciplina'));
 			break;
 		}
@@ -99,6 +105,9 @@ class ConsultasTecnicasController extends Controller {
 
 		$data = $request->all();
 		if (!isset($data['email_message']['project_id'])) {return 'Informe a obra';}
+		
+		$obra = Obra::find( @$data['email_message']['project_id'] );
+		$data['technical_consult']['cod'] = $obra->consultas_tecnicas->max('cod') + 1;
 
 		switch (@$data['email_message']['type']) {
 		case 0:
@@ -127,6 +136,7 @@ class ConsultasTecnicasController extends Controller {
 			$technical_consult->project_stage_id = @$data['technical_consult']['project_stage_id'];
 			$technical_consult->project_discipline_id = @$data['technical_consult']['project_discipline_id'];
 			$technical_consult->title = @$data['technical_consult']['title'];
+			$technical_consult->cod = $data['technical_consult']['cod'];			
 
 			$technical_consult->save();
 
@@ -149,7 +159,7 @@ class ConsultasTecnicasController extends Controller {
 		$email_data = $data['email_message'];
 		$email_data['obra'] = $technical_consult->project->title;
 		$email_data['subject'] = $technical_consult->title;
-		$email_data['consulta_tecnica_id'] = $technical_consult->id;
+		$email_data['consulta_tecnica_id'] = $technical_consult->formattedCod('CT #');
 		$email_data['etapa'] = ($technical_consult->projectstage) ? $technical_consult->projectstage->title : '';
 		$email_data['disciplina'] = ($technical_consult->projectdiscipline) ? $technical_consult->projectdiscipline->title : '';
 		$email_data['body_html'] = $email_data['description'];
@@ -224,9 +234,9 @@ class ConsultasTecnicasController extends Controller {
 			}
 
 			// PROCESS THE JOB
-			$this->dispatch(new SendEmail($email_data, $anexos, $request, $email_message, $technical_consult, $contatos));
+			// $this->dispatch(new SendEmail($email_data, $anexos, $request, $email_message, $technical_consult, $contatos));
 			
-			//return view('emails.message', compact('email_data', 'anexos', 'request', 'email_message', 'technical_consult', 'contatos'));
+			 return view('emails.message', compact('email_data', 'anexos', 'request', 'email_message', 'technical_consult', 'contatos'));
 
 			$this->sys_notifications[] = array('type' => 'success', 'message' => 'E-mail enviado!');
 
@@ -294,6 +304,8 @@ class ConsultasTecnicasController extends Controller {
 	public function timeline(Request $request) {
 
 		$technical_consults = TechnicalConsult::where('owner_id', $request->user()->id)->reverse()->get();
+
+		dd($technical_consults);
 
 		if ($request->ajax()) {
 			return view('consultas_tecnicas.timeline.timeline', compact('technical_consults'));

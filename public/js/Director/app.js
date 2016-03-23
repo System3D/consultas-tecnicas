@@ -150,10 +150,11 @@ $(function() {
 
     /* TIMEAGO */
     // Portuguese Brasil shortened
+    jQuery.timeago.settings.allowFuture = true;
     jQuery.timeago.settings.strings = {
        prefixAgo: "há",
        prefixFromNow: "em",
-       suffixAgo: null,
+       suffixAgo: "atrás",
        suffixFromNow: null,
        seconds: "alguns segundos",
        minute: "um minuto",

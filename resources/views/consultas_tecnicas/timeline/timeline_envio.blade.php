@@ -1,4 +1,4 @@
-<li class="mix technical_consult_{!! $email->consulta_tecnica_id !!} email_message_{!! $email->id !!} email_message_send {{ ( $email->replies->count() > 0 ) ? '' : 'email_message_noreply' }}" data-id="{!! $email->id !!}" data-ctid="{!! $email->consulta_tecnica_id !!}" data-date="{!! date('Y-m-d', strtotime($email->date)) !!}" data-type="{!! $email->type !!}" data-myorder="{!! $email->id !!}">
+<li class="mix technical_consult_{!! $email->consulta_tecnica_id !!} email_message_{!! $email->id !!} email_message_send {{ ( $email->replies->count() > 0 ) ? '' : 'email_message_noreply' }}" data-id="{!! $email->id !!}" data-ctid="{!! $email->consulta_tecnica_id !!}" data-date="{{ date( 'd/m/Y', strtotime( $email->date )) }}" data-type="{!! $email->type !!}" data-myorder="{!! $email->id !!}">
 
 
     <div class="timeline-date label label-default">
@@ -24,9 +24,9 @@
                 @else
                     <i class="fa fa-warning"></i> Sem resposta
                 @endif
-            </small>
+            </small>            
 
-            <h4 class="timeline-title"><strong>CT {{ str_pad( $email->consulta_tecnica_id, 3, "0", STR_PAD_LEFT ) }}</strong> <small class="">Enviado <time class="timeago" datetime="{{ date( 'Y-m-d H:i:s', strtotime( $email->date )) }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time></small>
+            <h4 class="timeline-title"><strong>{{ $email->consulta_tecnica->formattedCod('CT #') }}</strong> <small class="text-lowercase"><time class="timeago" datetime="{{ $email->date }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time></small>
                 <br>
                 <small>
                     <i class="fa fa-calendar-o"></i> {{ date( 'd/m/Y', strtotime( $email->date )) }}
