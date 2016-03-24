@@ -2,7 +2,9 @@
 
 @section('content')
 
-{!! Breadcrumbs::render( 'project', $project )  !!}
+<span class="hidden-print">
+	{!! Breadcrumbs::render( 'project', $project )  !!}
+</span>
 
 <section class="panel hidden-print">
 	<header class="panel-heading">
@@ -199,9 +201,9 @@
 
 <section>
 	<section class="panel">
-		<header class="panel-heading">
+		<header class="panel-heading hidden-print">
 			Consultas Técnicas da Obra
-		</header>
+		</header>		
 
 		@include('consultas_tecnicas.timeline.timeline', array('email_messages' => $email_messages))
 

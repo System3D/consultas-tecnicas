@@ -14,6 +14,8 @@
 
     <div class="timeline-panel" style="background-color: #fff;">
 
+        <div style="border-left: 5px dashed yellow">
+
         <style>
             /*.technical_consult_{!! $email->consulta_tecnica_id !!}.email_message_{!! $email->id !!} .timeline-panel:after {
                 border-left-color: #d4d4d4;
@@ -48,6 +50,7 @@
         <div class="btn-group btn-group-justified" role="group" >
             <a href="{{ url('/consultas-tecnicas/'.$email->consulta_tecnica_id) }}" data-toggle="modal" data-target="#modal" class="btn btn-xs btn-default btn-block"><i class="fa fa-eye"></i> VER ACONTECIMENTO</a>
         </div>
+    </div>
     </div>
 </div>
 </li>

@@ -10,6 +10,7 @@
     <div class="timeline-point"></div>
 
     <div class="timeline-panel" style="background-color: <?php echo $email->consulta_tecnica->color ?>">
+    <div style="border-right: 4px solid <?php echo $email->consulta_tecnica->color ?>;">
         <div class="timeline-heading">
 <?php
 switch ($email->rating) {
@@ -53,6 +54,7 @@ default:
             <a href="{{ url('/consultas-tecnicas/'.$email->consulta_tecnica_id) }}" data-toggle="modal" data-target="#modal" class="btn btn-xs btn-link btn-outline"><i class="fa fa-eye"></i> Ver consulta técnica</a>
         </div>
 
+    </div>
     </div>
 </div>
 

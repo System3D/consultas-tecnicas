@@ -14,8 +14,8 @@
     <div class="timeline-point"></div>
 
 
-    <div class="timeline-panel" style="background-color: <?php echo $email->consulta_tecnica->color ?>; border: 1px solid <?php echo $email->consulta_tecnica->color ?>">
-
+    <div class="timeline-panel" style="background-color: <?php echo $email->consulta_tecnica->color ?>; border: 1px solid <?php echo $email->consulta_tecnica->color ?>;">
+        <div style="border-left: 4px solid <?php echo $email->consulta_tecnica->color ?>;">
         <div class="timeline-heading">
 
             <small class="pull-right">
@@ -64,6 +64,7 @@ echo $doc->saveHTML();
                     'tipo'=>'retorno']))  }}" data-toggle="modal" class="btn btn-xs btn-link btn-outline"><i class="fa fa-plus"></i> Resposta</a>
             </div>
 
+        </div>
         </div>
     </div>
 

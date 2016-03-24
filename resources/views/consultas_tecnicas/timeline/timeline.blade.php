@@ -1,12 +1,20 @@
+<header class="panel-heading text-center visible-print-block">
+    Consultas Técnicas <br>
+    <small class="text-center visible-print-block">
+        {!! Breadcrumbs::render( 'project', $project )  !!}             
+        <span id="activefilters">Listando Todas Consultas</span>
+    </small>
+</header>
+
 <nav class="navbar navbar-static-top form-inline" id="timeline-filters">
     <div class="navbar-form">
         <div class="form-group">
             <div class="btn-group btn-group-sm">
-                <a class="filter btn btn-default" data-filter="all">Ver tudo</a>
+                <a class="filter btn btn-default" data-filter="all" data-printlabel="Listando Todas Consultas">Ver tudo</a>
                 <!-- <a class="filter btn btn-default" data-filter=".email_message_send">Envio</a>
                 <a class="filter btn btn-default" data-filter=".email_message_reply">Retorno</a> -->
-                <a class="filter btn btn-default" data-filter=".email_message_event">Acontecimento</a>
-                <a class="filter btn btn-default" data-filter=".email_message_noreply">Não respondido</a>
+                <a class="filter btn btn-default" data-filter=".email_message_event" data-printlabel="Listando Somente Acontecimentos">Acontecimento</a>
+                <a class="filter btn btn-default" data-filter=".email_message_noreply" data-printlabel="Listando Consultas Não Respondidas">Não respondido</a>
             </div>
         </div>
 

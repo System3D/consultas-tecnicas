@@ -28,7 +28,8 @@ $(document).ready(function($) {
                     }else{                            
                         $(el).find('.timeline-date').show();
                     }
-                    messageDate = $(el).data('date');
+                    messageDate = $(el).data('date');              
+
                 });                                    
 
             },
@@ -37,6 +38,11 @@ $(document).ready(function($) {
                 $('#timeline li > hr').hide(); 
             }
         }
+    });
+
+    $('#timeline-filters .filter').on('click', function(e) {
+        e.preventDefault();        
+        console.log( $(this).data('printlabel') );
     });
 
     // Print timeline
