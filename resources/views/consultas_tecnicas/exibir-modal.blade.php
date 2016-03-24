@@ -1,6 +1,6 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h4 class="modal-title">CONSULTA TÉCNICA {{ 'CT ' . str_pad($technical_consult->id, 3, "0", STR_PAD_LEFT) }} <strong>{!! $technical_consult->title !!}</strong></h4>
+	<h4 class="modal-title">CONSULTA TÉCNICA {{ $technical_consult->formattedCod('CT #') }} <strong>{!! $technical_consult->title !!}</strong></h4>
 </div>
 
 @foreach ($technical_consult->emails as $email)

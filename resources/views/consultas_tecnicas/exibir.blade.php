@@ -15,7 +15,7 @@
 			<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta consulta técnica e todas as conversas anexadas?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
 			{!! Form::close() !!}
 		</div>
-		{{ 'CT ' . str_pad($technical_consult->id, 3, "0", STR_PAD_LEFT) }} <strong>{!! $technical_consult->title !!}</strong>
+		{{ $technical_consult->formattedCod('CT #') }} <strong>{!! $technical_consult->title !!}</strong>
 	</header>
 
 	<div class="list-group">
