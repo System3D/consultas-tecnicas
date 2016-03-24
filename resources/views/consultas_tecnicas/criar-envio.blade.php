@@ -75,6 +75,21 @@
 					   	</div>
 					</div>
 
+					<div class="form-group" id="senddate">
+				        <label for="email_message_date" class="col-sm-2 control-label">Data:</label>
+				        <div class="col-sm-10">
+				            <div class="row">
+				                <div class="col-md-4">
+			                		<input type="text" name="email_message[date]" id="email_message_date" value="{{ date('d/m/Y') }}" class="form-control datepicker">
+				                </div>
+				                <!-- <label for="email_message_time" class="col-sm-2 control-label">Hora:</label> -->
+				                <div class="col-md-4">
+			                		<input type="time" name="email_message[time]" id="email_message_time" value="{{ date('H:i') }}" class="form-control">
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+
 					<div class="form-group">
 						<div class="col-sm-10 col-sm-offset-2">
 							<input type="checkbox" name="sendnow" id="sendnow" class="">  Enviar e-mail ao salvar
@@ -106,9 +121,33 @@
 		$('#sendnow').change(function(event) {
 			if( $(this).is(':checked') ){
 				$('#sendtome').slideDown(150);
+
+				var currentdate = new Date();
+				var nowdate = currentdate.getDate() + "/"
+                			+ (currentdate.getMonth()+1)  + "/"
+	                		+ currentdate.getFullYear();
+
+	            var nowtime = currentdate.getHours() + ":"  
+                			+ currentdate.getMinutes();
+
+				$('#email_message_date').val(nowdate).attr('disabled', 'disabled');
+				$('#email_message_time').val(nowtime).attr('disabled', 'disabled');
 			}else{
 				$('#sendtome').slideUp(150);
+				$('#email_message_date').removeAttr('disabled');
+				$('#email_message_time').removeAttr('disabled');
 			}
+		});
+
+		// datepicker
+		$('.datepicker').datepicker({	
+			format: "dd/mm/yyyy",
+            language: "pt-BR",
+            autoclose: true,
+            todayHighlight: false,
+            todayBtn: "linked",
+            showOnFocus: true,
+            immediateUpdates: true,
 		});
 	});
 </script>

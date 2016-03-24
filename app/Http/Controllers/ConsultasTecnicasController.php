@@ -234,9 +234,9 @@ class ConsultasTecnicasController extends Controller {
 			}
 
 			// PROCESS THE JOB
-			// $this->dispatch(new SendEmail($email_data, $anexos, $request, $email_message, $technical_consult, $contatos));
+			 $this->dispatch(new SendEmail($email_data, $anexos, $request, $email_message, $technical_consult, $contatos));
 			
-			 return view('emails.message', compact('email_data', 'anexos', 'request', 'email_message', 'technical_consult', 'contatos'));
+			// return view('emails.message', compact('email_data', 'anexos', 'request', 'email_message', 'technical_consult', 'contatos'));
 
 			$this->sys_notifications[] = array('type' => 'success', 'message' => 'E-mail enviado!');
 
