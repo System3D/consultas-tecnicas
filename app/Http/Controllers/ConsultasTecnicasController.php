@@ -64,8 +64,8 @@ class ConsultasTecnicasController extends Controller {
 
 
 		switch ($data['tipo']) {
-		case 'evento':
-			$inputdata['title'] = $obra->consultas_tecnicas->first()->nextFormattedCod("CT #");
+		case 'evento':						
+			$inputdata['title'] = (count($obra->consultas_tecnicas))?$obra->consultas_tecnicas->first()->nextFormattedCod("CT #"):"CT #001";
 			return view('consultas_tecnicas.criar-evento', compact('inputdata', 'obra', 'etapa', 'disciplina'));
 			break;
 
@@ -80,13 +80,14 @@ class ConsultasTecnicasController extends Controller {
 				return back()->withFlash('sys_notifications', $this->sys_notifications);
 			}
 			$inputdata['assunto'] = $consultatecnica->emails->first()->subject;			
-			$inputdata['title'] = $consultatecnica->formattedCod('CT #');
+			$inputdata['title'] = (count($obra->consultas_tecnicas))?$obra->consultas_tecnicas->first()->nextFormattedCod("CT #"):"CT #001";
 			$inputdata['anexos'] = $consultatecnica->emails->first()->attachments;
 			return view('consultas_tecnicas.criar-retorno', compact('inputdata', 'obra', 'etapa', 'disciplina', 'consultatecnica'));
 			break;
 
 		default:
-			$inputdata['title'] = $obra->consultas_tecnicas->first()->nextFormattedCod("CT #");
+			$inputdata['title'] = (count($obra->consultas_tecnicas))?$obra->consultas_tecnicas->first()->nextFormattedCod("CT #"):"CT #001";
+			
 			return view('consultas_tecnicas.criar-envio', compact('inputdata', 'obra', 'etapa', 'disciplina'));
 			break;
 		}
