@@ -10,7 +10,7 @@
     <div class="navbar-form">
         <div class="form-group">
             <div class="btn-group btn-group-sm">
-                <a class="filter btn btn-default" data-filter="all" data-printlabel="Listando Todas Consultas">Ver tudo</a>
+                <a class="filter btn btn-default" data-filter=".email_message_reply, .email_message_event, .email_message_send" data-printlabel="Listando Todas Consultas">Ver tudo</a>
                 <!-- <a class="filter btn btn-default" data-filter=".email_message_send">Envio</a>
                 <a class="filter btn btn-default" data-filter=".email_message_reply">Retorno</a> -->
                 <a class="filter btn btn-default" data-filter=".email_message_event" data-printlabel="Listando Somente Acontecimentos">Acontecimento</a>
@@ -20,6 +20,12 @@
 
         <div class="form-group">
             &nbsp;
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group btn-group-sm">
+                <a class="filter btn btn-warning" data-filter="all" data-printlabel="Exibindo privados"><i class="fa fa-lock"></i> Privados</a>                
+            </div>
         </div>
 
         <!-- <div class="form-group">

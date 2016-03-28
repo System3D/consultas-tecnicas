@@ -1,25 +1,19 @@
 $(document).ready(function($) {
 
     // Instantiate MixItUp:
-    $('.timeline').mixItUp({
+    $('.timeline').mixItUp('multiMix', {
+        load: {
+            filter: '.email_message_reply, .email_message_event, .email_message_send'
+        },
         layout: {
             display: 'block'
         },
+        // controls: {
+        //     toggleFilterButtons: true,
+        //     toggleLogic: 'and'
+        // },
         callbacks: {
-            onMixEnd: function(state){                                
-                if( state.activeSort == "ctid:desc" ){
-                    $('#timeline li .timeline-date').show(); 
-                    var ctID;
-                    $('ul#timeline li.mix').each(function(index, el) {
-
-                        if( ctID == $(el).data('ctid') ){                            
-                            $(el).find('hr').hide();
-                        }else{                            
-                            $(el).find('hr').show();
-                        }
-                        ctID = $(el).data('ctid');
-                    }); 
-                }
+            onMixEnd: function(state){                                                
                 var messageDate;
                 $('ul#timeline li.mix:visible').each(function(index, el) {
 
