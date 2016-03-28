@@ -26,7 +26,25 @@
 	<div class="form-group">
 		<label for="inputPhones" class="col-lg-2 col-sm-2 control-label">Telefones</label>
 		<div class="col-lg-10">
-			<input type="tel" name="phones" class="form-control" id="inputPhones" placeholder="Telefones" value="{!! old('phones') !!}">
+			<input type="tel" name="phones" class="form-control" id="inputPhones" placeholder="Telefone" value="{!! old('phones') !!}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputPhones2" class="col-lg-2 col-sm-2 control-label"></label>
+		<div class="col-lg-10">
+			<input type="tel" name="phones2" class="form-control" id="inputPhones2" placeholder="Telefone adicional" value="{!! old('phones2') !!}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputPhones3" class="col-lg-2 col-sm-2 control-label"></label>
+		<div class="col-lg-10">
+			<input type="tel" name="phones3" class="form-control" id="inputPhones3" placeholder="Telefone adicional" value="{!! old('phones3') !!}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputSkype" class="col-lg-2 col-sm-2 control-label">Skype</label>
+		<div class="col-lg-10">
+			<input type="tel" name="skype" class="form-control" id="inputSkype" placeholder="Skype" value="{!! old('skype') !!}">
 		</div>
 	</div>
 	<div class="form-group">
@@ -58,7 +76,5 @@
 			<button type="submit" class="btn btn-success">Salvar</button>
 		</div>
 	</div>
-
-
 
 {!! Form::close() !!}

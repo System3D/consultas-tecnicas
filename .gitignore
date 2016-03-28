@@ -7,3 +7,4 @@ storage/
 .env.php
 .env
 composer.lock
+.idea

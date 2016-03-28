@@ -80,11 +80,11 @@
 					<div class="form-group">
 						<label class="col-lg-2 control-label" for="">Classificação: </label>
 						<div class="col-sm-10">
-							<input type="radio" name="email_message[rating]" value="3" class="" checked="checked">  Bom
+							<input type="radio" name="email_message[rating]" value="3" class="" checked="checked"> Satisfatório
 							<br>
-							<input type="radio" name="email_message[rating]" value="2" class="">  Regular
+							<input type="radio" name="email_message[rating]" value="2" class=""> Regular
 							<br>
-							<input type="radio" name="email_message[rating]" value="1" class="">  Insatisfatório
+							<input type="radio" name="email_message[rating]" value="1" class=""> Insatisfatório
 						</div>
 					</div>
 					<hr>

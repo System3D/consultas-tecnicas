@@ -27,7 +27,7 @@ case 2:
 
 default:
 	$email->ratingclass = 'success';
-	$email->ratinglabel = '<i class="fa fa-check"></i> Bom';
+	$email->ratinglabel = '<i class="fa fa-check"></i> Satisfatório';
 	break;
 }
 ?>
