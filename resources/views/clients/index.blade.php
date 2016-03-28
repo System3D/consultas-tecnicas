@@ -19,6 +19,7 @@
 					<th>Nome</th>
 					<th>Responsável</th>
 					<th>Emails</th>
+					<th>Telefones</th>
 					<th>Obras</th>
 					<!-- <th>Price</th> -->
 					<th></th>
@@ -39,6 +40,14 @@
 									<br/><a href="mailto:{!! $client->email2 !!}">{!! $client->email2 !!}</a>
 								@endif
 								</td>
+					<td>{!! str_replace(',', '<br/>', $client->phones) !!}
+						@if($client->phones2)
+							<br/>{!! $client->phones2 !!}
+						@endif
+						@if($client->phones3)
+							<br/>{!! $client->phones3 !!}
+						@endif
+					</td>
 					<td>{{  count( $client->projects ) }}</td>
 					<td>
 						<div class="pull-right hidden-phone">

@@ -14,7 +14,25 @@
 	<div class="form-group">
 		<label for="inputPhones" class="col-lg-2 col-sm-2 control-label">Telefones</label>
 		<div class="col-lg-10">
-			<input type="tel" name="phones" class="form-control" id="inputPhones" placeholder="Telefones" value="{!! $contact->phones or old('phones') !!}">
+			<input type="tel" name="phones" class="form-control" id="inputPhones" placeholder="Telefone" value="{!!  $contact->phones or old('phones') !!}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputPhones2" class="col-lg-2 col-sm-2 control-label"></label>
+		<div class="col-lg-10">
+			<input type="tel" name="phones2" class="form-control" id="inputPhones2" placeholder="Telefone adicional" value="{!!  $contact->phones2 or old('phones2') !!}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputPhones3" class="col-lg-2 col-sm-2 control-label"></label>
+		<div class="col-lg-10">
+			<input type="tel" name="phones3" class="form-control" id="inputPhones3" placeholder="Telefone adicional" value="{!! $contact->phones3 or old('phones3') !!}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputSkype" class="col-lg-2 col-sm-2 control-label">Skype</label>
+		<div class="col-lg-10">
+			<input type="tel" name="skype" class="form-control" id="inputSkype" placeholder="Skype" value="{!! $contact->skype or old('skype') !!}">
 		</div>
 	</div>
 	<div class="form-group">

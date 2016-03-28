@@ -75,7 +75,23 @@
 						<div class="form-group">
 							<label for="inputPhones" class="col-lg-2 col-sm-2 control-label">Telefones</label>
 							<div class="col-lg-10">
-								<p class="form-control-static">{!! $client->phones !!}</p>
+								<p class="form-control-static">
+									@if($client->phones)
+										{!! str_replace(',', '<br/>', $client->phones) !!}
+									@endif
+									@if($client->phones2)
+										<br/>{!! $client->phones2 !!}
+									@endif
+									@if($client->phones3)
+										<br/>{!! $client->phones3 !!}
+									@endif
+								</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputSkype" class="col-lg-2 col-sm-2 control-label">Skype</label>
+							<div class="col-lg-10">
+								<p class="form-control-static">{!! $client->skype !!}</p>
 							</div>
 						</div>
 						<div class="form-group">
@@ -155,7 +171,17 @@
 											<td><a href="{{ url( '/contatos/'.$clientcontact->id) }}">{{ $clientcontact->name }}</a></td>
 											<td>{{ $clientcontact->company }}</td>
 											<td><a href="mailto:{{ $clientcontact->email }}">{{ $clientcontact->email }}</a></td>
-											<td>{{ $clientcontact->phones }}</td>
+											<td>
+												@if($clientcontact->phones)
+													{{ str_replace(',', '<br/>', $clientcontact->phones ) }}
+												@endif
+												@if($clientcontact->phones2)
+													<br/>{!! $clientcontact->phones2 !!}
+												@endif
+												@if($clientcontact->phones3)
+													<br/>{!! $clientcontact->phones3 !!}
+												@endif
+											</td>
 											<td>
 												<div class="pull-right hidden-phone">
 
