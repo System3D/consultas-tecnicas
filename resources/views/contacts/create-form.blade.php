@@ -59,13 +59,13 @@
 
 	<hr>
 	
-	<div class="form-group">
+	<div class="form-group <?php echo (@$client_id > 0)?'hidden':'' ?>">
 		<label for="client" class="col-sm-2 control-label">Cliente:</label>
 		<div class="col-sm-10">
 			<div class="input-group">
 				<select name="client_id" id="client" class="form-control remoteload" required="required" data-target="#project">			
 					@foreach($request->user()->clients as $client)
-						<option value="{{ $client->id }}">{{ $client->name }} / {{ $client->company }}</option>
+						<option value="{{ $client->id }}" <?php	echo (@$client_id == $client->id)?'selected':'' ?> >{{ $client->name }} / {{ $client->company }}</option>
 					@endforeach								
 				</select>
 				<span class="input-group-btn">

@@ -30,7 +30,8 @@ class ContactController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Request $request, $client_id = null) {
+	public function create(Request $request, $client_id = null) {		
+
 		if ($request->ajax()) {
 			return view('contacts.create-modal', compact('client_id', 'request'));
 		} else {
