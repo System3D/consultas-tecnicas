@@ -8,8 +8,8 @@ class EmailMessage extends Model {
 
 	protected $table = 'email_messages';
 	public $timestamps = true;
-	protected $fillable = array('type', 'from', 'to', 'subject', 'body_text', 'body_html', 'headers', 'consulta_tecnica_id', 'email_message_id', 'status', 'rating', 'date');
-	protected $visible = array('id', 'type', 'from', 'to', 'subject', 'body_text', 'body_html', 'headers', 'consulta_tecnica_id', 'email_message_id', 'status', 'rating', 'date');
+	protected $fillable = array('type', 'from', 'to', 'subject', 'body_text', 'body_html', 'headers', 'consulta_tecnica_id', 'email_message_id', 'status', 'private', 'rating', 'date');
+	protected $visible = array('id', 'type', 'from', 'to', 'subject', 'body_text', 'body_html', 'headers', 'consulta_tecnica_id', 'email_message_id', 'status', 'private', 'rating', 'date');
 	public $ratingclass;
 	public $ratinglabel;
 

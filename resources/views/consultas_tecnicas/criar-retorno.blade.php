@@ -87,7 +87,18 @@
 							<input type="radio" name="email_message[rating]" value="1" class=""> Insatisfatório
 						</div>
 					</div>
+
 					<hr>
+
+					<div class="form-group">						
+						<label for="email_message_date" class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<div class="form-control-static">
+								<input type="checkbox" name="email_message[private]">  <i class="fa fa-lock"></i> Privado					
+							</div>
+						</div>
+					</div>
+
 					<div class="form-group">
 						<div class="col-sm-10 col-sm-offset-2">
 							<button type="submit" class="btn btn-success btn-brick"><i class="fa fa-save"></i> Salvar</button>

@@ -192,6 +192,9 @@ class ConsultasTecnicasController extends Controller {
 		$email_message->body_html = $email_data['description'];
 		$email_message->rating = @$email_data['rating'];
 
+		$email_message->private = (null === @$email_data['private'])?false:true;
+		
+
 		// SALVA EMAIL MESSAGE
 		$email_message->save();
 

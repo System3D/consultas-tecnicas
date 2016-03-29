@@ -8,13 +8,20 @@
 
 <nav class="navbar navbar-static-top form-inline" id="timeline-filters">
     <div class="navbar-form">
+        
+        <!-- <div class="form-group">
+            <div class="btn-group btn-group-sm">                
+                <a class="filter btn btn-default" data-filter="all" data-printlabel="Listando Todas Consultas">Ver tudo</a>                
+            </div>
+        </div> -->
+
         <div class="form-group">
-            <div class="btn-group btn-group-sm">
-                <a class="filter btn btn-default" data-filter=".email_message_reply, .email_message_event, .email_message_send" data-printlabel="Listando Todas Consultas">Ver tudo</a>
-                <!-- <a class="filter btn btn-default" data-filter=".email_message_send">Envio</a>
-                <a class="filter btn btn-default" data-filter=".email_message_reply">Retorno</a> -->
-                <a class="filter btn btn-default" data-filter=".email_message_event" data-printlabel="Listando Somente Acontecimentos">Acontecimento</a>
-                <a class="filter btn btn-default" data-filter=".email_message_noreply" data-printlabel="Listando Consultas Não Respondidas">Não respondido</a>
+            <div class="btn-group btn-group-sm">                                
+                <a class="filter btn btn-default" data-filter=".email_message_reply, .email_message_event, .email_message_send" data-printlabel="Todas Consultas">Ver tudo</a>                
+                <!-- <a class="filter btn btn-default" data-filter=".email_message_send">Envio</a> -->
+                <!-- <a class="filter btn btn-default" data-filter=".email_message_reply">Retorno</a> -->
+                <a class="filter btn btn-default" data-filter=".email_message_event" data-printlabel="Acontecimentos">Acontecimento</a>
+                <a class="filter btn btn-default" data-filter=".email_message_noreply" data-printlabel="Consultas não respondidas">Não respondido</a>
             </div>
         </div>
 
@@ -22,9 +29,17 @@
             &nbsp;
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <div class="btn-group btn-group-sm">
-                <a class="filter btn btn-warning" data-filter="all" data-printlabel="Exibindo privados"><i class="fa fa-lock"></i> Privados</a>                
+                <a class="filter btn btn-default filter-private" data-filter=".email_message_private" data-printlabel="Exibindo privados"><i class="fa fa-lock"></i> Privados</a>                
+            </div>
+        </div> -->
+
+        <div class="form-group">
+            <div class="btn-group btn-group-sm" data-toggle="buttons">
+                <label class="btn btn-sm btn-default">
+                    <input type="checkbox" autocomplete="off" data-filter=".email_message_private" id="filter-private" data-printlabel="(+ privados)"><i class="fa fa-lock"></i> Privados
+                </label>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-<li id="email_message_{{ $email->id }}" class="mix technical_consult_{{ $email->consulta_tecnica_id }} email_message_{{ $email->id }} email_message_reply {{ ( $email->type == 2 ) ? 'timeline-inverted' : '' }}" data-id="{{ $email->id }}" data-ctid="{{ $email->consulta_tecnica_id }}" data-date="{{ date( 'd/m/Y', strtotime( $email->date )) }}"  data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
+<li id="email_message_{{ $email->id }}" class="mix technical_consult_{{ $email->consulta_tecnica_id }} email_message_{{ $email->id }} email_message_reply {{ ( $email->type == 2 ) ? 'timeline-inverted' : '' }}  {{ ( $email->private ) ? 'email_message_private' : '' }}" data-id="{{ $email->id }}" data-ctid="{{ $email->consulta_tecnica_id }}" data-date="{{ date( 'd/m/Y', strtotime( $email->date )) }}"  data-type="{{ $email->type }}" data-myorder="{!! $email->id !!}">
 
 
     <div class="timeline-date label label-default">
@@ -33,15 +33,21 @@ default:
 ?>
             <span class="pull-right label label-{{ $email->ratingclass }}">{!! $email->ratinglabel !!}</span>
 
-            <h4 class="timeline-title"><strong>{{ $email->consulta_tecnica->formattedCod('CT #') }}<small class="text-lowercase">
-                <time class="timeago" datetime="{{ $email->date }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time>
-            </small></strong>
-            <br>
-            <small>
-                <i class="fa fa-calendar-o"></i> {{ date( 'd/m/Y', strtotime( $email->date )) }}
-                <i class="fa fa-clock-o"></i> {{ date( 'H:i', strtotime( $email->date )) }}
-            </small>
-        </h4>
+            <span class="fa-stack fa-lg {!! ( $email->private ) ? '' : 'hidden' !!} pull-left" style="margin: -2px 7px 0px -7px;">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-lock fa-stack-1x text-danger"></i>
+            </span>
+
+            <h4 class="timeline-title">
+                <strong> {{ $email->consulta_tecnica->formattedCod('CT #') }}
+                    <small class="text-lowercase"><time class="timeago" datetime="{{ $email->date }}">{{ date( 'd/m/Y', strtotime( $email->date )) }}</time></small>
+                </strong>
+                <br>
+                <small>
+                    <i class="fa fa-calendar-o"></i> {{ date( 'd/m/Y', strtotime( $email->date )) }}
+                    <i class="fa fa-clock-o"></i> {{ date( 'H:i', strtotime( $email->date )) }}
+                </small>
+            </h4>
 
     </div>
     <div class="timeline-body">

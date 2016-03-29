@@ -263,7 +263,7 @@
     <script src="{{ asset('js/barrating/jquery.barrating.min.js') }}" type="text/javascript"></script>
 
     <!-- MixItUp -->
-    <script src="http://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js"></script>
+    <script src="{{ asset('js/jquery.mixitup.min.js') }}"></script>
 
     <!-- MAIN JS -->
     <script src="{{ asset('js/script.js') }}" type="text/javascript"></script>

@@ -1,7 +1,7 @@
 $(document).ready(function($) {
 
     // Instantiate MixItUp:
-    $('.timeline').mixItUp('multiMix', {
+    $('.timeline').mixItUp({
         load: {
             filter: '.email_message_reply, .email_message_event, .email_message_send'
         },
@@ -23,36 +23,50 @@ $(document).ready(function($) {
                         $(el).find('.timeline-date').show();
                     }
                     messageDate = $(el).data('date');              
+                });
 
-                });                                    
+                // if ($('#filter-private').is(':checked')) {
+                //     var state = $('.timeline').mixItUp('getState');
+                //     $('.timeline').mixItUp('filter', state.activeFilter + ', .email_message_private');
+                // }
 
             },
             onMixStart: function(state, futureState){
                 $('#timeline li .timeline-date').hide(); 
                 $('#timeline li > hr').hide(); 
+
+                // if ($('#filter-private').is(':checked')) {
+                //     var state = $('.timeline').mixItUp('getState');
+                    // $('.timeline').mixItUp('setOption', { filter: state.activeFilter + ', .email_message_private'} );
+                // }
             }
         }
+    });
+  
+    $('#filter-private').on('change', function() {
+
+        var state = $('.timeline').mixItUp('getState');
+
+        if ($(this).is(':checked')) {
+            $('.email_message_private').removeClass('hidden');
+            // $('.timeline').mixItUp('filter', state.activeFilter + '.email_message_private');
+        }else{
+            $('.email_message_private').addClass('hidden');
+            // $('.timeline').mixItUp('filter', state.activeFilter);
+        }
+        
     });
 
     $('#timeline-filters .filter').on('click', function(e) {
         e.preventDefault();        
-        console.log( $(this).data('printlabel') );
+        var printlabel = $(this).data('printlabel');
+        $('#activefilters').text(printlabel);
     });
 
     // Print timeline
     $("a.printtimeline").click(function(e) {
         e.preventDefault();
-
-
-        // var printContents = document.getElementById('timeline').innerHTML;
-        // var originalContents = document.body.innerHTML;
-
-        // document.body.innerHTML = printContents;
-
         window.print();
-
-        // document.body.innerHTML = originalContents;
-
     });
 
 
