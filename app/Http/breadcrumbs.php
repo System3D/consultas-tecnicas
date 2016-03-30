@@ -4,16 +4,16 @@ Breadcrumbs::register('client', function ($breadcrumbs, $client) {
 	$breadcrumbs->push($client->name, url('clientes/' . $client->id));
 });
 
-// Obras
+// Projetos
 Breadcrumbs::register('projects', function ($breadcrumbs, $project) {
 	$breadcrumbs->parent('client', $project->client);
-	$breadcrumbs->push('Obras', url('clientes/' . $project->client_id . '#obras'));
+	$breadcrumbs->push('Projetos', url('clientes/' . $project->client_id . '#obras'));
 });
 
-// Obra X
+// Projeto X
 Breadcrumbs::register('project', function ($breadcrumbs, $project) {
 	$breadcrumbs->parent('client', $project->client);
-	$breadcrumbs->push('Obra ' . $project->title, url('clientes/' . $project->client_id . '/obras/' . $project->id));
+	$breadcrumbs->push('Projeto ' . $project->title, url('clientes/' . $project->client_id . '/obras/' . $project->id));
 });
 
 // ETAPA OBRA
@@ -22,14 +22,14 @@ Breadcrumbs::register('project_stage', function ($breadcrumbs, $project_stage) {
 	$breadcrumbs->push($project_stage->title);
 });
 Breadcrumbs::register('project_stage_create', function ($breadcrumbs, $project) {
-	$breadcrumbs->push('Obra ' . $project->title, url('obras/' . $project->id));
+	$breadcrumbs->push('Projeto ' . $project->title, url('obras/' . $project->id));
 	$breadcrumbs->push('Nova Etapa');
 });
 
 // DISCIPLINA OBRA
 Breadcrumbs::register('project_disciplines_create', function ($breadcrumbs, $project) {
 	$breadcrumbs->parent('client', $project->client);
-	$breadcrumbs->push('Obra ' . $project->title, url('obras/' . $project->id));
+	$breadcrumbs->push('Projeto ' . $project->title, url('obras/' . $project->id));
 	$breadcrumbs->push('Nova Disciplina');
 });
 

@@ -132,15 +132,15 @@
 
                         <li class="{{ Request::is('obras*') ? 'active' : '' }}">
                             <a href="{!! url('obras') !!}">
-                                <i class="fa fa-building-o"></i> <span>Obras</span>
+                                <i class="fa fa-building-o"></i> <span>Projetos</span>
                             </a>
                                 @if ( Request::is('obras*') )
                                 <ul>
                                     <li>
-                                        <a href="{!! url('obras') !!}">Ver todas</a>
+                                        <a href="{!! url('obras') !!}">Ver todos</a>
                                     </li>
                                     <li>
-                                        <a href="{!! url('obras/create') !!}">Adicionar Obra</a>
+                                        <a href="{!! url('obras/create') !!}">Adicionar Projeto</a>
                                     </li>
                                 </ul>
                                 @endif

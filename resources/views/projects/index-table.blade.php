@@ -33,7 +33,7 @@
 	                <a href="{{ url('/consultas-tecnicas/create?'.http_build_query(['tipo'=>'evento', 'cliente'=>@$project->client->id, 'project_id'=>@$project->id])) }}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> ACONTECIMENTO</a>
 
                 	<a href="{{ url('obras/'.$project->id.'/edit') }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a>
-                    <button class="btn btn-xs btn-danger" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-times"></i></button>
+                    <button class="btn btn-xs btn-danger" type="submit" onclick="return confirm('Excluir permanentemente este projeto?');"><i class="fa fa-times"></i></button>
                 {!! Form::close() !!}
 			</td>
 		</tr>

@@ -4,14 +4,14 @@
 
 		<section class="panel">
 		    <header class="panel-heading">
-		    	<a href="{{ url('/obras/create') }}" class="btn btn-success btn-xs pull-right"><i class="fa fa-plus"></i> Nova Obra</a>
-		        Obras
+		    	<a href="{{ url('/obras/create') }}" class="btn btn-success btn-xs pull-right"><i class="fa fa-plus"></i> Novo Projeto</a>
+		        Projetos
 		    </header>
 
 		    	<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>Obra</th>
+							<th>Projeto</th>
 							<th>Cliente</th>
 							<th class="text-center">Etapas</th>
 							<th class="text-center">Consultas Técnicas</th>

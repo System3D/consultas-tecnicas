@@ -30,7 +30,7 @@ class ProjectDisciplineController extends Controller
         if( $project_id != null ){
             $project = Project::find( $project_id );
         }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<i class="fa fa-warning"></i> Obra não informada!' );                
+            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<i class="fa fa-warning"></i> Proejto não informado!' );                
             $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
             return back()->withInput( $request->all() );
         }
@@ -103,7 +103,7 @@ class ProjectDisciplineController extends Controller
             else
                 return view('project_disciplines.edit',  compact('projectdiscipline') );
         }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => 'Disciplina de obra não encontrada!' );
+            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => 'Disciplina do projeto não encontrada!' );
             $request->session()->flash( 'sys_notifications', $this->sys_notifications );
         }
 
@@ -169,7 +169,7 @@ class ProjectDisciplineController extends Controller
             $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
             return redirect( '/obras/'.$project_id.'#disciplinas' );
         }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a disciplina da obra!' );                
+            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a disciplina do projeto!' );                
             $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
             return back()->withInput( $request->all() );
         }

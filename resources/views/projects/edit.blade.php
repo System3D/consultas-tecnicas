@@ -9,7 +9,7 @@
 				<i class="fa fa-arrow-left"></i> Voltar
 			</a>
 		</div>
-		Editar obra <strong>#{!! $project->id !!}</strong>
+		Editar Projeto <strong>#{!! $project->id !!}</strong>
 	</header>
 	<div class="panel-body">
 		@include('projects.edit-form')

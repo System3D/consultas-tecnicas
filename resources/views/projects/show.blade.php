@@ -13,10 +13,10 @@
 			<a href="{!! url( '/obras/'.$project->id.'/edit') !!}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">
 				<i class="fa fa-pencil"></i> EDITAR
 			</a>
-			<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
+			<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente este projeto?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
 			{!! Form::close() !!}
 		</div>
-		Obra <strong>{!! $project->title !!}</strong>
+		Projeto <strong>{!! $project->title !!}</strong>
 	</header>
 	<div class="panel-body">
 
@@ -180,7 +180,7 @@
 										{!! Form::open(array('url' => url('obras/'.$project->id.'/contatos/'.$projectcontact->id.'/detach'), 'role' => 'form' )) !!}
 
 										<a href="{{ url( '/contatos/'.$projectcontact->id.'/edit') }}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal"><i class="fa fa-pencil"></i></a>
-										<button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Desvincular este contato desta obra?');" title="Desvincular contato"><i class="fa fa-scissors"></i></button>
+										<button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Desvincular este contato deste projeto?');" title="Desvincular contato"><i class="fa fa-scissors"></i></button>
 
 										{!! Form::close() !!}
 									</div>
@@ -202,7 +202,7 @@
 <section>
 	<section class="panel">
 		<header class="panel-heading hidden-print">
-			Consultas Técnicas da Obra
+			Consultas Técnicas do Projeto
 		</header>		
 
 		@include('consultas_tecnicas.timeline.timeline', array('email_messages' => $email_messages))

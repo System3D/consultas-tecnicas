@@ -71,10 +71,10 @@
 	</div>
 </div>
 
-<legend>Obra</legend>
+<legend>Projeto</legend>
 
 <div class="form-group technical_consult_project" style="display:none;">
-	<label for="technical_consult_project" class="col-sm-2 control-label">Obra:</label>
+	<label for="technical_consult_project" class="col-sm-2 control-label">Projeto:</label>
 	<div class="col-sm-5">
 		<div class="input-group">
 			<select name="technical_consult[project_id]" id="technical_consult_project" class="form-control" required="required">

@@ -7,7 +7,7 @@
 		<div class="pull-right">
 			<i class="fa fa-refresh fa-spin loading hidden"></i>
 		</div>
-		Registrar Acontecimento {{$inputdata['title']}} - OBRA {{ $obra->title }}
+		Registrar Acontecimento {{$inputdata['title']}} - Projeto {{ $obra->title }}
 	</header>
 	<div class="panel-body">
 		{!! Form::open(array('url' => url('consultas-tecnicas'), 'method' => 'POST', 'class' => "form-horizontal", 'role' => "form", 'id'=>'technical_consults_create', "enctype"=>"multipart/form-data")) !!}
@@ -19,7 +19,7 @@
 				<div class="form-horizontal">
 
 					<div class="form-group">
-						<label for="input" class="col-sm-2">Obra:</label>
+						<label for="input" class="col-sm-2">Projeto:</label>
 						<div class="col-sm-10">
 							<input type="text" name="technical_consult[project]" id="" class="form-control disabled readonly" value="{{ $obra->title }}" required="required" title="" readonly="readonly" >
 						</div>

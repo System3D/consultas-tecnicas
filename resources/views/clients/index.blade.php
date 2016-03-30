@@ -20,7 +20,7 @@
 					<th>Responsável</th>
 					<th>Emails</th>
 					<th>Telefones</th>
-					<th>Obras</th>
+					<th>Projetos</th>
 					<!-- <th>Price</th> -->
 					<th></th>
 				</tr>
@@ -56,7 +56,7 @@
 								<a href="mailto:{!!	$client->email !!}" class="btn btn-default btn-xs" title="Enviar e-mail para {!! $client->name !!}">
 									<i class="fa fa-envelope"></i>
 								</a>
-		                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente este cliente e todas as suas obras?');"><i class="fa fa-times"></i></button>
+		                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente este cliente e todas os seus projetos?');"><i class="fa fa-times"></i></button>
 	                        {!! Form::close() !!}
 	                 	</div>
 					</td>

@@ -1,7 +1,7 @@
 {!! Form::open(array('url' => 'obras/disciplinas', 'class'=>"form-horizontal" )) !!}
 	
 	<div class="form-group">
-		<label for="inputCompany" class="col-lg-2 col-sm-2 control-label">Obra</label>
+		<label for="inputCompany" class="col-lg-2 col-sm-2 control-label">Projeto</label>
 		<div class="col-lg-10">
 			
 			@if ( $project )
@@ -9,7 +9,7 @@
 				<input type="hidden" name="project_id" id="inputProject_id" class="form-control" value="{{ $project->id }}">
 			@else
 				<select name="project_id" id="inputProject_id" class="form-control" {{  ( $project->id >= 1 ) ? 'disabled' : '' }}>
-					<option value="">-- Selecione uma Obra --</option>
+					<option value="">-- Selecione um Projeto --</option>
 					@foreach ($projects as $p)
 						<option value="{{ $p->id }}">{{ $p->name }}</option>
 					@endforeach						

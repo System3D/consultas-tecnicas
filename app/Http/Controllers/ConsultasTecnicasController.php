@@ -37,7 +37,7 @@ class ConsultasTecnicasController extends Controller {
 
 		if (!isset($data['project_id'])) {return 'Informe a obra';}
 		$obra = Obra::find($data['project_id']);
-		if (!$obra) {return "Obra não encontrada";}
+		if (!$obra) {return "Projeto não encontrado";}
 
 		//if (!isset($data['etapa'])) {return 'Informe a etapa';}
 		$etapa = $obra->stages->find(@$data['project_stage_id']);
@@ -46,7 +46,7 @@ class ConsultasTecnicasController extends Controller {
 		$disciplina = $obra->disciplines->find(@$data['disciplina']);
 
 		if (count(@$obra->contacts) == 0) {
-			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Nenhum contato vinculado à obra!<br/>Você precisa vincular ao menos um contato à obra para poder criar uma Consulta Técnica.');
+			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Nenhum contato vinculado ao projeto!<br/>Você precisa vincular ao menos um contato ao projeto para poder criar uma Consulta Técnica.');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return back();
 		}

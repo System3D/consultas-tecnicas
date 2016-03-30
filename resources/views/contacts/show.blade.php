@@ -31,7 +31,7 @@
 			            <a href="#Resumo" aria-controls="Resumo" role="tab" data-toggle="tab">Resumo</a>
 			        </li>
 			        <li role="presentation" class="">
-			            <a href="#Obras" aria-controls="Obras" role="tab" data-toggle="tab">Obras</a>
+			            <a href="#Projetos" aria-controls="Projetos" role="tab" data-toggle="tab">Projetos</a>
 			        </li>
 			        <li role="presentation" class="">
 			            <a href="#Emails" aria-controls="Emails" role="tab" data-toggle="tab">E-mails</a>
@@ -84,7 +84,7 @@
 						{!! Form::close() !!}  
 			        	
 					</div>
-			        <div role="tabpanel" class="tab-pane" id="Obras">
+			        <div role="tabpanel" class="tab-pane" id="Projetos">
 			        	<table class="table table-hover">
 							<thead>
 								<tr>
@@ -111,7 +111,7 @@
 												<a href="mailto:{!!	$technical_consult->email !!}" class="btn btn-default btn-xs" title="Enviar e-mail para {!! $technical_consult->title !!}">
 													<i class="fa fa-envelope"></i>
 												</a>
-						                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-times"></i></button>
+						                        <button class="btn btn-default btn-xs" type="submit" onclick="return confirm('Excluir permanentemente este projeto?');"><i class="fa fa-times"></i></button>
 					                        {!! Form::close() !!}
 					                 	</div>
 									</td>

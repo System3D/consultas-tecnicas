@@ -146,7 +146,7 @@
 
                                             <h5>CONSULTA TÉCNICA {{$email_data['consulta_tecnica_id']}}</h5>
                                             <small>
-                                              OBRA <strong>{{ strtoupper( $email_data['obra'] ) }}</strong> |
+                                              PROJETO <strong>{{ strtoupper( $email_data['obra'] ) }}</strong> |
                                               ETAPA <strong>{{ strtoupper( $email_data['etapa'] ) }}</strong> |
                                               DISCIPLINA <strong>{{ strtoupper( $email_data['disciplina'] ) }}</strong>
                                               <br>

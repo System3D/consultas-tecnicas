@@ -15,7 +15,7 @@
 				<a href="mailto:{!!	$client->email !!}" class="btn btn-default btn-xs" title="Enviar e-mail para {!! $client->title !!}">
 					<i class="fa fa-envelope"></i> E-mail
 				</a>
-				<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente esta obra?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
+				<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Excluir permanentemente este projeto?');"><i class="fa fa-trash-o"></i> EXCLUIR</button>
 				{!! Form::close() !!}
 			</div>
 			Cliente <strong>#{!! $client->id !!}</strong>
@@ -34,7 +34,7 @@
 						<a href="#resumo" aria-controls="resumo" role="tab" data-toggle="tab">Resumo</a>
 					</li>
 					<li role="presentation" class="">
-						<a href="#obras" aria-controls="obras" role="tab" data-toggle="tab">Obras</a>
+						<a href="#projetos" aria-controls="projetos" role="tab" data-toggle="tab">Projetos</a>
 					</li>
 					<li role="presentation" class="">
 						<a href="#contatos" aria-controls="contatos" role="tab" data-toggle="tab">Contatos</a>
@@ -123,7 +123,7 @@
 					</div>
 
 					<!-- OBRAS -->
-					<div role="tabpanel" class="tab-pane" id="obras">
+					<div role="tabpanel" class="tab-pane" id="projetos">
 
 						<div class="row">
 							<div class="col-md-6">

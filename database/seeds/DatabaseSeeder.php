@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder {
 							$color = new Alfred;
 
 							$consult = TechnicalConsult::create([
-								'title' => 'Consulta teste ' . $index_consults . ' Obra ' . $project->id . ' Etapa ' . $projectstage->id,
+								'title' => 'Consulta teste ' . $index_consults . ' Projeto ' . $project->id . ' Etapa ' . $projectstage->id,
 								'description' => $faker->company(),
 								'cliente_id' => $project->client->id,
 								'project_id' => $project->id,

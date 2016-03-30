@@ -80,12 +80,12 @@ class ProjectController extends Controller {
 			]);
 			$project->save();
 
-			$this->sys_notifications[] = array('type' => 'success', 'message' => 'Nova obra criada com sucesso!');
-			$this->sys_notifications[] = array('type' => 'success', 'message' => 'Etapa <strong>Geral</strong> adicionada para a nova Obra.');
+			$this->sys_notifications[] = array('type' => 'success', 'message' => 'Novo projeto criado com sucesso!');
+			$this->sys_notifications[] = array('type' => 'success', 'message' => 'Etapa <strong>Geral</strong> adicionada para o novo Projeto.');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return redirect('/obras/' . $project->id);
 		} else {
-			$this->sys_notifications[] = array('type' => 'danger', 'message' => 'Não foi possível adicionar a obra!');
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => 'Não foi possível adicionar o projeto!');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return back()->withErrors($validator)->withInput($request->all());
 		}
@@ -102,7 +102,7 @@ class ProjectController extends Controller {
 		$project = Project::find($id);
 
 		if (!$project) {
-			$sys_notifications[] = array('type' => 'danger', 'message' => 'A Obra solicitada não existe ou está corrompida.');
+			$sys_notifications[] = array('type' => 'danger', 'message' => 'O Projeto solicitado não existe ou está corrompido.');
 			$request->session()->flash('sys_notifications', $sys_notifications);
 			return redirect('/obras');
 		}
@@ -151,7 +151,7 @@ class ProjectController extends Controller {
 			}
 
 		} else {
-			$this->sys_notifications[] = array('type' => 'danger', 'message' => 'Obra não encontrada!');
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => 'Projeto não encontrado!');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 		}
 
@@ -180,7 +180,7 @@ class ProjectController extends Controller {
 		$project = Project::find($id);
 		$project->update($request->all());
 
-		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Obra atualizada com sucesso!');
+		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Projeto atualizado com sucesso!');
 		$request->session()->flash('sys_notifications', $this->sys_notifications);
 
 		return back()->withInput($request->all());
@@ -199,7 +199,7 @@ class ProjectController extends Controller {
 		}
 
 		if ($project->destroy($id)) {
-			$this->sys_notifications[] = array('type' => 'success', 'message' => '<strong><i class="fa fa-check"></i></strong> Obra excluída com sucesso!');
+			$this->sys_notifications[] = array('type' => 'success', 'message' => '<strong><i class="fa fa-check"></i></strong> Projeto excluído com sucesso!');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 
 			$data = $request->all();
@@ -207,7 +207,7 @@ class ProjectController extends Controller {
 			return redirect($back_to)->withInput($request->all());
 
 		} else {
-			$this->sys_notifications[] = array('type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a obra!');
+			$this->sys_notifications[] = array('type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir o projeto!');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return back()->withInput($request->all());
 		}
@@ -222,7 +222,7 @@ class ProjectController extends Controller {
 
 		if (!$contact || !$project) {
 
-			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Erro! Obra ou Contato não encontrados.');
+			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Erro! Projeto ou Contato não encontrados.');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return back()->withInput($request->all());
 
@@ -230,7 +230,7 @@ class ProjectController extends Controller {
 
 		$project->contacts()->attach($contact->id);
 
-		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> vinculado à Obra com sucesso!');
+		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> vinculado ao Projeto com sucesso!');
 		$request->session()->flash('sys_notifications', $this->sys_notifications);
 		return redirect('/obras/' . $project_id . '#contatos');
 
@@ -242,7 +242,7 @@ class ProjectController extends Controller {
 
 		if (!$contact || !$project) {
 
-			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Erro! Obra ou Contato não encontrados.');
+			$this->sys_notifications[] = array('type' => 'warning', 'message' => 'Erro! Projeto ou Contato não encontrados.');
 			$request->session()->flash('sys_notifications', $this->sys_notifications);
 			return back()->withInput($request->all());
 
@@ -250,7 +250,7 @@ class ProjectController extends Controller {
 
 		$project->contacts()->detach($contact_id);
 
-		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> desvinculado da Obra com sucesso!');
+		$this->sys_notifications[] = array('type' => 'success', 'message' => 'Contato <strong>' . $contact->name . '</strong> desvinculado do Projeto com sucesso!');
 		$request->session()->flash('sys_notifications', $this->sys_notifications);
 		return redirect('/obras/' . $project_id . '#contatos');
 	}

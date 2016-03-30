@@ -3,7 +3,7 @@
 	<input type="hidden" name="project_id" id="" class="form-control" value="{{ $projectdiscipline->project_id }}">
 	
 	<div class="form-group">
-		<label for="inputCompany" class="col-lg-2 col-sm-2 control-label">Obra</label>
+		<label for="inputCompany" class="col-lg-2 col-sm-2 control-label">Projeto</label>
 		<div class="col-lg-10">
 			
 			@if ( $projectdiscipline->project )
@@ -11,7 +11,7 @@
 				<input type="hidden" name="projectdiscipline_id" id="inputProjectDiscipline_id" class="form-control" value="{{ $projectdiscipline->project->id }}">
 			@else
 				<select name="projectdiscipline_id" id="inputProjectDiscipline_id" class="form-control" {{  ( $projectdiscipline->project->id >= 1 ) ? 'disabled' : '' }}>
-					<option value="">-- Selecione uma Obra --</option>
+					<option value="">-- Selecione um Projeto --</option>
 					@foreach ($projectdiscipline->projects as $p)
 						<option value="{{ $p->id }}">{{ $p->name }}</option>
 					@endforeach						

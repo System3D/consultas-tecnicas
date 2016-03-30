@@ -31,7 +31,7 @@ class ProjectStageController extends Controller {
 			$clients = Client::all();			
 
 		}else{
-			$this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<i class="fa fa-warning"></i> Obra não informada!' );                
+			$this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<i class="fa fa-warning"></i> Projeto não informado!' );                
             $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
             return back()->withInput( $request->all() );
 		}
@@ -51,7 +51,7 @@ class ProjectStageController extends Controller {
 
 		$validator = Validator::make( $request->all(), [
             'title'     	=> 'required',  
-            'project_id' 	=> 'required|integer',  
+            'project_id' 	=> 'required|integer',
         ]);     
 
         if ($validator->fails()) {
@@ -109,7 +109,7 @@ class ProjectStageController extends Controller {
 			else
 				return view('project_stages.edit',  compact('projectstage') );            
         }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => 'Etapa de obra não encontrada!' );   
+            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => 'Etapa do Projeto não encontrada!' );   
             $request->session()->flash( 'sys_notifications', $this->sys_notifications );        
         }
 
@@ -172,7 +172,7 @@ class ProjectStageController extends Controller {
         if( $projectstage->destroy( $id ) ){
             $this->sys_notifications[] = array( 'type' => 'success', 'message' => '<strong><i class="fa fa-check"></i></strong> Etapa excluída com sucesso!' );                   
         }else{
-            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a etapa da obra!' );                         
+            $this->sys_notifications[] = array( 'type' => 'danger', 'message' => '<strong><i class="fa fa-warning"></i></strong> Não foi possível excluir a etapa do projeto!' );                         
         }
         $request->session()->flash( 'sys_notifications', $this->sys_notifications );                    
         return redirect( url('obras/'.$project_id.'#etapas') )->withInput( $request->all() );  

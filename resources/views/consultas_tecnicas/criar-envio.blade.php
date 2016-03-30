@@ -19,7 +19,7 @@
 				<div class="form-horizontal">
 
 					<div class="form-group">
-						<label for="input" class="col-sm-2">Obra:</label>
+						<label for="input" class="col-sm-2">Projeto:</label>
 						<div class="col-sm-10">
 							<input type="text" name="technical_consult[project]" id="" class="form-control disabled readonly" value="{{ $obra->title }}" required="required" title="" readonly="readonly" >
 						</div>
@@ -54,7 +54,7 @@
 							@if ( count($obra->contacts) > 0 )
 								{!! Form::select('email_message[to][]', $inputdata['contatos'], old('contatos'), ["class"=>"form-control selectpicker","required"=>"required","multiple","title"=>"Escolha os contatos"]) !!}
 							@else
-								<p class="text-muted"><i class="fa fa-warning"></i> Nenhum contato vinculado à obra</p>
+								<p class="text-muted"><i class="fa fa-warning"></i> Nenhum contato vinculado ao projeto</p>
 							@endif
 						@else
 							<p class="text-muted"><i class="fa fa-warning"></i> Nenhum contato cadastrado</p>
